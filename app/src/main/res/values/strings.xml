@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">优菜网</string>
+    <string name="title_home">首页</string>
+    <string name="title_order">订单</string>
+    <string name="title_me">我的</string>
+    <string name="login_title">用户登录</string>
+    <string name="login_name_hint">请输入手机号</string>
+    <string name="login_pass_hint">请输入密码</string>
+    <string name="login_remember">记住密码</string>
+    <string name="login_register">注册用户?</string>
+    <string name="login_in">登录</string>
+    <string name="login_next">下次再说</string>
+</resources>
