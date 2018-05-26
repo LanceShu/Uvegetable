@@ -27,6 +27,7 @@
             android:layout_gravity="center" />
 
         <EditText
+            android:id="@+id/login_name"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -34,9 +35,12 @@
             android:layout_marginEnd="8dp"
             android:hint="@string/login_name_hint"
             android:textSize="14sp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="#1b1b1b"
+            android:maxLength="11"/>
 
         <ImageView
+            android:id="@+id/clear_name"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center"
@@ -59,6 +63,7 @@
             android:layout_gravity="center" />
 
         <EditText
+            android:id="@+id/login_pass"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -66,9 +71,11 @@
             android:layout_marginEnd="8dp"
             android:hint="@string/login_pass_hint"
             android:textSize="14sp"
-            android:gravity="center"/>
+            android:gravity="center"
+            android:textColor="#1b1b1b"/>
 
         <ImageView
+            android:id="@+id/clear_pass"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center"
@@ -77,6 +84,7 @@
     </LinearLayout>
 
     <Button
+        android:id="@+id/login_in"
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:background="@drawable/login_button_login_in"
@@ -97,6 +105,7 @@
         android:layout_marginEnd="8dp">
 
         <Button
+            android:id="@+id/login_register"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="36dp"
@@ -109,6 +118,7 @@
             android:layout_marginEnd="4dp"/>
 
         <Button
+            android:id="@+id/login_next"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="36dp"

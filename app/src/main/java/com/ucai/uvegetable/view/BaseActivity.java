@@ -12,18 +12,22 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class BaseActivity extends AppCompatActivity {
-    public boolean isAutoLogin;
-    public boolean isFirstLogin;
-    private SharedPreferences sharedPreferences;
-    private SharedPreferences.Editor editor;
+    public boolean isLogined;
+    public SharedPreferences sharedPreferences;
+    public SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (sharedPreferences == null) {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
+            editor = sharedPreferences.edit();
         }
-        isAutoLogin = sharedPreferences.getBoolean("isAutoLogin", false);
-        isFirstLogin = sharedPreferences.getBoolean("isFirstLogin", true);
+        isLogined = sharedPreferences.getBoolean("isLogined", false);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
     }
 }
