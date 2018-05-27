@@ -23,7 +23,6 @@ public class BaseActivity extends AppCompatActivity {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             editor = sharedPreferences.edit();
         }
-        isLogined = sharedPreferences.getBoolean("isLogined", false);
     }
 
     @Override
