@@ -1,16 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="300dp"
-    android:layout_height="300dp"
-    android:orientation="vertical"
-    android:background="@drawable/login_back">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="@string/login_title"
-        android:gravity="center"
-        android:textSize="16sp" />
+    <include layout="@layout/title_bar"/>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +12,7 @@
         android:orientation="horizontal"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="24dp">
 
         <ImageView
             android:layout_width="24dp"
@@ -27,7 +21,7 @@
             android:layout_gravity="center" />
 
         <EditText
-            android:id="@+id/login_name"
+            android:id="@+id/register_name"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -64,7 +58,7 @@
             android:layout_gravity="center" />
 
         <EditText
-            android:id="@+id/login_pass"
+            android:id="@+id/register_pass"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -86,52 +80,16 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/login_in"
+        android:id="@+id/register_user"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:background="@drawable/login_button_login_in"
-        android:text="@string/login_in"
+        android:text="@string/register"
         android:textColor="@color/white_1"
         android:textSize="18sp"
         android:gravity="center"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginTop="12dp"/>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="8dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp">
-
-        <Button
-            android:id="@+id/login_register"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="36dp"
-            android:background="@drawable/login_button_register"
-            android:text="@string/login_register"
-            android:textColor="@color/white_1"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_marginEnd="4dp"/>
-
-        <Button
-            android:id="@+id/login_next"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="36dp"
-            android:background="@drawable/login_button_login_next"
-            android:text="@string/login_next"
-            android:textColor="@color/white_1"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_marginStart="4dp"/>
-
-    </LinearLayout>
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="24dp"
+        android:layout_marginTop="32dp"/>
 
 </LinearLayout>

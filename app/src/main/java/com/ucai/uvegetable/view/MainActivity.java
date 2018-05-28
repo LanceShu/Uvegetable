@@ -1,6 +1,7 @@
 package com.ucai.uvegetable.view;
 
 import android.app.Dialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
@@ -106,6 +107,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 //                editor.apply();
                 break;
             case R.id.login_register:
+                startActivity(new Intent(this, RegisterActivity.class));
                 break;
             case R.id.login_next:
                 dialog.dismiss();
