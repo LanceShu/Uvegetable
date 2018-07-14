@@ -52,7 +52,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         ImageView clearPass = dialog.findViewById(R.id.login_clear_pass);
         Button loginIn = dialog.findViewById(R.id.login_in);
         Button loginRegister = dialog.findViewById(R.id.login_register);
-        Button loginNext = dialog.findViewById(R.id.login_next);
+        ImageView loginNext = dialog.findViewById(R.id.login_next);
         clearName.setOnClickListener((view -> loginName.setText("")));
         clearPass.setOnClickListener((view -> loginPass.setText("")));
         loginIn.setOnClickListener((view -> {

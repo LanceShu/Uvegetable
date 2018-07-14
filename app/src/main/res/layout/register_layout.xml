@@ -21,7 +21,7 @@
             android:layout_gravity="center" />
 
         <EditText
-            android:id="@+id/register_name"
+            android:id="@+id/register_phone"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
@@ -35,7 +35,7 @@
             android:inputType="phone"/>
 
         <ImageView
-            android:id="@+id/clear_name"
+            android:id="@+id/clear_phone"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center"
@@ -72,6 +72,114 @@
 
         <ImageView
             android:id="@+id/clear_pass"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:src="@drawable/login_clear"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="30dp"
+            android:src="@drawable/login_pass"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:id="@+id/register_again_pass"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/pass_again_hint"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="#1b1b1b"
+            android:inputType="textPassword"/>
+
+        <ImageView
+            android:id="@+id/clear_again_pass"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:src="@drawable/login_clear"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="30dp"
+            android:src="@drawable/register_name"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:id="@+id/register_name"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/register_name"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="#1b1b1b"
+            android:inputType="text"/>
+
+        <ImageView
+            android:id="@+id/clear_name"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:layout_gravity="center"
+            android:src="@drawable/login_clear"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:layout_marginStart="12dp"
+        android:layout_marginEnd="12dp"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="30dp"
+            android:src="@drawable/register_addr"
+            android:layout_gravity="center" />
+
+        <EditText
+            android:id="@+id/register_addr"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:layout_height="match_parent"
+            android:layout_marginStart="8dp"
+            android:layout_marginEnd="8dp"
+            android:hint="@string/register_addr"
+            android:textSize="14sp"
+            android:gravity="center"
+            android:textColor="#1b1b1b"
+            android:inputType="text"/>
+
+        <ImageView
+            android:id="@+id/clear_addr"
             android:layout_width="18dp"
             android:layout_height="18dp"
             android:layout_gravity="center"

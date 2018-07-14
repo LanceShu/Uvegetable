@@ -1,16 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="320dp"
-    android:layout_height="300dp"
+    android:layout_width="330dp"
+    android:layout_height="320dp"
     android:orientation="vertical"
     android:background="@drawable/login_back">
 
-    <TextView
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="45dp"
-        android:text="@string/login_title"
-        android:gravity="center"
-        android:textSize="16sp" />
+        android:background="@drawable/register_top">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/login_title"
+            android:layout_centerInParent="true"
+            android:textSize="16sp"
+            android:textColor="@color/white_1"/>
+
+        <ImageView
+            android:id="@+id/login_next"
+            android:layout_width="18dp"
+            android:layout_height="18dp"
+            android:src="@drawable/cancel"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"/>
+
+    </RelativeLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -18,7 +34,7 @@
         android:orientation="horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="20dp">
 
         <ImageView
             android:layout_width="24dp"
@@ -55,7 +71,7 @@
         android:orientation="horizontal"
         android:layout_marginStart="8dp"
         android:layout_marginEnd="8dp"
-        android:layout_marginTop="12dp">
+        android:layout_marginTop="16dp">
 
         <ImageView
             android:layout_width="24dp"
@@ -88,7 +104,7 @@
     <Button
         android:id="@+id/login_in"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="40dp"
         android:background="@drawable/login_button_login_in"
         android:text="@string/login_in"
         android:textColor="@color/white_1"
@@ -96,42 +112,20 @@
         android:gravity="center"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="18dp"/>
 
-    <LinearLayout
+    <Button
+        android:id="@+id/login_register"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:layout_marginTop="12dp"
-        android:layout_marginStart="12dp"
-        android:layout_marginEnd="12dp">
-
-        <Button
-            android:id="@+id/login_register"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:background="@drawable/login_button_register"
-            android:text="@string/login_register"
-            android:textColor="@color/white_1"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_marginEnd="10dp"/>
-
-        <Button
-            android:id="@+id/login_next"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            android:layout_height="40dp"
-            android:background="@drawable/login_button_login_next"
-            android:text="@string/login_next"
-            android:textColor="@color/white_1"
-            android:textSize="14sp"
-            android:gravity="center"
-            android:layout_gravity="center"
-            android:layout_marginStart="10dp"/>
-
-    </LinearLayout>
+        android:layout_height="36dp"
+        android:background="@drawable/login_button_register"
+        android:text="@string/login_register"
+        android:textColor="@color/white_1"
+        android:textSize="14sp"
+        android:gravity="center"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center"
+        android:layout_marginEnd="12dp"
+        android:layout_marginStart="12dp"/>
 
 </LinearLayout>
