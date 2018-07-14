@@ -12,9 +12,9 @@ import android.support.v7.app.AppCompatActivity;
  */
 
 public class BaseActivity extends AppCompatActivity {
-    public boolean isLogined;
+    public static boolean isLogined;
     public SharedPreferences sharedPreferences;
-    public SharedPreferences.Editor editor;
+    public static SharedPreferences.Editor editor;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

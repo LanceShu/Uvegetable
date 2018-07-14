@@ -23,10 +23,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     private FragmentManager fragmentManager;
     private final int parentGroupId = R.id.content_frag;
 
-    private Dialog dialog;
-    private EditText loginName;
-    private EditText loginPass;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -41,7 +37,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     protected void onResume() {
         super.onResume();
         if (!isLogined) {
-            dialog = new Dialog(this, R.style.DialogTheme);
+            Dialog dialog = new Dialog(this, R.style.DialogTheme);
             dialog.setContentView(R.layout.login_layout);
             initDialogWight(dialog);
             dialog.setCancelable(false);
@@ -50,18 +46,26 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     }
 
     private void initDialogWight(Dialog dialog) {
-        loginName = dialog.findViewById(R.id.login_name);
-        loginPass = dialog.findViewById(R.id.login_pass);
-        ImageView clearName = dialog.findViewById(R.id.clear_name);
-        ImageView clearPass = dialog.findViewById(R.id.clear_pass);
+        EditText loginName = dialog.findViewById(R.id.login_name);
+        EditText loginPass = dialog.findViewById(R.id.login_pass);
+        ImageView clearName = dialog.findViewById(R.id.login_clear_name);
+        ImageView clearPass = dialog.findViewById(R.id.login_clear_pass);
         Button loginIn = dialog.findViewById(R.id.login_in);
         Button loginRegister = dialog.findViewById(R.id.login_register);
         Button loginNext = dialog.findViewById(R.id.login_next);
-        clearName.setOnClickListener(this);
-        clearPass.setOnClickListener(this);
-        loginIn.setOnClickListener(this);
-        loginRegister.setOnClickListener(this);
-        loginNext.setOnClickListener(this);
+        clearName.setOnClickListener((view -> loginName.setText("")));
+        clearPass.setOnClickListener((view -> loginPass.setText("")));
+        loginIn.setOnClickListener((view -> {
+//            dialog.dismiss();
+//            editor.putBoolean("isLogined", true);
+//            editor.apply();
+        }));
+        loginRegister.setOnClickListener((view -> startActivity(new Intent(this, RegisterActivity.class))));
+        loginNext.setOnClickListener((view -> {
+            dialog.dismiss();
+            editor.putBoolean("isLogined", false);
+            editor.apply();
+        }));
     }
 
     private void initData() {
@@ -94,26 +98,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.clear_name:
-                loginName.setText("");
-                break;
-            case R.id.clear_pass:
-                loginPass.setText("");
-                break;
-            case R.id.login_in:
-//                dialog.dismiss();
-//                editor.putBoolean("isLogined", true);
-//                editor.apply();
-                break;
-            case R.id.login_register:
-                startActivity(new Intent(this, RegisterActivity.class));
-                break;
-            case R.id.login_next:
-                dialog.dismiss();
-                editor.putBoolean("isLogined", false);
-                editor.apply();
-                break;
-        }
+
     }
 }
