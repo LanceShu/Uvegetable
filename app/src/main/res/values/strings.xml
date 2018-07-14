@@ -12,10 +12,12 @@
     <string name="login_in">登录</string>
     <string name="login_next">下次再说</string>
 
-    <!--register_layout-->
+    <!--register_user-->
     <string name="register">注册用户</string>
     <string name="register_name">请输入单位名称</string>
     <string name="register_addr">请输入单位地址</string>
+    <string name="register_not_null">注册信息不能为空</string>
+    <string name="register_pwd_error">两次密码不匹配</string>
 
     <!--me_fragment-->
     <string name="me_login_register">登录/注册</string>
