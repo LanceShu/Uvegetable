@@ -25,5 +25,7 @@
     <string name="me_order">我的订单</string>
     <string name="me_driver">送货单</string>
     <string name="me_setting">设置</string>
-    <string name="me_btn_exit">退出登录</string>
+    <string name="me_btn_exit">注销用户</string>
+    <string name="me_fragment_name">单位名称：</string>
+    <string name="me_fragment_phone">手机号：</string>
 </resources>

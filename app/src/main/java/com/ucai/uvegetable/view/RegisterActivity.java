@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.RegisterBean;
-import com.ucai.uvegetable.httputils.UserHttp;
+import com.ucai.uvegetable.httputils.UserHttps;
 import com.ucai.uvegetable.utils.ToastUtil;
 
 import org.json.JSONException;
@@ -121,7 +121,7 @@ public class RegisterActivity extends BaseActivity {
             registerBean.setPwd(pwd);
             registerBean.setName(name);
             registerBean.setAddr(addr);
-            UserHttp.requestRegister(registerBean, new Callback() {
+            UserHttps.requestRegister(registerBean, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();

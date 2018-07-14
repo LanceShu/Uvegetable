@@ -1,11 +1,14 @@
 package com.ucai.uvegetable.view;
 
 import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
@@ -16,12 +19,25 @@ import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.fragment.HomeFragment;
 import com.ucai.uvegetable.fragment.MeFragment;
 import com.ucai.uvegetable.fragment.OrderFragment;
+import com.ucai.uvegetable.httputils.UserHttps;
+import com.ucai.uvegetable.utils.EditorUtil;
 import com.ucai.uvegetable.utils.FragmentUtil;
+import com.ucai.uvegetable.utils.ToastUtil;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
     private FragmentManager fragmentManager;
     private final int parentGroupId = R.id.content_frag;
+    private Dialog dialog;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -37,7 +53,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     protected void onResume() {
         super.onResume();
         if (!isLogined) {
-            Dialog dialog = new Dialog(this, R.style.DialogTheme);
+            dialog = new Dialog(this, R.style.DialogTheme);
             dialog.setContentView(R.layout.login_layout);
             initDialogWight(dialog);
             dialog.setCancelable(false);
@@ -46,19 +62,17 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     }
 
     private void initDialogWight(Dialog dialog) {
-        EditText loginName = dialog.findViewById(R.id.login_name);
+        EditText loginPhone = dialog.findViewById(R.id.login_phone);
         EditText loginPass = dialog.findViewById(R.id.login_pass);
         ImageView clearName = dialog.findViewById(R.id.login_clear_name);
         ImageView clearPass = dialog.findViewById(R.id.login_clear_pass);
         Button loginIn = dialog.findViewById(R.id.login_in);
         Button loginRegister = dialog.findViewById(R.id.login_register);
         ImageView loginNext = dialog.findViewById(R.id.login_next);
-        clearName.setOnClickListener((view -> loginName.setText("")));
+        clearName.setOnClickListener((view -> loginPhone.setText("")));
         clearPass.setOnClickListener((view -> loginPass.setText("")));
         loginIn.setOnClickListener((view -> {
-//            dialog.dismiss();
-//            editor.putBoolean("isLogined", true);
-//            editor.apply();
+            loginUser(this, loginPhone.getText().toString(), loginPass.getText().toString());
         }));
         loginRegister.setOnClickListener((view -> startActivity(new Intent(this, RegisterActivity.class))));
         loginNext.setOnClickListener((view -> {
@@ -66,6 +80,54 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
             editor.putBoolean("isLogined", false);
             editor.apply();
         }));
+    }
+
+    private void loginUser(Context context, String phone, String pwd) {
+        if (phone.equals("") || pwd.equals("")) {
+            ToastUtil.show(context, "手机号或密码不能为空");
+        } else {
+            UserHttps.requestLogin(phone, pwd, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String resp = response.body().string();
+                    Log.e("success", resp);
+                    try {
+                        JSONObject jsonObject = new JSONObject(resp);
+                        String msg = jsonObject.getString("msg");
+                        if (msg.equals("成功")) {
+                            JSONObject data = jsonObject.getJSONObject("data");
+                            BaseActivity.loginBean.setId(data.getString("id"));
+                            BaseActivity.loginBean.setName(data.getString("name"));
+                            BaseActivity.loginBean.setAddr(data.getString("addr"));
+                            BaseActivity.loginBean.setPhone(data.getString("phone"));
+                            BaseActivity.isLogined = true;
+                            EditorUtil.saveEditorData(true, phone, pwd);
+                            postHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtil.show(context, "登录成功");
+                                    dialog.dismiss();
+                                }
+                            });
+                        } else {
+                            postHandler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    ToastUtil.show(context, msg);
+                                }
+                            });
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 
     private void initData() {

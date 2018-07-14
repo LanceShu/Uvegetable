@@ -43,7 +43,7 @@
             android:layout_gravity="center" />
 
         <EditText
-            android:id="@+id/login_name"
+            android:id="@+id/login_phone"
             android:layout_width="0dp"
             android:layout_weight="1"
             android:layout_height="match_parent"
