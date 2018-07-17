@@ -42,4 +42,19 @@ public class UserHttps {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+
+    public static void requestUpdateInfor(String id, String name, String addr, String phone, Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        FormBody formBody = new FormBody.Builder()
+                .add("id", id)
+                .add("name", name)
+                .add("addr", addr)
+                .add("phone", phone)
+                .build();
+        Request request = new Request.Builder()
+                .url("http://123.206.13.129:8060/guest/user/update")
+                .post(formBody)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
 }
