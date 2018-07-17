@@ -30,6 +30,8 @@
         <activity android:name=".view.RegisterActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysVisible"/>
+        <activity android:name=".view.MeInforActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

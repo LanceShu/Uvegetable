@@ -72,6 +72,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         clearName.setOnClickListener((view -> loginPhone.setText("")));
         clearPass.setOnClickListener((view -> loginPass.setText("")));
         loginIn.setOnClickListener((view -> {
+            BaseActivity.showProgressDialog(this, "登录中，请稍后...");
             loginUser(this, loginPhone.getText().toString(), loginPass.getText().toString());
         }));
         loginRegister.setOnClickListener((view -> startActivity(new Intent(this, RegisterActivity.class))));
@@ -110,6 +111,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
                             postHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    BaseActivity.displayProgressDialog();
                                     ToastUtil.show(context, "登录成功");
                                     dialog.dismiss();
                                 }

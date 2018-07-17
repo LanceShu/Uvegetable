@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.WindowManager;
 
 import com.ucai.uvegetable.R;
@@ -57,6 +58,7 @@ public class SplashActivity extends BaseActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
+                    Log.e("response", resp);
                     try {
                         JSONObject jsonObject = new JSONObject(resp);
                         JSONObject data = jsonObject.getJSONObject("data");

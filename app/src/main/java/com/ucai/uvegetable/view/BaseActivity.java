@@ -1,5 +1,8 @@
 package com.ucai.uvegetable.view;
 
+import android.app.AlertDialog;
+import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +23,7 @@ public class BaseActivity extends AppCompatActivity {
     public static SharedPreferences.Editor editor;
     public static Handler postHandler;
     public static LoginBean loginBean;
+    private static ProgressDialog dialog;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -37,5 +41,24 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+    }
+
+    public static void showHintDialog(Context context, String hint) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("温馨提示：");
+        builder.setMessage(hint);
+        builder.setPositiveButton("好的", null);
+        builder.show();
+    }
+
+    public static void showProgressDialog(Context context, String hint) {
+        dialog = new ProgressDialog(context);
+        dialog.setTitle("温馨提示:");
+        dialog.setMessage(hint);
+        dialog.show();
+    }
+
+    public static void displayProgressDialog() {
+        dialog.dismiss();
     }
 }

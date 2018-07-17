@@ -24,6 +24,7 @@ import com.ucai.uvegetable.utils.EditorUtil;
 import com.ucai.uvegetable.utils.ResourceUtil;
 import com.ucai.uvegetable.utils.ToastUtil;
 import com.ucai.uvegetable.view.BaseActivity;
+import com.ucai.uvegetable.view.MeInforActivity;
 import com.ucai.uvegetable.view.RegisterActivity;
 
 import org.json.JSONException;
@@ -128,6 +129,7 @@ public class MeFragment extends Fragment {
         clearName.setOnClickListener((view -> loginPhone.setText("")));
         clearPass.setOnClickListener((view -> loginPass.setText("")));
         loginIn.setOnClickListener((view -> {
+            BaseActivity.showProgressDialog(getContext(), "登录中，请稍后...");
             loginUser(getContext(), loginPhone.getText().toString(), loginPass.getText().toString());
         }));
         loginRegister.setOnClickListener((view -> startActivity(new Intent(getContext(), RegisterActivity.class))));
@@ -166,6 +168,7 @@ public class MeFragment extends Fragment {
                             BaseActivity.postHandler.post(new Runnable() {
                                 @Override
                                 public void run() {
+                                    BaseActivity.displayProgressDialog();
                                     ToastUtil.show(context, "登录成功");
                                     dialog.dismiss();
                                     visibleNameAndPhone(BaseActivity.loginBean.getName()
@@ -186,5 +189,35 @@ public class MeFragment extends Fragment {
                 }
             });
         }
+    }
+
+    @OnClick(R.id.me_information)
+    void meInformation() {
+        if (!BaseActivity.isLogined) {
+            BaseActivity.showHintDialog(getContext(), "请先登录，谢谢~");
+        } else {
+            Intent toMeInforActivity = new Intent(getContext(), MeInforActivity.class);
+            startActivity(toMeInforActivity);
+        }
+    }
+
+    @OnClick(R.id.me_order)
+    void meOrder() {
+
+    }
+
+    @OnClick(R.id.me_driver)
+    void meDriver() {
+
+    }
+
+    @OnClick(R.id.me_setting)
+    void meSetting() {
+
+    }
+
+    @OnClick(R.id.me_btn_exit)
+    void meExit() {
+
     }
 }
