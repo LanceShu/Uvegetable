@@ -16,6 +16,12 @@ public class FragmentUtil {
         transaction.commit();
     }
 
+    public static void hideFragment(FragmentManager fragmentManager, Fragment targetFragment) {
+        FragmentTransaction transaction = fragmentManager.beginTransaction();
+        transaction.hide(targetFragment);
+        transaction.commit();
+    }
+
     public static void addFragment(FragmentManager fragmentManager, Fragment targetFragment, int parentGroupId) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.add(parentGroupId, targetFragment);
