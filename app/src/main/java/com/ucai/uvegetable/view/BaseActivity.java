@@ -19,16 +19,25 @@ import com.ucai.uvegetable.beans.LoginBean;
 
 public class BaseActivity extends AppCompatActivity {
     public static boolean isLogined;
+    public static String cookie = "";
     public SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
     public static Handler postHandler;
+    public static Handler sendHandler;
     public static LoginBean loginBean;
     private static ProgressDialog dialog;
+
+    public final static int ME_INFORMATION_CHANGED = 0;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        postHandler = new Handler();
+        if (postHandler == null) {
+            postHandler = new Handler();
+        }
+        if (sendHandler == null) {
+            sendHandler = new Handler();
+        }
         if (loginBean == null) {
             loginBean = new LoginBean();
         }

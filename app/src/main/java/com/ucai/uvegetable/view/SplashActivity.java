@@ -8,15 +8,18 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.ucai.uvegetable.R;
+import com.ucai.uvegetable.beans.LoginBean;
 import com.ucai.uvegetable.httputils.UserHttps;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.Response;
 
 /**
@@ -58,7 +61,15 @@ public class SplashActivity extends BaseActivity {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    Log.e("response", resp);
+                    Headers headers = response.headers();
+                    List<String> cookies = headers.values("Set-Cookie");
+                    if (cookies.size() > 0) {
+                        String session = cookies.get(0);
+                        String result = session.substring(0, session.indexOf(";"));
+                        Log.e("header", result);
+                        cookie = result;
+                    }
+//                    Log.e("response", resp);
                     try {
                         JSONObject jsonObject = new JSONObject(resp);
                         JSONObject data = jsonObject.getJSONObject("data");

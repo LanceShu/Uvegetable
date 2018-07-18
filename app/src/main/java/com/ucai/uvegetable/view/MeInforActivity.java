@@ -84,7 +84,7 @@ public class MeInforActivity extends AppCompatActivity{
     }
 
     private void httpRequestUpdate(String id, String name, String addr, String phone) {
-        UserHttps.requestUpdateInfor(id, name, addr, phone, new Callback() {
+        UserHttps.requestUpdateInfor(id, name, addr, phone, BaseActivity.cookie, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();
@@ -93,7 +93,14 @@ public class MeInforActivity extends AppCompatActivity{
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 String resp = response.body().string();
-                Log.e("success", resp);
+//                Log.e("success", resp);
+                BaseActivity.postHandler.post(() -> {
+                   BaseActivity.loginBean.setName(meInforName.getText().toString());
+                   BaseActivity.loginBean.setAddr(meInforAddr.getText().toString());
+                   BaseActivity.loginBean.setPhone(meInforPhone.getText().toString());
+                   diseditable();
+                   BaseActivity.sendHandler.sendEmptyMessage(BaseActivity.ME_INFORMATION_CHANGED);
+                });
             }
         });
     }

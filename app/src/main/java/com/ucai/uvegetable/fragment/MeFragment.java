@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
@@ -89,6 +91,24 @@ public class MeFragment extends Fragment {
             visibleNameAndPhone(BaseActivity.loginBean.getName()
                     , BaseActivity.loginBean.getPhone());
         }
+    }
+
+    @SuppressLint("HandlerLeak")
+    @Override
+    public void onResume() {
+        super.onResume();
+        BaseActivity.sendHandler = new Handler(){
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case BaseActivity.ME_INFORMATION_CHANGED:
+                        mName.setText("单位名称：" + BaseActivity.loginBean.getName());
+                        mPhone.setText("手机号：" + BaseActivity.loginBean.getPhone());
+                        break;
+                }
+            }
+        };
     }
 
     // display name and phone;

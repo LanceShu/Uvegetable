@@ -1,6 +1,7 @@
 package com.ucai.uvegetable.httputils;
 
 import com.ucai.uvegetable.beans.RegisterBean;
+import com.ucai.uvegetable.view.BaseActivity;
 
 import okhttp3.Call;
 import okhttp3.Callback;
@@ -43,7 +44,8 @@ public class UserHttps {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void requestUpdateInfor(String id, String name, String addr, String phone, Callback callback) {
+    public static void requestUpdateInfor(String id, String name, String addr, String phone
+            , String cookie, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         FormBody formBody = new FormBody.Builder()
                 .add("id", id)
@@ -53,6 +55,7 @@ public class UserHttps {
                 .build();
         Request request = new Request.Builder()
                 .url("http://123.206.13.129:8060/guest/user/update")
+                .addHeader("Cookie", cookie)
                 .post(formBody)
                 .build();
         client.newCall(request).enqueue(callback);
