@@ -1,8 +1,10 @@
 package com.ucai.uvegetable.fragment;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -200,6 +202,7 @@ public class MeFragment extends Fragment {
                                 @Override
                                 public void run() {
                                     ToastUtil.show(context, msg);
+                                    BaseActivity.displayProgressDialog();
                                 }
                             });
                         }
@@ -238,6 +241,22 @@ public class MeFragment extends Fragment {
 
     @OnClick(R.id.me_btn_exit)
     void meExit() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+        builder.setTitle("温馨提示：");
+        builder.setMessage("是否确认注销当前用户？");
+        builder.setPositiveButton("是的", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                BaseActivity.isLogined = false;
+                BaseActivity.editor.putString("isLogined", "false");
+                BaseActivity.editor.putString("phone", "");
+                BaseActivity.editor.putString("pwd", "");
+                BaseActivity.postHandler.post(() -> {
+                    invisibleNameAndPhone();
+                });
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
     }
 }

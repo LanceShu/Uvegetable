@@ -61,8 +61,39 @@
     </LinearLayout>
 
     <LinearLayout
-        android:id="@+id/me_name_layout"
+        android:id="@+id/me_phone_layout"
         android:layout_below="@id/me_id_layout"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:orientation="horizontal"
+        android:background="@color/white_1"
+        android:layout_marginTop="1dp">
+
+        <TextView
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"
+            android:text="手机号码:"
+            android:textSize="18sp"
+            android:layout_marginStart="16dp"
+            android:gravity="center"
+            android:textColor="@color/font_color"/>
+
+        <EditText
+            android:id="@+id/me_infor_phone"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3"
+            android:textSize="18sp"
+            android:gravity="center"
+            android:textColor="@color/font_color"
+            android:background="@null"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/me_name_layout"
+        android:layout_below="@id/me_phone_layout"
         android:layout_width="match_parent"
         android:layout_height="45dp"
         android:orientation="horizontal"
@@ -112,37 +143,6 @@
 
         <EditText
             android:id="@+id/me_infor_addr"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="3"
-            android:textSize="18sp"
-            android:gravity="center"
-            android:textColor="@color/font_color"
-            android:background="@null"/>
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:id="@+id/me_phone_layout"
-        android:layout_below="@id/me_addr_layout"
-        android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:orientation="horizontal"
-        android:background="@color/white_1"
-        android:layout_marginTop="1dp">
-
-        <TextView
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="手机号码:"
-            android:textSize="18sp"
-            android:layout_marginStart="16dp"
-            android:gravity="center"
-            android:textColor="@color/font_color"/>
-
-        <EditText
-            android:id="@+id/me_infor_phone"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"

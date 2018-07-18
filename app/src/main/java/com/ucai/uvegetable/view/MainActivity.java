@@ -43,6 +43,11 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
         // init data;
         initData();
         // init Wight();
@@ -108,20 +113,15 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
                             BaseActivity.loginBean.setPhone(data.getString("phone"));
                             BaseActivity.isLogined = true;
                             EditorUtil.saveEditorData(true, phone, pwd);
-                            postHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    BaseActivity.displayProgressDialog();
-                                    ToastUtil.show(context, "登录成功");
-                                    dialog.dismiss();
-                                }
+                            postHandler.post(() -> {
+                                BaseActivity.displayProgressDialog();
+                                ToastUtil.show(context, "登录成功");
+                                dialog.dismiss();
                             });
                         } else {
-                            postHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ToastUtil.show(context, msg);
-                                }
+                            postHandler.post(() -> {
+                                ToastUtil.show(context, msg);
+                                BaseActivity.displayProgressDialog();
                             });
                         }
                     } catch (JSONException e) {

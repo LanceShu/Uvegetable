@@ -109,7 +109,7 @@ public class MeInforActivity extends AppCompatActivity{
 //        meInforId.setEnabled(true);
         meInforName.setEnabled(true);
         meInforAddr.setEnabled(true);
-        meInforPhone.setEnabled(true);
+//        meInforPhone.setEnabled(true);
         meInforBtn.setText("保存提交");
     }
 
