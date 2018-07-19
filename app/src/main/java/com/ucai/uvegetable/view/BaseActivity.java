@@ -10,7 +10,12 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 
+import com.ucai.uvegetable.beans.CategoryBean;
 import com.ucai.uvegetable.beans.LoginBean;
+import com.ucai.uvegetable.beans.ProductBean;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by SyubanLiu
@@ -26,6 +31,16 @@ public class BaseActivity extends AppCompatActivity {
     public static Handler sendHandler;
     public static LoginBean loginBean;
     private static ProgressDialog dialog;
+
+    // HomeFragment;
+    public static List<CategoryBean> categories = new ArrayList<>();
+    public static List<ProductBean> orderProducts = new ArrayList<>();
+
+    public static List<ProductBean> vegetableProducts = new ArrayList<>();
+    public static List<ProductBean> meatProducts = new ArrayList<>();
+    public static List<ProductBean> fishProducts = new ArrayList<>();
+    public static List<ProductBean> oilProducts = new ArrayList<>();
+    public static List<ProductBean> goodProducts = new ArrayList<>();
 
     public final static int ME_INFORMATION_CHANGED = 0;
 

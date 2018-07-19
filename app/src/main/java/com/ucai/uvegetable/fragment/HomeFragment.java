@@ -9,7 +9,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.ucai.uvegetable.R;
-import com.ucai.uvegetable.httputils.CategoryHttps;
+import com.ucai.uvegetable.beans.CategoryBean;
+import com.ucai.uvegetable.beans.ProductBean;
+import com.ucai.uvegetable.httputils.ProductHttps;
 import com.ucai.uvegetable.utils.ProductUtil;
 import com.ucai.uvegetable.view.BaseActivity;
 
@@ -27,8 +29,6 @@ import okhttp3.Response;
  */
 
 public class HomeFragment extends Fragment {
-    private List<String> categories;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -43,21 +43,24 @@ public class HomeFragment extends Fragment {
     }
 
     private void initData() {
-        if (categories == null) {
-            categories = new ArrayList<>();
-        }
-        CategoryHttps.findCategoryList(BaseActivity.cookie, new Callback() {
-            @Override
-            public void onFailure(Call call, IOException e) {
-                e.printStackTrace();
-            }
+        if (BaseActivity.categories.size() == 0) {
+            ProductHttps.findCategoryList(BaseActivity.cookie, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
 
-            @Override
-            public void onResponse(Call call, Response response) throws IOException {
-                String resp = response.body().string();
-                Log.e("respsuccess", resp);
-                categories = ProductUtil.getCategoryList(resp);
-            }
-        });
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String resp = response.body().string();
+                    BaseActivity.categories = ProductUtil.getCategoryList(resp);
+                    BaseActivity.vegetableProducts = ProductUtil.getVegetableProducts(resp);
+                    BaseActivity.meatProducts = ProductUtil.getMeatProducts(resp);
+                    BaseActivity.fishProducts = ProductUtil.getFishProducts(resp);
+                    BaseActivity.oilProducts = ProductUtil.getOilProducts(resp);
+                    BaseActivity.goodProducts = ProductUtil.getGoodProducts(resp);
+                }
+            });
+        }
     }
 }
