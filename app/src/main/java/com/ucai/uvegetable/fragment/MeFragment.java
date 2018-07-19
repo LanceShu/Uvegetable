@@ -187,23 +187,17 @@ public class MeFragment extends Fragment {
                             BaseActivity.loginBean.setPhone(data.getString("phone"));
                             BaseActivity.isLogined = true;
                             EditorUtil.saveEditorData(true, phone, pwd);
-                            BaseActivity.postHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    BaseActivity.displayProgressDialog();
-                                    ToastUtil.show(context, "登录成功");
-                                    dialog.dismiss();
-                                    visibleNameAndPhone(BaseActivity.loginBean.getName()
-                                            , BaseActivity.loginBean.getPhone());
-                                }
+                            BaseActivity.postHandler.post(() -> {
+                                BaseActivity.displayProgressDialog();
+                                ToastUtil.show(context, "登录成功");
+                                dialog.dismiss();
+                                visibleNameAndPhone(BaseActivity.loginBean.getName()
+                                        , BaseActivity.loginBean.getPhone());
                             });
                         } else {
-                            BaseActivity.postHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    ToastUtil.show(context, msg);
-                                    BaseActivity.displayProgressDialog();
-                                }
+                            BaseActivity.postHandler.post(() -> {
+                                ToastUtil.show(context, msg);
+                                BaseActivity.displayProgressDialog();
                             });
                         }
                     } catch (JSONException e) {
