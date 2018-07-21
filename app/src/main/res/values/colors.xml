@@ -10,5 +10,6 @@
     <color name="blue_1">#4577c7</color>
     <color name="black_1">#1b1b1b</color>
     <color name="font_color">#0a0a0a</color>
+    <color name="font_no_edit_color">#535353</color>
     <color name="btn_exit">#ff0101</color>
 </resources>

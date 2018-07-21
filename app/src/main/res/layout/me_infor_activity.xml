@@ -48,14 +48,14 @@
             android:gravity="center"
             android:textColor="@color/font_color"/>
 
-        <EditText
+        <TextView
             android:id="@+id/me_infor_id"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:textSize="18sp"
             android:gravity="center"
-            android:textColor="@color/font_color"
+            android:textColor="@color/font_no_edit_color"
             android:background="@null"/>
 
     </LinearLayout>
@@ -79,14 +79,14 @@
             android:gravity="center"
             android:textColor="@color/font_color"/>
 
-        <EditText
+        <TextView
             android:id="@+id/me_infor_phone"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             android:layout_weight="3"
             android:textSize="18sp"
             android:gravity="center"
-            android:textColor="@color/font_color"
+            android:textColor="@color/font_no_edit_color"
             android:background="@null"/>
 
     </LinearLayout>
@@ -117,7 +117,7 @@
             android:layout_weight="3"
             android:textSize="18sp"
             android:gravity="center"
-            android:textColor="@color/font_color"
+            android:textColor="@color/black_1"
             android:background="@null"/>
 
     </LinearLayout>
@@ -148,7 +148,7 @@
             android:layout_weight="3"
             android:textSize="18sp"
             android:gravity="center"
-            android:textColor="@color/font_color"
+            android:textColor="@color/black_1"
             android:background="@null"/>
 
     </LinearLayout>

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.LoginBean;
@@ -32,7 +33,7 @@ public class MeInforActivity extends AppCompatActivity{
     ImageView meInforCancel;
 
     @BindView(R.id.me_infor_id)
-    EditText meInforId;
+    TextView meInforId;
 
     @BindView(R.id.me_infor_name)
     EditText meInforName;
@@ -41,7 +42,7 @@ public class MeInforActivity extends AppCompatActivity{
     EditText meInforAddr;
 
     @BindView(R.id.me_infor_phone)
-    EditText meInforPhone;
+    TextView meInforPhone;
 
     @BindView(R.id.me_infor_button)
     Button meInforBtn;
@@ -106,18 +107,14 @@ public class MeInforActivity extends AppCompatActivity{
     }
 
     private void editable() {
-//        meInforId.setEnabled(true);
         meInforName.setEnabled(true);
         meInforAddr.setEnabled(true);
-//        meInforPhone.setEnabled(true);
         meInforBtn.setText("保存提交");
     }
 
     private void diseditable() {
-        meInforId.setEnabled(false);
         meInforName.setEnabled(false);
         meInforAddr.setEnabled(false);
-        meInforPhone.setEnabled(false);
         meInforBtn.setText("编辑信息");
     }
 }
