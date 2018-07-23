@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:background="@color/white_2">
 
     <RelativeLayout
@@ -166,7 +165,7 @@
     <Button
         android:id="@+id/me_btn_exit"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="45dp"
         android:layout_alignParentBottom="true"
         android:text="@string/me_btn_exit"
         android:textSize="18sp"

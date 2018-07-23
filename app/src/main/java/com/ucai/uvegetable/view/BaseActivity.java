@@ -34,15 +34,10 @@ public class BaseActivity extends AppCompatActivity {
 
     // HomeFragment;
     public static List<CategoryBean> categories = new ArrayList<>();
-    public static List<ProductBean> orderProducts = new ArrayList<>();
-
-    public static List<ProductBean> vegetableProducts = new ArrayList<>();
-    public static List<ProductBean> meatProducts = new ArrayList<>();
-    public static List<ProductBean> fishProducts = new ArrayList<>();
-    public static List<ProductBean> oilProducts = new ArrayList<>();
-    public static List<ProductBean> goodProducts = new ArrayList<>();
+    public static List<ProductBean> currentProducts;
 
     public final static int ME_INFORMATION_CHANGED = 0;
+    public final static int GET_RESPONSE_FROM_SERVER = 1;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

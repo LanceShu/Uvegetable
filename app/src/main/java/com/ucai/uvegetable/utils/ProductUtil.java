@@ -1,7 +1,5 @@
 package com.ucai.uvegetable.utils;
 
-import android.util.Log;
-
 import com.ucai.uvegetable.beans.CategoryBean;
 import com.ucai.uvegetable.beans.ProductBean;
 
@@ -60,34 +58,8 @@ public class ProductUtil {
         return productBeans;
     }
 
-    public static List<ProductBean> getVegetableProducts(String response) {
-        List<ProductBean> productBeans = new ArrayList<>();
-        productBeans = getTypeProductsByIndex(response, 0);
-        return productBeans;
-    }
-
-    public static List<ProductBean> getMeatProducts(String response) {
-        List<ProductBean> productBeans = new ArrayList<>();
-        productBeans = getTypeProductsByIndex(response, 1);
-        return productBeans;
-    }
-
-    public static List<ProductBean> getFishProducts(String response) {
-        List<ProductBean> productBeans = new ArrayList<>();
-        productBeans = getTypeProductsByIndex(response, 2);
-        return productBeans;
-    }
-
-    public static List<ProductBean> getOilProducts(String response) {
-        List<ProductBean> productBeans = new ArrayList<>();
-        productBeans = getTypeProductsByIndex(response, 3);
-        return productBeans;
-    }
-
-    public static List<ProductBean> getGoodProducts(String response) {
-        List<ProductBean> productBeans = new ArrayList<>();
-        productBeans = getTypeProductsByIndex(response, 4);
-        return productBeans;
+    public static List<ProductBean> getProducts(String response, int index) {
+        return getTypeProductsByIndex(response, index);
     }
 
     private static List<ProductBean> getAllProducts(String response) {

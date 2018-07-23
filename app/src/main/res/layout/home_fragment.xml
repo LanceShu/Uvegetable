@@ -1,13 +1,92 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp">
+    android:background="@color/white_1">
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/title_home"/>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@id/home_order_btn"
+        android:orientation="horizontal">
 
-</LinearLayout>
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_weight="1.2"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_gravity="center"
+            android:background="@color/white_2">
+
+            <TextView
+                android:id="@+id/home_category_vegetable"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/home_category_vegetable"
+                android:textColor="@color/black_1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:background="@drawable/category_select_style"/>
+
+            <TextView
+                android:id="@+id/home_category_meat"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/home_category_meat"
+                android:textColor="@color/black_1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:background="@drawable/category_select_style"/>
+
+            <TextView
+                android:id="@+id/home_category_fish"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/home_category_fish"
+                android:textColor="@color/black_1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:background="@drawable/category_select_style"/>
+
+            <TextView
+                android:id="@+id/home_category_oil"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/home_category_oil"
+                android:textColor="@color/black_1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:background="@drawable/category_select_style"/>
+
+            <TextView
+                android:id="@+id/home_category_goods"
+                android:layout_width="match_parent"
+                android:layout_height="56dp"
+                android:text="@string/home_category_goods"
+                android:textColor="@color/black_1"
+                android:gravity="center"
+                android:textSize="14sp"
+                android:background="@drawable/category_select_style"/>
+
+        </LinearLayout>
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/home_product_list"
+            android:layout_width="0dp"
+            android:layout_weight="4"
+            android:layout_height="match_parent"
+            android:layout_marginStart="4dp"/>
+
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/home_order_btn"
+        android:layout_width="match_parent"
+        android:layout_height="45dp"
+        android:layout_alignParentBottom="true"
+        android:backgroundTint="@color/blue_1"
+        android:text="@string/home_order_btn"
+        android:textColor="@color/white_1"
+        android:gravity="center"
+        android:textSize="18sp"/>
+</RelativeLayout>

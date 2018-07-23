@@ -151,7 +151,7 @@ public class MeFragment extends Fragment {
         clearName.setOnClickListener((view -> loginPhone.setText("")));
         clearPass.setOnClickListener((view -> loginPass.setText("")));
         loginIn.setOnClickListener((view -> {
-            BaseActivity.showProgressDialog(getContext(), "登录中，请稍后...");
+//            BaseActivity.showProgressDialog(getContext(), "登录中，请稍后...");
             loginUser(getContext(), loginPhone.getText().toString(), loginPass.getText().toString());
         }));
         loginRegister.setOnClickListener((view -> startActivity(new Intent(getContext(), RegisterActivity.class))));
@@ -188,7 +188,7 @@ public class MeFragment extends Fragment {
                             BaseActivity.isLogined = true;
                             EditorUtil.saveEditorData(true, phone, pwd);
                             BaseActivity.postHandler.post(() -> {
-                                BaseActivity.displayProgressDialog();
+//                                BaseActivity.displayProgressDialog();
                                 ToastUtil.show(context, "登录成功");
                                 dialog.dismiss();
                                 visibleNameAndPhone(BaseActivity.loginBean.getName()
@@ -197,7 +197,7 @@ public class MeFragment extends Fragment {
                         } else {
                             BaseActivity.postHandler.post(() -> {
                                 ToastUtil.show(context, msg);
-                                BaseActivity.displayProgressDialog();
+//                                BaseActivity.displayProgressDialog();
                             });
                         }
                     } catch (JSONException e) {

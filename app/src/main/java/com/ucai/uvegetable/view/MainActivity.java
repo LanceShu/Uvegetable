@@ -72,7 +72,7 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         clearName.setOnClickListener((view -> loginPhone.setText("")));
         clearPass.setOnClickListener((view -> loginPass.setText("")));
         loginIn.setOnClickListener((view -> {
-            BaseActivity.showProgressDialog(this, "登录中，请稍后...");
+//            BaseActivity.showProgressDialog(this, "登录中，请稍后...");
             loginUser(this, loginPhone.getText().toString(), loginPass.getText().toString());
         }));
         loginRegister.setOnClickListener((view -> startActivity(new Intent(this, RegisterActivity.class))));
@@ -109,14 +109,14 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
                             BaseActivity.isLogined = true;
                             EditorUtil.saveEditorData(true, phone, pwd);
                             postHandler.post(() -> {
-                                BaseActivity.displayProgressDialog();
+//                                BaseActivity.displayProgressDialog();
                                 ToastUtil.show(context, "登录成功");
                                 dialog.dismiss();
                             });
                         } else {
                             postHandler.post(() -> {
                                 ToastUtil.show(context, msg);
-                                BaseActivity.displayProgressDialog();
+//                                BaseActivity.displayProgressDialog();
                             });
                         }
                     } catch (JSONException e) {
