@@ -42,12 +42,12 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ProductBean productBean = productBeanList.get(position);
         ViewHolder holder = (ViewHolder) viewHolder;
-        holder.productImage.setImageResource(R.drawable.me_order);
+        holder.productImage.setImageResource(R.mipmap.ic_launcher);
         holder.productName.setText(productBean.getName());
         String productUnit = " 元/" + productBean.getUnit();
         String userPrice = productBean.getUser_price() == 0.0 ? "--" : productBean.getUser_price()+"";
-        holder.productPrice.setText("市场价：" + productBean.getPrice()
-                + productUnit + "\n会员价：" + userPrice + productUnit);
+        holder.productPrice.setText("标： " + productBean.getPrice()
+                + productUnit + "\n惠： " + userPrice + productUnit);
         holder.productMinus.setOnClickListener((view -> {
             int num = Integer.valueOf(holder.productNumber.getText().toString());
             if (num != 0) {
@@ -74,7 +74,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private TextView productName;
         private TextView productPrice;
         private TextView productMinus;
-        private EditText productNumber;
+        private TextView productNumber;
         private TextView productPlus;
 
         ViewHolder(View view) {

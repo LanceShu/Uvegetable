@@ -70,19 +70,44 @@
 
         </LinearLayout>
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/home_product_list"
+        <RelativeLayout
             android:layout_width="0dp"
             android:layout_weight="4"
-            android:layout_height="match_parent"
-            android:layout_marginStart="4dp"/>
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/home_product_list"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginStart="4dp"/>
+
+            <TextView
+                android:id="@+id/home_notify_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="无法获取数据，请您先"
+                android:textSize="14sp"
+                android:textColor="@color/black_1"
+                android:layout_centerInParent="true"/>
+
+            <TextView
+                android:id="@+id/home_notify_login"
+                android:layout_toEndOf="@id/home_notify_content"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="登录"
+                android:textSize="14sp"
+                android:textColor="@color/colorPrimary"
+                android:layout_centerVertical="true"/>
+
+        </RelativeLayout>
 
     </LinearLayout>
 
     <Button
         android:id="@+id/home_order_btn"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
+        android:layout_height="56dp"
         android:layout_alignParentBottom="true"
         android:backgroundTint="@color/blue_1"
         android:text="@string/home_order_btn"

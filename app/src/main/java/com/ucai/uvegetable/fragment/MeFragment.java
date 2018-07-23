@@ -74,8 +74,6 @@ public class MeFragment extends Fragment {
     @BindView(R.id.me_btn_exit)
     Button mBtnExit;
 
-    private Dialog dialog;
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -108,6 +106,12 @@ public class MeFragment extends Fragment {
                         mName.setText("单位名称：" + BaseActivity.loginBean.getName());
                         mPhone.setText("手机号：" + BaseActivity.loginBean.getPhone());
                         break;
+                    case BaseActivity.UPDATE_MEFRAGMENT:
+                        ToastUtil.show(getContext(), "登录成功");
+                        BaseActivity.dialog.dismiss();
+                        visibleNameAndPhone(BaseActivity.loginBean.getName()
+                                , BaseActivity.loginBean.getPhone());
+                        break;
                 }
             }
         };
@@ -133,79 +137,7 @@ public class MeFragment extends Fragment {
 
     @OnClick(R.id.me_loginOrRegister)
     void mLoginOrRegister() {
-        dialog = new Dialog(getContext(), R.style.DialogTheme);
-        dialog.setContentView(R.layout.login_layout);
-        initDialogWight(dialog);
-        dialog.setCancelable(false);
-        dialog.show();
-    }
-
-    private void initDialogWight(Dialog dialog) {
-        EditText loginPhone = dialog.findViewById(R.id.login_phone);
-        EditText loginPass = dialog.findViewById(R.id.login_pass);
-        ImageView clearName = dialog.findViewById(R.id.login_clear_name);
-        ImageView clearPass = dialog.findViewById(R.id.login_clear_pass);
-        Button loginIn = dialog.findViewById(R.id.login_in);
-        Button loginRegister = dialog.findViewById(R.id.login_register);
-        ImageView loginNext = dialog.findViewById(R.id.login_next);
-        clearName.setOnClickListener((view -> loginPhone.setText("")));
-        clearPass.setOnClickListener((view -> loginPass.setText("")));
-        loginIn.setOnClickListener((view -> {
-//            BaseActivity.showProgressDialog(getContext(), "登录中，请稍后...");
-            loginUser(getContext(), loginPhone.getText().toString(), loginPass.getText().toString());
-        }));
-        loginRegister.setOnClickListener((view -> startActivity(new Intent(getContext(), RegisterActivity.class))));
-        loginNext.setOnClickListener((view -> {
-            dialog.dismiss();
-            BaseActivity.editor.putBoolean("isLogined", false);
-            BaseActivity.editor.apply();
-        }));
-    }
-
-    private void loginUser(Context context, String phone, String pwd) {
-        if (phone.equals("") || pwd.equals("")) {
-            ToastUtil.show(context, "手机号或密码不能为空");
-        } else {
-            UserHttps.requestLogin(phone, pwd, new Callback() {
-                @Override
-                public void onFailure(Call call, IOException e) {
-                    e.printStackTrace();
-                }
-
-                @Override
-                public void onResponse(Call call, Response response) throws IOException {
-                    String resp = response.body().string();
-                    Log.e("success", resp);
-                    try {
-                        JSONObject jsonObject = new JSONObject(resp);
-                        String msg = jsonObject.getString("msg");
-                        if (msg.equals("成功")) {
-                            JSONObject data = jsonObject.getJSONObject("data");
-                            BaseActivity.loginBean.setId(data.getString("id"));
-                            BaseActivity.loginBean.setName(data.getString("name"));
-                            BaseActivity.loginBean.setAddr(data.getString("addr"));
-                            BaseActivity.loginBean.setPhone(data.getString("phone"));
-                            BaseActivity.isLogined = true;
-                            EditorUtil.saveEditorData(true, phone, pwd);
-                            BaseActivity.postHandler.post(() -> {
-//                                BaseActivity.displayProgressDialog();
-                                ToastUtil.show(context, "登录成功");
-                                dialog.dismiss();
-                                visibleNameAndPhone(BaseActivity.loginBean.getName()
-                                        , BaseActivity.loginBean.getPhone());
-                            });
-                        } else {
-                            BaseActivity.postHandler.post(() -> {
-                                ToastUtil.show(context, msg);
-//                                BaseActivity.displayProgressDialog();
-                            });
-                        }
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
-        }
+        BaseActivity.showLoginDialog(getContext(), BaseActivity.MEFRAGMENT);
     }
 
     @OnClick(R.id.me_information)

@@ -36,4 +36,6 @@
     <string name="home_category_fish">鱼类</string>
     <string name="home_category_oil">干货粮油类</string>
     <string name="home_category_goods">杂货类</string>
+    <string name="home_notify_content">无法获取数据，请您先</string>
+    <string name="home_notify_login">登录</string>
 </resources>

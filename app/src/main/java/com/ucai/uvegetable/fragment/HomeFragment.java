@@ -1,5 +1,6 @@
 package com.ucai.uvegetable.fragment;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,14 +17,12 @@ import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.HomeProductAdapter;
-import com.ucai.uvegetable.beans.ProductBean;
 import com.ucai.uvegetable.httputils.ProductHttps;
 import com.ucai.uvegetable.utils.ProductUtil;
 import com.ucai.uvegetable.view.BaseActivity;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +58,12 @@ public class HomeFragment extends Fragment {
     @BindView(R.id.home_category_goods)
     TextView categoryGoods;
 
+    @BindView(R.id.home_notify_content)
+    TextView notifyContent;
+
+    @BindView(R.id.home_notify_login)
+    TextView notifyLogin;
+
     LinearLayoutManager manager;
     HomeProductAdapter adapter;
     private String resp;
@@ -68,28 +73,24 @@ public class HomeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.home_fragment, container, false);
         ButterKnife.bind(this, view);
+        if (BaseActivity.currentProducts == null) {
+            BaseActivity.currentProducts = new ArrayList<>();
+        }
         initWight();
         return view;
     }
 
+    @SuppressLint("HandlerLeak")
     @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        if (BaseActivity.currentProducts == null) {
-            BaseActivity.currentProducts = new ArrayList<>();
-        }
-        loadProductList();
-        if (BaseActivity.currentProducts.size() == 0) {
-            BaseActivity.showProgressDialog(getContext(), "正在加载数据，请稍后...");
-            initData();
-        }
+    public void onResume() {
+        super.onResume();
         BaseActivity.sendHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case BaseActivity.GET_RESPONSE_FROM_SERVER:
                         updateAdapterData(0);
-                        BaseActivity.displayProgressDialog();
+                        BaseActivity.postHandler.postDelayed(BaseActivity::displayProgressDialog, 1000);
                         break;
                 }
             }
@@ -98,6 +99,20 @@ public class HomeFragment extends Fragment {
 
     private void initWight() {
         selectedItem(categoryVegetable);
+        notifyLogin.setVisibility(BaseActivity.isLogined ? View.GONE : View.VISIBLE);
+        notifyContent.setVisibility(BaseActivity.isLogined ? View.GONE : View.VISIBLE);
+        productListView.setVisibility(BaseActivity.isLogined ? View.VISIBLE : View.GONE);
+        if (BaseActivity.isLogined) {
+            loginedToLoadData();
+        }
+    }
+
+    private void loginedToLoadData() {
+        loadProductList();
+        if (BaseActivity.currentProducts.size() == 0) {
+            BaseActivity.showProgressDialog(getContext(), "正在加载数据，请稍后...");
+            initData();
+        }
     }
 
     private void selectedItem(TextView tv) {
@@ -188,7 +203,19 @@ public class HomeFragment extends Fragment {
 
     private void updateAdapterData(int index) {
         BaseActivity.currentProducts.clear();
-        BaseActivity.currentProducts.addAll(ProductUtil.getProducts(resp, index));
+//        if (index == 0) {
+//            if (BaseActivity.vegetableProducts == null) {
+//                BaseActivity.vegetableProducts = ProductUtil.getProducts(resp, index);
+//            }
+//            BaseActivity.currentProducts.addAll(BaseActivity.vegetableProducts);
+//        } else {
+            BaseActivity.currentProducts.addAll(ProductUtil.getProducts(resp, index));
+//        }
         adapter.notifyDataSetChanged();
+    }
+
+    @OnClick(R.id.home_notify_login)
+    void homeNotifyLogin() {
+
     }
 }

@@ -1,21 +1,40 @@
 package com.ucai.uvegetable.view;
 
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.os.Handler;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
 
+import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.CategoryBean;
 import com.ucai.uvegetable.beans.LoginBean;
 import com.ucai.uvegetable.beans.ProductBean;
+import com.ucai.uvegetable.fragment.MeFragment;
+import com.ucai.uvegetable.httputils.UserHttps;
+import com.ucai.uvegetable.utils.EditorUtil;
+import com.ucai.uvegetable.utils.ToastUtil;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by SyubanLiu
@@ -30,14 +49,24 @@ public class BaseActivity extends AppCompatActivity {
     public static Handler postHandler;
     public static Handler sendHandler;
     public static LoginBean loginBean;
-    private static ProgressDialog dialog;
+    private static ProgressDialog progressDialog;
+    public static Dialog dialog;
 
     // HomeFragment;
     public static List<CategoryBean> categories = new ArrayList<>();
     public static List<ProductBean> currentProducts;
+    public static List<ProductBean> vegetableProducts;
+    public static List<ProductBean> meatProducts;
+    public static List<ProductBean> fishProducts;
+    public static List<ProductBean> oilProducts;
+    public static List<ProductBean> goodsProducts;
 
     public final static int ME_INFORMATION_CHANGED = 0;
     public final static int GET_RESPONSE_FROM_SERVER = 1;
+    public final static int MAINACTIVITY = 2;
+    public final static int HOMEFRAGMENT = 3;
+    public final static int MEFRAGMENT = 4;
+    public final static int UPDATE_MEFRAGMENT = 5;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,13 +100,98 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     public static void showProgressDialog(Context context, String hint) {
-        dialog = new ProgressDialog(context);
-        dialog.setTitle("温馨提示:");
-        dialog.setMessage(hint);
-        dialog.show();
+        progressDialog = new ProgressDialog(context);
+        progressDialog.setTitle("温馨提示:");
+        progressDialog.setMessage(hint);
+        progressDialog.show();
     }
 
     public static void displayProgressDialog() {
-        dialog.dismiss();
+        progressDialog.dismiss();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    public static void showLoginDialog(Context context, int originType) {
+        if (!isLogined) {
+            dialog = new Dialog(context, R.style.DialogTheme);
+            dialog.setContentView(R.layout.login_layout);
+            initDialogWight(context, dialog, originType);
+            dialog.setCancelable(false);
+            dialog.show();
+        }
+    }
+
+    private static void initDialogWight(Context context, Dialog dialog, int originType) {
+        EditText loginPhone = dialog.findViewById(R.id.login_phone);
+        EditText loginPass = dialog.findViewById(R.id.login_pass);
+        ImageView clearName = dialog.findViewById(R.id.login_clear_name);
+        ImageView clearPass = dialog.findViewById(R.id.login_clear_pass);
+        Button loginIn = dialog.findViewById(R.id.login_in);
+        Button loginRegister = dialog.findViewById(R.id.login_register);
+        ImageView loginNext = dialog.findViewById(R.id.login_next);
+        clearName.setOnClickListener((view -> loginPhone.setText("")));
+        clearPass.setOnClickListener((view -> loginPass.setText("")));
+        loginIn.setOnClickListener((view -> {
+//            BaseActivity.showProgressDialog(this, "登录中，请稍后...");
+            loginUser(context, loginPhone.getText().toString(), loginPass.getText().toString(), originType);
+        }));
+        loginRegister.setOnClickListener((view -> context.startActivity(new Intent(context, RegisterActivity.class))));
+        loginNext.setOnClickListener((view -> {
+            dialog.dismiss();
+            editor.putBoolean("isLogined", false);
+            editor.apply();
+        }));
+    }
+
+    private static void loginUser(Context context, String phone, String pwd, int originType) {
+        if (phone.equals("") || pwd.equals("")) {
+            ToastUtil.show(context, "手机号或密码不能为空");
+        } else {
+            UserHttps.requestLogin(phone, pwd, new Callback() {
+                @Override
+                public void onFailure(Call call, IOException e) {
+                    e.printStackTrace();
+                }
+
+                @Override
+                public void onResponse(Call call, Response response) throws IOException {
+                    String resp = response.body().string();
+                    Log.e("success", resp);
+                    try {
+                        JSONObject jsonObject = new JSONObject(resp);
+                        String msg = jsonObject.getString("msg");
+                        if (msg.equals("成功")) {
+                            JSONObject data = jsonObject.getJSONObject("data");
+                            BaseActivity.loginBean.setId(data.getString("id"));
+                            BaseActivity.loginBean.setName(data.getString("name"));
+                            BaseActivity.loginBean.setAddr(data.getString("addr"));
+                            BaseActivity.loginBean.setPhone(data.getString("phone"));
+                            BaseActivity.isLogined = true;
+                            EditorUtil.saveEditorData(true, phone, pwd);
+                            if (originType == MEFRAGMENT) {
+                                sendHandler.sendEmptyMessage(UPDATE_MEFRAGMENT);
+                            } else {
+                                postHandler.post(() -> {
+//                                BaseActivity.displayProgressDialog();
+                                    ToastUtil.show(context, "登录成功");
+                                    dialog.dismiss();
+                                });
+                            }
+                        } else {
+                            postHandler.post(() -> {
+                                ToastUtil.show(context, msg);
+//                                BaseActivity.displayProgressDialog();
+                            });
+                        }
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        }
     }
 }
