@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.ProductBean;
 
@@ -42,11 +43,15 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ProductBean productBean = productBeanList.get(position);
         ViewHolder holder = (ViewHolder) viewHolder;
-        holder.productImage.setImageResource(R.mipmap.ic_launcher);
+        Glide.with(context)
+                .load("http://123.206.13.129:8080/manage/" + productBean.getImgfile())
+                .skipMemoryCache(false)
+                .override(100, 100)
+                .into(holder.productImage);
         holder.productName.setText(productBean.getName());
         String productUnit = " 元/" + productBean.getUnit();
         String userPrice = productBean.getUser_price() == 0.0 ? "--" : productBean.getUser_price()+"";
-        holder.productPrice.setText("标： " + productBean.getPrice()
+        holder.productPrice.setText("市： " + productBean.getPrice()
                 + productUnit + "\n惠： " + userPrice + productUnit);
         holder.productMinus.setOnClickListener((view -> {
             int num = Integer.valueOf(holder.productNumber.getText().toString());

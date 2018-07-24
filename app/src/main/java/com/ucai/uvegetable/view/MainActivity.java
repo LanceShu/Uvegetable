@@ -1,37 +1,17 @@
 package com.ucai.uvegetable.view;
 
-import android.app.Dialog;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
 import android.support.annotation.NonNull;
 import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
-import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.fragment.HomeFragment;
 import com.ucai.uvegetable.fragment.MeFragment;
 import com.ucai.uvegetable.fragment.OrderFragment;
-import com.ucai.uvegetable.httputils.UserHttps;
-import com.ucai.uvegetable.utils.EditorUtil;
 import com.ucai.uvegetable.utils.FragmentUtil;
-import com.ucai.uvegetable.utils.ToastUtil;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
-
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 

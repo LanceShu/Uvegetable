@@ -19,20 +19,20 @@
             android:background="@color/white_2">
 
             <TextView
-                android:id="@+id/home_category_vegetable"
+                android:id="@+id/home_category_meat"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="@string/home_category_vegetable"
+                android:text="@string/home_category_meat"
                 android:textColor="@color/black_1"
                 android:gravity="center"
                 android:textSize="14sp"
                 android:background="@drawable/category_select_style"/>
 
             <TextView
-                android:id="@+id/home_category_meat"
+                android:id="@+id/home_category_vegetable"
                 android:layout_width="match_parent"
                 android:layout_height="56dp"
-                android:text="@string/home_category_meat"
+                android:text="@string/home_category_vegetable"
                 android:textColor="@color/black_1"
                 android:gravity="center"
                 android:textSize="14sp"
@@ -79,7 +79,8 @@
                 android:id="@+id/home_product_list"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_marginStart="4dp"/>
+                android:layout_marginStart="4dp"
+                android:scrollbars="vertical"/>
 
             <TextView
                 android:id="@+id/home_notify_content"

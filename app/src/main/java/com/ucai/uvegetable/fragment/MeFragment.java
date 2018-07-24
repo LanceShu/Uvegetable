@@ -108,7 +108,7 @@ public class MeFragment extends Fragment {
                         break;
                     case BaseActivity.UPDATE_MEFRAGMENT:
                         ToastUtil.show(getContext(), "登录成功");
-                        BaseActivity.dialog.dismiss();
+                        BaseActivity.loginDialog.dismiss();
                         visibleNameAndPhone(BaseActivity.loginBean.getName()
                                 , BaseActivity.loginBean.getPhone());
                         break;
@@ -173,10 +173,15 @@ public class MeFragment extends Fragment {
         builder.setPositiveButton("是的", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                BaseActivity.isLogined = false;
-                BaseActivity.editor.putString("isLogined", "false");
+                BaseActivity.editor.putBoolean("isLogined", false);
                 BaseActivity.editor.putString("phone", "");
                 BaseActivity.editor.putString("pwd", "");
+                BaseActivity.editor.commit();
+                BaseActivity.isLogined = false;
+                BaseActivity.resp = null;
+                BaseActivity.isHas = false;
+                BaseActivity.cookie = "";
+                BaseActivity.currentProducts.clear();
                 BaseActivity.postHandler.post(() -> {
                     invisibleNameAndPhone();
                 });

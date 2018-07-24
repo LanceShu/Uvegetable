@@ -22,7 +22,7 @@ public class ProductHttps {
     public static void getUserPrice(String cookie, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://123.206.13.129:8060/guest/pricelist/findLatest")
+                .url("http://123.206.13.129:8060/guest/pricelist/findLatestWithCategory")
                 .addHeader("Cookie", cookie)
                 .build();
         client.newCall(request).enqueue(callback);

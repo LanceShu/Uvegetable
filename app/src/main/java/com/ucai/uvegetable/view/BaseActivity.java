@@ -34,6 +34,7 @@ import java.util.List;
 
 import okhttp3.Call;
 import okhttp3.Callback;
+import okhttp3.Headers;
 import okhttp3.Response;
 
 /**
@@ -50,7 +51,7 @@ public class BaseActivity extends AppCompatActivity {
     public static Handler sendHandler;
     public static LoginBean loginBean;
     private static ProgressDialog progressDialog;
-    public static Dialog dialog;
+    public static Dialog loginDialog;
 
     // HomeFragment;
     public static List<CategoryBean> categories = new ArrayList<>();
@@ -60,6 +61,8 @@ public class BaseActivity extends AppCompatActivity {
     public static List<ProductBean> fishProducts;
     public static List<ProductBean> oilProducts;
     public static List<ProductBean> goodsProducts;
+    public static String resp;
+    public static boolean isHas;
 
     public final static int ME_INFORMATION_CHANGED = 0;
     public final static int GET_RESPONSE_FROM_SERVER = 1;
@@ -67,6 +70,9 @@ public class BaseActivity extends AppCompatActivity {
     public final static int HOMEFRAGMENT = 3;
     public final static int MEFRAGMENT = 4;
     public final static int UPDATE_MEFRAGMENT = 5;
+    public final static int NO_GET_USER_PRICE = 6;
+    public static final int GET_USER_PRICE = 7;
+    public final static int UPDATE_HOMEFRAGMENT = 8;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -117,11 +123,11 @@ public class BaseActivity extends AppCompatActivity {
 
     public static void showLoginDialog(Context context, int originType) {
         if (!isLogined) {
-            dialog = new Dialog(context, R.style.DialogTheme);
-            dialog.setContentView(R.layout.login_layout);
-            initDialogWight(context, dialog, originType);
-            dialog.setCancelable(false);
-            dialog.show();
+            loginDialog = new Dialog(context, R.style.DialogTheme);
+            loginDialog.setContentView(R.layout.login_layout);
+            initDialogWight(context, loginDialog, originType);
+            loginDialog.setCancelable(false);
+            loginDialog.show();
         }
     }
 
@@ -161,6 +167,14 @@ public class BaseActivity extends AppCompatActivity {
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
                     Log.e("success", resp);
+                    Headers headers = response.headers();
+                    List<String> cookies = headers.values("Set-Cookie");
+                    if (cookies.size() > 0) {
+                        String session = cookies.get(0);
+                        String result = session.substring(0, session.indexOf(";"));
+                        Log.e("header", result);
+                        cookie = result;
+                    }
                     try {
                         JSONObject jsonObject = new JSONObject(resp);
                         String msg = jsonObject.getString("msg");
@@ -174,12 +188,10 @@ public class BaseActivity extends AppCompatActivity {
                             EditorUtil.saveEditorData(true, phone, pwd);
                             if (originType == MEFRAGMENT) {
                                 sendHandler.sendEmptyMessage(UPDATE_MEFRAGMENT);
-                            } else {
-                                postHandler.post(() -> {
-//                                BaseActivity.displayProgressDialog();
-                                    ToastUtil.show(context, "登录成功");
-                                    dialog.dismiss();
-                                });
+                            } else if(originType == HOMEFRAGMENT) {
+                                sendHandler.sendEmptyMessage(UPDATE_HOMEFRAGMENT);
+                            } else if (originType == MAINACTIVITY) {
+                                sendHandler.sendEmptyMessage(UPDATE_HOMEFRAGMENT);
                             }
                         } else {
                             postHandler.post(() -> {

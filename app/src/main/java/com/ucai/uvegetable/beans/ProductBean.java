@@ -10,7 +10,7 @@ public class ProductBean {
     private String name;
     private String unit;
     private double price;
-    private double user_price = 0.0;
+    private double user_price;
     private String imgfile;
     private String note;
     private String pcode;
