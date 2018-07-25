@@ -119,12 +119,13 @@ public class HomeFragment extends Fragment {
         notifyContent.setVisibility(BaseActivity.isLogined ? View.GONE : View.VISIBLE);
         productListView.setVisibility(BaseActivity.isLogined ? View.VISIBLE : View.GONE);
         if (BaseActivity.isLogined) {
-            loginedToLoadData();
+            loginToLoadData();
         }
     }
 
-    private void loginedToLoadData() {
-        loadProductList();
+    // if user have login, then will get and show the list of product;
+    private void loginToLoadData() {
+        initProductList();
         if (BaseActivity.currentProducts.size() == 0) {
             BaseActivity.showProgressDialog(getContext(), "正在加载数据，请稍后...");
             initData();
@@ -143,7 +144,8 @@ public class HomeFragment extends Fragment {
         tv.setTextColor(getResources().getColor(R.color.black_1));
     }
 
-    private void loadProductList() {
+    // init the recycleview to display the list of product;
+    private void initProductList() {
         manager = new LinearLayoutManager(getContext());
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         productListView.setLayoutManager(manager);
@@ -250,12 +252,16 @@ public class HomeFragment extends Fragment {
         updateAdapterData(4, BaseActivity.isHas);
     }
 
+    // get products' information from server by index;
     private void updateAdapterData(int index, boolean isHas) {
-        BaseActivity.currentProducts.clear();
-        BaseActivity.currentProducts.addAll(ProductUtil.getProducts(BaseActivity.resp, index, isHas));
-        adapter.notifyDataSetChanged();
+        if (BaseActivity.resp != null) {
+            BaseActivity.currentProducts.clear();
+            BaseActivity.currentProducts.addAll(ProductUtil.getProducts(BaseActivity.resp, index, isHas));
+            adapter.notifyDataSetChanged();
+        }
     }
 
+    // if user no login, and the notify_login will display;
     @OnClick(R.id.home_notify_login)
     void homeNotifyLogin() {
         BaseActivity.showLoginDialog(getContext(), BaseActivity.HOMEFRAGMENT);
