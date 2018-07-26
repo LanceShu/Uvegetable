@@ -1,6 +1,7 @@
 package com.ucai.uvegetable.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,6 +22,7 @@ import com.ucai.uvegetable.httputils.ProductHttps;
 import com.ucai.uvegetable.utils.ProductUtil;
 import com.ucai.uvegetable.utils.ToastUtil;
 import com.ucai.uvegetable.view.BaseActivity;
+import com.ucai.uvegetable.view.HomeToOrderActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -78,6 +80,9 @@ public class HomeFragment extends Fragment {
         ButterKnife.bind(this, view);
         if (BaseActivity.currentProducts == null) {
             BaseActivity.currentProducts = new ArrayList<>();
+        }
+        if (BaseActivity.orderBeans == null) {
+            BaseActivity.orderBeans = new ArrayList<>();
         }
         initWight();
         return view;
@@ -265,5 +270,14 @@ public class HomeFragment extends Fragment {
     @OnClick(R.id.home_notify_login)
     void homeNotifyLogin() {
         BaseActivity.showLoginDialog(getContext(), BaseActivity.HOMEFRAGMENT);
+    }
+
+    @OnClick(R.id.home_order_btn)
+    void orderBtn() {
+        if (BaseActivity.isHas) {
+            startActivity(new Intent(getContext(), HomeToOrderActivity.class));
+        } else {
+            BaseActivity.showHintDialog(getContext(), "您还未有报价单，请先报价...");
+        }
     }
 }

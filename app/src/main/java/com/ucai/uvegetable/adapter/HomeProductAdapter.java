@@ -6,15 +6,15 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ucai.uvegetable.R;
+import com.ucai.uvegetable.beans.OrderBean;
 import com.ucai.uvegetable.beans.ProductBean;
+import com.ucai.uvegetable.view.BaseActivity;
 
 import java.util.List;
 
@@ -46,26 +46,26 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Glide.with(context)
                 .load("http://123.206.13.129:8080/manage/" + productBean.getImgfile())
                 .skipMemoryCache(false)
-                .override(100, 100)
+                .override(120, 120)
                 .into(holder.productImage);
         holder.productName.setText(productBean.getName());
         String productUnit = " 元/" + productBean.getUnit();
         String userPrice = productBean.getUser_price() == 0.0 ? "--" : productBean.getUser_price()+"";
-        holder.productPrice.setText("市： " + productBean.getPrice()
-                + productUnit + "\n惠： " + userPrice + productUnit);
-        holder.productMinus.setOnClickListener((view -> {
-            int num = Integer.valueOf(holder.productNumber.getText().toString());
-            if (num != 0) {
-                num --;
-            }
-            holder.productNumber.setText(num+"");
-        }));
-        holder.productPlus.setOnClickListener((view -> {
-            int num = Integer.valueOf(holder.productNumber.getText().toString());
-            num ++;
-            holder.productNumber.setText(num+"");
-        }));
-        holder.productNumber.setText("0");
+        holder.productPrice.setText("市场价： " + productBean.getPrice()
+                + productUnit + "\n优惠价： " + userPrice + productUnit);
+    }
+
+    private void addOrderBean(ProductBean productBean, int num) {
+        OrderBean orderBean = new OrderBean();
+        orderBean.setProductId(productBean.getId());
+        orderBean.setPrice(productBean.getUser_price());
+        orderBean.setNum(num);
+        orderBean.setNote(productBean.getNote());
+        orderBean.setName(productBean.getName());
+        orderBean.setUnit(productBean.getUnit());
+        orderBean.setImgfile(productBean.getImgfile());
+        orderBean.setTotalPrice(productBean.getUser_price() * (double)num);
+        BaseActivity.orderBeans.add(orderBean);
     }
 
     @Override
@@ -78,9 +78,6 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         private ImageView productImage;
         private TextView productName;
         private TextView productPrice;
-        private TextView productMinus;
-        private TextView productNumber;
-        private TextView productPlus;
 
         ViewHolder(View view) {
             super(view);
@@ -88,9 +85,6 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             productImage = view.findViewById(R.id.product_image);
             productName = view.findViewById(R.id.product_name);
             productPrice = view.findViewById(R.id.product_price);
-            productMinus = view.findViewById(R.id.product_minus);
-            productNumber = view.findViewById(R.id.product_number);
-            productPlus = view.findViewById(R.id.product_plus);
         }
     }
 }

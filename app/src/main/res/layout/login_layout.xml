@@ -104,7 +104,7 @@
     <Button
         android:id="@+id/login_in"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="45dp"
         android:background="@drawable/login_button_login_in"
         android:text="@string/login_in"
         android:textColor="@color/white_1"
@@ -112,12 +112,12 @@
         android:gravity="center"
         android:layout_marginStart="12dp"
         android:layout_marginEnd="12dp"
-        android:layout_marginTop="18dp"/>
+        android:layout_marginTop="20dp"/>
 
     <Button
         android:id="@+id/login_register"
         android:layout_width="match_parent"
-        android:layout_height="36dp"
+        android:layout_height="40dp"
         android:background="@drawable/login_button_register"
         android:text="@string/login_register"
         android:textColor="@color/white_1"

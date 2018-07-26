@@ -19,6 +19,7 @@ import android.widget.ImageView;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.CategoryBean;
 import com.ucai.uvegetable.beans.LoginBean;
+import com.ucai.uvegetable.beans.OrderBean;
 import com.ucai.uvegetable.beans.ProductBean;
 import com.ucai.uvegetable.fragment.MeFragment;
 import com.ucai.uvegetable.httputils.UserHttps;
@@ -56,13 +57,11 @@ public class BaseActivity extends AppCompatActivity {
     // HomeFragment;
     public static List<CategoryBean> categories = new ArrayList<>();
     public static List<ProductBean> currentProducts;
-    public static List<ProductBean> vegetableProducts;
-    public static List<ProductBean> meatProducts;
-    public static List<ProductBean> fishProducts;
-    public static List<ProductBean> oilProducts;
-    public static List<ProductBean> goodsProducts;
     public static String resp;
     public static boolean isHas;
+
+    // HomeToOrderActivity;
+    public static List<OrderBean> orderBeans;
 
     public final static int ME_INFORMATION_CHANGED = 0;
     public final static int GET_RESPONSE_FROM_SERVER = 1;
@@ -145,11 +144,14 @@ public class BaseActivity extends AppCompatActivity {
 //            BaseActivity.showProgressDialog(this, "登录中，请稍后...");
             loginUser(context, loginPhone.getText().toString(), loginPass.getText().toString(), originType);
         }));
-        loginRegister.setOnClickListener((view -> context.startActivity(new Intent(context, RegisterActivity.class))));
+        loginRegister.setOnClickListener((view -> {
+            context.startActivity(new Intent(context, RegisterActivity.class));
+            dialog.dismiss();
+        }));
         loginNext.setOnClickListener((view -> {
             dialog.dismiss();
             editor.putBoolean("isLogined", false);
-            editor.apply();
+            editor.commit();
         }));
     }
 
