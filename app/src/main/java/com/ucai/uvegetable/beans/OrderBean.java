@@ -16,6 +16,15 @@ public class OrderBean {
     private String imgfile;
     private String unit;
     private double totalPrice;
+    private String pcode;
+
+    public void setPcode(String pcode) {
+        this.pcode = pcode;
+    }
+
+    public String getPcode() {
+        return pcode;
+    }
 
     public void setUnit(String unit) {
         this.unit = unit;

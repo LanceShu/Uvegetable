@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@color/white_1">
 
     <LinearLayout
         android:id="@+id/hto_infor_layout"
@@ -12,16 +13,20 @@
         <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.6"
-            android:text="产品名称"
+            android:layout_weight="1"
+            android:text="类别"
             android:textColor="@color/font_color"
             android:gravity="center"
             android:textSize="16sp"/>
 
         <TextView
-            android:layout_width="1dp"
+            android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:background="@color/black_1"/>
+            android:layout_weight="1.4"
+            android:text="产品名称"
+            android:textColor="@color/font_color"
+            android:gravity="center"
+            android:textSize="16sp"/>
 
         <TextView
             android:layout_width="0dp"
@@ -33,37 +38,22 @@
             android:textSize="16sp"/>
 
         <TextView
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/black_1"/>
-
-        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
+            android:layout_weight="1.2"
             android:text="数量"
             android:textColor="@color/font_color"
             android:gravity="center"
             android:textSize="16sp"/>
 
         <TextView
-            android:layout_width="1dp"
-            android:layout_height="match_parent"
-            android:background="@color/black_1"/>
-
-        <TextView
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:layout_weight="1"
-            android:text="价格"
+            android:layout_weight="1.2"
+            android:text="价格(元)"
             android:textColor="@color/font_color"
             android:gravity="center"
             android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="0.5dp"
-            android:layout_height="match_parent"
-            android:background="@color/black_1"/>
 
     </LinearLayout>
 
@@ -89,6 +79,7 @@
         android:layout_below="@id/hto_line"
         android:layout_above="@id/hto_btn"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:scrollbars="vertical"/>
 
 </RelativeLayout>

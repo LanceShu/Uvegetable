@@ -83,6 +83,7 @@ public class HomeFragment extends Fragment {
         }
         if (BaseActivity.orderBeans == null) {
             BaseActivity.orderBeans = new ArrayList<>();
+            BaseActivity.orderBeans.clear();
         }
         initWight();
         return view;
