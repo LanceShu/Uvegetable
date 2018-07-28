@@ -50,7 +50,7 @@ public class ProductUtil {
                 productBean.setName(product.getString("name"));
                 productBean.setUnit(product.getString("unit"));
                 productBean.setPrice(product.getDouble("price"));
-                productBean.setUser_price(0.0);
+                productBean.setUser_price(product.getDouble("num"));
                 productBean.setImgfile(product.getString("imgfile"));
                 productBean.setNote(product.getString("note"));
                 productBean.setPcode(product.getString("pcode"));

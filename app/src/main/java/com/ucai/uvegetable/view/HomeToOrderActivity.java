@@ -1,11 +1,16 @@
 package com.ucai.uvegetable.view;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.OrderAdapter;
@@ -15,8 +20,11 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * Created by Lance
@@ -30,9 +38,19 @@ public class HomeToOrderActivity extends BaseActivity {
     @BindView(R.id.hto_btn)
     Button orderBtn;
 
+    @BindView(R.id.hto_back)
+    ImageView orderBack;
+
+    @BindView(R.id.hto_total_price)
+    TextView totalPrice;
+
+    @BindView(R.id.hto_save)
+    Button save;
+
     LinearLayoutManager layoutManager;
     OrderAdapter orderAdapter;
 
+    @SuppressLint("HandlerLeak")
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,6 +60,16 @@ public class HomeToOrderActivity extends BaseActivity {
         initData();
         // init the wight();
         initWight();
+        BaseActivity.sendHandler = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                switch (msg.what) {
+                    case BaseActivity.UPDATE_TOTAL_PRICE:
+                        showTotalPrice(BaseActivity.orderBeans);
+                        break;
+                }
+            }
+        };
     }
 
     private void initWight() {
@@ -50,10 +78,39 @@ public class HomeToOrderActivity extends BaseActivity {
         orderList.setLayoutManager(layoutManager);
         orderAdapter = new OrderAdapter(this, BaseActivity.orderBeans);
         orderList.setAdapter(orderAdapter);
+        orderList.setItemViewCacheSize(100);
+        showTotalPrice(BaseActivity.orderBeans);
+    }
+
+    @SuppressLint("SetTextI18n")
+    private void showTotalPrice(List<OrderBean> orderBeans) {
+        double total_price = 0.0;
+        for (OrderBean orderBean : orderBeans) {
+            total_price += orderBean.getTotalPrice();
+        }
+        total_price = Math.round(total_price * 100.0) / 100.0;
+        String total = String.valueOf(total_price);
+        switch (total.length() / 10) {
+            case 0:
+                totalPrice.setTextSize(18);
+                break;
+            case 1:
+                totalPrice.setTextSize(16);
+                break;
+            case 2:
+                totalPrice.setTextSize(14);
+                break;
+            case 3:
+                totalPrice.setTextSize(12);
+                break;
+            default:
+                break;
+        }
+        totalPrice.setText(String.valueOf(total) + " 元");
     }
 
     private void initData() {
-        if (BaseActivity.resp != null) {
+        if (BaseActivity.resp != null && BaseActivity.orderBeans.size() == 0) {
             getAllProductList(BaseActivity.resp);
         }
     }
@@ -83,5 +140,21 @@ public class HomeToOrderActivity extends BaseActivity {
         } catch (JSONException e) {
             e.printStackTrace();
         }
+    }
+
+    @OnClick(R.id.hto_btn)
+    void orderBtn() {
+
+    }
+
+    @OnClick(R.id.hto_save)
+    void saveBtn() {
+
+    }
+
+    @OnClick(R.id.hto_back)
+    void orderBack() {
+
+        finish();
     }
 }

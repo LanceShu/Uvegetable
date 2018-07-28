@@ -4,6 +4,7 @@ import android.annotation.SuppressLint;
 import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -64,8 +65,9 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         holder.type.setText(type);
         holder.name.setText(orderBean.getName());
         holder.price.setText(orderBean.getPrice()+"元/"+orderBean.getUnit());
-        holder.num.setHint("0");
-        holder.total.setText("0.0");
+        holder.num.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
+        holder.num.setHint(String.valueOf(orderBean.getNum()));
+        holder.total.setText(String.valueOf(orderBean.getTotalPrice()));
         holder.num.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -79,23 +81,28 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
             @Override
             public void afterTextChanged(Editable editable) {
-                if (!editable.toString().equals("")) {
+                if (!editable.toString().equals("")
+                        && !editable.toString().equals(".")) {
                     String nums = editable.toString();
-                    int num = Integer.parseInt(nums);
-                    double total = Math.round((double)num * orderBean.getPrice() * 100.0) / 100.0;
+                    double num = Double.parseDouble(nums);
+                    double total = Math.round(num * orderBean.getPrice() * 100.0) / 100.0;
                     holder.total.setText(total+"");
-                    updateOrderList(orderBean.getName(), num, total);
-                } else {
+                    updateOrderList(orderBean.getProductId(), num, total);
+                    BaseActivity.sendHandler.sendEmptyMessage(BaseActivity.UPDATE_TOTAL_PRICE);
+                }  else if (editable.toString().equals("")
+                        && !editable.toString().equals(".")){
+                    holder.num.setHint("0.0");
                     holder.total.setText("0.0");
-                    updateOrderList(orderBean.getName(), 0, 0.0);
+                    updateOrderList(orderBean.getProductId(), 0.0, 0.0);
+                    BaseActivity.sendHandler.sendEmptyMessage(BaseActivity.UPDATE_TOTAL_PRICE);
                 }
             }
         });
     }
 
-    private void updateOrderList(String name, int num, double total) {
+    private void updateOrderList(String id, double num, double total) {
         for (OrderBean orderBean : BaseActivity.orderBeans) {
-            if (orderBean.getName().equals(name)) {
+            if (orderBean.getProductId().equals(id)) {
                 orderBean.setNum(num);
                 orderBean.setTotalPrice(total);
             }

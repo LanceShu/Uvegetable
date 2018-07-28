@@ -9,7 +9,7 @@ public class OrderBean {
     // these are params need to be posted;
     private String productId;
     private double price;
-    private int num;
+    private double num;
     private String note;
     // these are the product's information;
     private String name;
@@ -46,7 +46,7 @@ public class OrderBean {
         this.note = note;
     }
 
-    public void setNum(int num) {
+    public void setNum(double num) {
         this.num = num;
     }
 
@@ -78,7 +78,7 @@ public class OrderBean {
         return price;
     }
 
-    public int getNum() {
+    public double getNum() {
         return num;
     }
 

@@ -72,6 +72,7 @@ public class BaseActivity extends AppCompatActivity {
     public final static int NO_GET_USER_PRICE = 6;
     public static final int GET_USER_PRICE = 7;
     public final static int UPDATE_HOMEFRAGMENT = 8;
+    public final static int UPDATE_TOTAL_PRICE = 9;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

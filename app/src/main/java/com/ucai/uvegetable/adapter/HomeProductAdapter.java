@@ -55,19 +55,6 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 + productUnit + "\n优惠价： " + userPrice + productUnit);
     }
 
-    private void addOrderBean(ProductBean productBean, int num) {
-        OrderBean orderBean = new OrderBean();
-        orderBean.setProductId(productBean.getId());
-        orderBean.setPrice(productBean.getUser_price());
-        orderBean.setNum(num);
-        orderBean.setNote(productBean.getNote());
-        orderBean.setName(productBean.getName());
-        orderBean.setUnit(productBean.getUnit());
-        orderBean.setImgfile(productBean.getImgfile());
-        orderBean.setTotalPrice(productBean.getUser_price() * (double)num);
-        BaseActivity.orderBeans.add(orderBean);
-    }
-
     @Override
     public int getItemCount() {
         return productBeanList.size();

@@ -13,4 +13,6 @@
     <color name="font_color">#0a0a0a</color>
     <color name="font_no_edit_color">#535353</color>
     <color name="btn_exit">#ff0101</color>
+    <color name="btn_order">#ff2222</color>
+    <color name="btn_save">#ff9422</color>
 </resources>

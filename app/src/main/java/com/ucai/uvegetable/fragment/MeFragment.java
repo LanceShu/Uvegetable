@@ -173,15 +173,7 @@ public class MeFragment extends Fragment {
         builder.setPositiveButton("是的", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                BaseActivity.editor.putBoolean("isLogined", false);
-                BaseActivity.editor.putString("phone", "");
-                BaseActivity.editor.putString("pwd", "");
-                BaseActivity.editor.commit();
-                BaseActivity.isLogined = false;
-                BaseActivity.resp = null;
-                BaseActivity.isHas = false;
-                BaseActivity.cookie = "";
-                BaseActivity.currentProducts.clear();
+                loginoutUser();
                 BaseActivity.postHandler.post(() -> {
                     invisibleNameAndPhone();
                 });
@@ -189,5 +181,18 @@ public class MeFragment extends Fragment {
         });
         builder.setNegativeButton("取消", null);
         builder.show();
+    }
+
+    private void loginoutUser() {
+        BaseActivity.editor.putBoolean("isLogined", false);
+        BaseActivity.editor.putString("phone", "");
+        BaseActivity.editor.putString("pwd", "");
+        BaseActivity.editor.commit();
+        BaseActivity.isLogined = false;
+        BaseActivity.resp = null;
+        BaseActivity.isHas = false;
+        BaseActivity.cookie = "";
+        BaseActivity.currentProducts = null;
+        BaseActivity.orderBeans = null;
     }
 }

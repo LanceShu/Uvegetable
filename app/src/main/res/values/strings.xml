@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">优菜网</string>
     <string name="title_home">首页</string>
-    <string name="title_order">订单</string>
+    <string name="title_order">采购单</string>
     <string name="title_me">我的</string>
     <string name="login_title">用户登录</string>
     <string name="login_name_hint">请输入手机号</string>
