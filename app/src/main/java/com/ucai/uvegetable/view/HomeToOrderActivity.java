@@ -257,7 +257,7 @@ public class HomeToOrderActivity extends BaseActivity {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
         builder.setTitle("提示：");
         builder.setMessage("退出则当前的采购单信息不保存？");
-        builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("不保存", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 BaseActivity.productPriceBeans.clear();

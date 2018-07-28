@@ -153,7 +153,7 @@ public class MeFragment extends Fragment {
         AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
         builder.setTitle("温馨提示：");
         builder.setMessage("是否确认注销当前用户？");
-        builder.setPositiveButton("是的", new DialogInterface.OnClickListener() {
+        builder.setPositiveButton("注销", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 loginoutUser();

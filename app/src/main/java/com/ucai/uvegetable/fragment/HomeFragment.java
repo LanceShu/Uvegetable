@@ -171,7 +171,7 @@ public class HomeFragment extends Fragment {
                 @Override
                 public void onResponse(Call call, Response response) throws IOException {
                     String resp = response.body().string();
-                    Log.e("categoryLatest", resp);
+                    Log.e("categoryUser", resp);
                     try {
                         JSONObject res = new JSONObject(resp);
                         String msg = res.getString("msg");
@@ -202,7 +202,7 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 BaseActivity.resp = response.body().string();
-                Log.e("category", BaseActivity.resp);
+                Log.e("categoryMarkrt", BaseActivity.resp);
                 BaseActivity.sendHandler.sendEmptyMessage(BaseActivity.GET_RESPONSE_FROM_SERVER);
             }
         });
