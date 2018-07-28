@@ -62,6 +62,7 @@ public class BaseActivity extends AppCompatActivity {
 
     // HomeToOrderActivity;
     public static List<OrderBean> orderBeans;
+    public static List<OrderBean> saveOrderBeans;
 
     public final static int ME_INFORMATION_CHANGED = 0;
     public final static int GET_RESPONSE_FROM_SERVER = 1;

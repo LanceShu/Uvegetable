@@ -1,6 +1,8 @@
 package com.ucai.uvegetable.view;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,6 +22,7 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
@@ -113,6 +116,12 @@ public class HomeToOrderActivity extends BaseActivity {
         if (BaseActivity.resp != null && BaseActivity.orderBeans.size() == 0) {
             getAllProductList(BaseActivity.resp);
         }
+        if (BaseActivity.saveOrderBeans == null) {
+            BaseActivity.saveOrderBeans = new ArrayList<>();
+        }
+        if (BaseActivity.saveOrderBeans.size() == 0) {
+            BaseActivity.saveOrderBeans.addAll(BaseActivity.orderBeans);
+        }
     }
 
     private void getAllProductList(String resp) {
@@ -149,12 +158,35 @@ public class HomeToOrderActivity extends BaseActivity {
 
     @OnClick(R.id.hto_save)
     void saveBtn() {
-
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示：");
+        builder.setMessage("是否保存当前的采购单信息？");
+        builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                BaseActivity.orderBeans.clear();
+                BaseActivity.orderBeans.addAll(BaseActivity.saveOrderBeans);
+                finish();
+            }
+        });
+        builder.setNegativeButton("取消", null);
+        builder.show();
     }
 
     @OnClick(R.id.hto_back)
     void orderBack() {
-
-        finish();
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示：");
+        builder.setMessage("退出则当前的采购单信息不保存？");
+        builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                BaseActivity.orderBeans.clear();
+                BaseActivity.saveOrderBeans.clear();
+                finish();
+            }
+        });
+        builder.setNegativeButton("再想想", null);
+        builder.show();
     }
 }

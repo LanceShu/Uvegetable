@@ -101,7 +101,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void updateOrderList(String id, double num, double total) {
-        for (OrderBean orderBean : BaseActivity.orderBeans) {
+        for (OrderBean orderBean : BaseActivity.saveOrderBeans) {
             if (orderBean.getProductId().equals(id)) {
                 orderBean.setNum(num);
                 orderBean.setTotalPrice(total);
