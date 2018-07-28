@@ -2,8 +2,6 @@ package com.ucai.uvegetable.fragment;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,32 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
-import com.ucai.uvegetable.beans.LoginBean;
-import com.ucai.uvegetable.httputils.UserHttps;
-import com.ucai.uvegetable.utils.EditorUtil;
-import com.ucai.uvegetable.utils.ResourceUtil;
 import com.ucai.uvegetable.utils.ToastUtil;
 import com.ucai.uvegetable.view.BaseActivity;
 import com.ucai.uvegetable.view.MeInforActivity;
-import com.ucai.uvegetable.view.RegisterActivity;
-
-import org.json.JSONException;
-import org.json.JSONObject;
-
-import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
-import okhttp3.Call;
-import okhttp3.Callback;
-import okhttp3.Response;
 
 /**
  * Created by SyubanLiu
@@ -193,6 +176,6 @@ public class MeFragment extends Fragment {
         BaseActivity.isHas = false;
         BaseActivity.cookie = "";
         BaseActivity.currentProducts = null;
-        BaseActivity.orderBeans = null;
+        BaseActivity.productPriceBeans = null;
     }
 }

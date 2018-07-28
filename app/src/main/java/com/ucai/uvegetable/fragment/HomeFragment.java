@@ -81,9 +81,9 @@ public class HomeFragment extends Fragment {
         if (BaseActivity.currentProducts == null) {
             BaseActivity.currentProducts = new ArrayList<>();
         }
-        if (BaseActivity.orderBeans == null) {
-            BaseActivity.orderBeans = new ArrayList<>();
-            BaseActivity.orderBeans.clear();
+        if (BaseActivity.productPriceBeans == null) {
+            BaseActivity.productPriceBeans = new ArrayList<>();
+            BaseActivity.productPriceBeans.clear();
         }
         initWight();
         return view;

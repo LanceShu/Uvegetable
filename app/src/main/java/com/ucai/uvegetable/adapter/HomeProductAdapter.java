@@ -12,9 +12,7 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.ucai.uvegetable.R;
-import com.ucai.uvegetable.beans.OrderBean;
 import com.ucai.uvegetable.beans.ProductBean;
-import com.ucai.uvegetable.view.BaseActivity;
 
 import java.util.List;
 

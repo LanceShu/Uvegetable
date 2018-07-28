@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -19,9 +20,8 @@ import android.widget.ImageView;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.CategoryBean;
 import com.ucai.uvegetable.beans.LoginBean;
-import com.ucai.uvegetable.beans.OrderBean;
+import com.ucai.uvegetable.beans.ProductPriceBean;
 import com.ucai.uvegetable.beans.ProductBean;
-import com.ucai.uvegetable.fragment.MeFragment;
 import com.ucai.uvegetable.httputils.UserHttps;
 import com.ucai.uvegetable.utils.EditorUtil;
 import com.ucai.uvegetable.utils.ToastUtil;
@@ -61,8 +61,8 @@ public class BaseActivity extends AppCompatActivity {
     public static boolean isHas;
 
     // HomeToOrderActivity;
-    public static List<OrderBean> orderBeans;
-    public static List<OrderBean> saveOrderBeans;
+    public static List<ProductPriceBean> productPriceBeans;
+    public static List<ProductPriceBean> saveProductPriceBeans;
 
     public final static int ME_INFORMATION_CHANGED = 0;
     public final static int GET_RESPONSE_FROM_SERVER = 1;
@@ -74,6 +74,8 @@ public class BaseActivity extends AppCompatActivity {
     public static final int GET_USER_PRICE = 7;
     public final static int UPDATE_HOMEFRAGMENT = 8;
     public final static int UPDATE_TOTAL_PRICE = 9;
+    public final static int SUCCESS_SEND_ORDER = 10;
+    public final static int FAILURE_SEND_ORDER = 11;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -209,5 +211,20 @@ public class BaseActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示：");
+        builder.setMessage("是否退出优菜网？");
+        builder.setNegativeButton("取消", null);
+        builder.setPositiveButton("退出", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                finish();
+            }
+        });
+        builder.show();
     }
 }
