@@ -20,7 +20,7 @@ import android.widget.ImageView;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.CategoryBean;
 import com.ucai.uvegetable.beans.LoginBean;
-import com.ucai.uvegetable.beans.ProductPriceBean;
+import com.ucai.uvegetable.beans.OrderedProductBean;
 import com.ucai.uvegetable.beans.ProductBean;
 import com.ucai.uvegetable.httputils.UserHttps;
 import com.ucai.uvegetable.utils.EditorUtil;
@@ -61,8 +61,8 @@ public class BaseActivity extends AppCompatActivity {
     public static boolean isHas;
 
     // HomeToOrderActivity;
-    public static List<ProductPriceBean> productPriceBeans;
-    public static List<ProductPriceBean> saveProductPriceBeans;
+    public static List<OrderedProductBean> orderedProductBeans;
+    public static List<OrderedProductBean> saveOrderedProductBeans;
 
     public final static int ME_INFORMATION_CHANGED = 0;
     public final static int GET_RESPONSE_FROM_SERVER = 1;

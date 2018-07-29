@@ -14,6 +14,15 @@ public class ProductBean {
     private String imgfile;
     private String note;
     private String pcode;
+    private double num;
+
+    public void setNum(double num) {
+        this.num = num;
+    }
+
+    public double getNum() {
+        return num;
+    }
 
     public void setNote(String note) {
         this.note = note;

@@ -2,6 +2,7 @@ package com.ucai.uvegetable.view;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,9 +20,8 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.OrderAdapter;
 import com.ucai.uvegetable.beans.OrderBean;
-import com.ucai.uvegetable.beans.ProductPriceBean;
+import com.ucai.uvegetable.beans.OrderedProductBean;
 import com.ucai.uvegetable.httputils.OrderHttps;
-import com.ucai.uvegetable.utils.ToastUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -77,37 +77,45 @@ public class HomeToOrderActivity extends BaseActivity {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case UPDATE_TOTAL_PRICE:
-                        showTotalPrice(BaseActivity.productPriceBeans);
+                        showTotalPrice(BaseActivity.orderedProductBeans);
                         break;
                     case SUCCESS_SEND_ORDER:
                         displayProgressDialog();
-                        ToastUtil.show(HomeToOrderActivity.this, "采购单提交成功");
+                        showOrderDialog(HomeToOrderActivity.this, "采购单提交成功!");
                         break;
                     case FAILURE_SEND_ORDER:
                         displayProgressDialog();
                         String errorContent = (String) msg.obj;
-                        ToastUtil.show(HomeToOrderActivity.this, errorContent);
+                        showOrderDialog(HomeToOrderActivity.this, errorContent);
                         break;
                 }
             }
         };
     }
 
+    private void showOrderDialog(Context context, String content) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("提示：");
+        builder.setTitle(content);
+        builder.setPositiveButton("好的", null);
+        builder.show();
+    }
+
     private void initWight() {
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         orderList.setLayoutManager(layoutManager);
-        orderAdapter = new OrderAdapter(this, BaseActivity.productPriceBeans);
+        orderAdapter = new OrderAdapter(this, BaseActivity.orderedProductBeans);
         orderList.setAdapter(orderAdapter);
         orderList.setItemViewCacheSize(100);
-        showTotalPrice(BaseActivity.productPriceBeans);
+        showTotalPrice(BaseActivity.orderedProductBeans);
     }
 
     @SuppressLint("SetTextI18n")
-    private void showTotalPrice(List<ProductPriceBean> productPriceBeans) {
+    private void showTotalPrice(List<OrderedProductBean> orderedProductBeans) {
         double total_price = 0.0;
-        for (ProductPriceBean productPriceBean : productPriceBeans) {
-            total_price += productPriceBean.getTotalPrice();
+        for (OrderedProductBean orderedProductBean : orderedProductBeans) {
+            total_price += orderedProductBean.getTotalPrice();
         }
         total_price = Math.round(total_price * 100.0) / 100.0;
         String total = String.valueOf(total_price);
@@ -131,14 +139,14 @@ public class HomeToOrderActivity extends BaseActivity {
     }
 
     private void initData() {
-        if (BaseActivity.resp != null && BaseActivity.productPriceBeans.size() == 0) {
+        if (BaseActivity.resp != null && BaseActivity.orderedProductBeans.size() == 0) {
             getAllProductList(BaseActivity.resp);
         }
-        if (BaseActivity.saveProductPriceBeans == null) {
-            BaseActivity.saveProductPriceBeans = new ArrayList<>();
+        if (BaseActivity.saveOrderedProductBeans == null) {
+            BaseActivity.saveOrderedProductBeans = new ArrayList<>();
         }
-        if (BaseActivity.saveProductPriceBeans.size() == 0) {
-            BaseActivity.saveProductPriceBeans.addAll(BaseActivity.productPriceBeans);
+        if (BaseActivity.saveOrderedProductBeans.size() == 0) {
+            BaseActivity.saveOrderedProductBeans.addAll(BaseActivity.orderedProductBeans);
         }
     }
 
@@ -150,18 +158,21 @@ public class HomeToOrderActivity extends BaseActivity {
                 JSONArray products = categories.getJSONObject(i).getJSONArray("products");
                 for (int j = 0; j < products.length(); j++) {
                     JSONObject product = products.getJSONObject(j);
-                    ProductPriceBean productPriceBean = new ProductPriceBean();
-                    productPriceBean.setProductId(product.getString("id"));
-                    productPriceBean.setPrice(product.getDouble("guestPrice"));
-                    productPriceBean.setPcode(product.getString("pcode"));
-                    productPriceBean.setNum(0);
-                    productPriceBean.setNote(product.getString("note"));
-                    productPriceBean.setName(product.getString("name"));
-                    productPriceBean.setImgfile("http://123.206.13.129:8080/manage/"
+                    OrderedProductBean orderedProductBean = new OrderedProductBean();
+                    orderedProductBean.setProductId(product.getString("id"));
+                    double price = product.getDouble("guestPrice");
+                    orderedProductBean.setPrice(price);
+                    orderedProductBean.setPcode(product.getString("pcode"));
+                    double num = product.getDouble("num");
+                    orderedProductBean.setNum(num);
+                    orderedProductBean.setNote(product.getString("note"));
+                    orderedProductBean.setName(product.getString("name"));
+                    orderedProductBean.setImgfile("http://123.206.13.129:8080/manage/"
                             + product.getString("imgfile"));
-                    productPriceBean.setUnit(product.getString("unit"));
-                    productPriceBean.setTotalPrice(0.0);
-                    productPriceBeans.add(productPriceBean);
+                    orderedProductBean.setUnit(product.getString("unit"));
+                    double total = Math.round(price * num * 100.0) / 100.0;
+                    orderedProductBean.setTotalPrice(total);
+                    orderedProductBeans.add(orderedProductBean);
                 }
             }
         } catch (JSONException e) {
@@ -178,7 +189,7 @@ public class HomeToOrderActivity extends BaseActivity {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 showProgressDialog(HomeToOrderActivity.this, "正在提交采购单中...");
-                String orderListJson = objectToJson(saveProductPriceBeans);
+                String orderListJson = objectToJson(saveOrderedProductBeans);
                 Log.e("json", orderListJson);
                 OrderHttps.submitNewOrderList(orderListJson, cookie, new Callback() {
                     @Override
@@ -212,14 +223,14 @@ public class HomeToOrderActivity extends BaseActivity {
         builder.show();
     }
 
-    private String objectToJson(List<ProductPriceBean> saveProductPriceBeans) {
+    private String objectToJson(List<OrderedProductBean> saveOrderedProductBeans) {
         List<OrderBean> orderBeanList = new ArrayList<>();
-        for (ProductPriceBean productPriceBean : saveProductPriceBeans) {
+        for (OrderedProductBean orderedProductBean : saveOrderedProductBeans) {
             OrderBean orderBean = new OrderBean();
-            orderBean.setNote(productPriceBean.getNote());
-            orderBean.setNum(productPriceBean.getNum());
-            orderBean.setPrice(productPriceBean.getPrice());
-            orderBean.setProductId(productPriceBean.getProductId());
+            orderBean.setNote(orderedProductBean.getNote());
+            orderBean.setNum(orderedProductBean.getNum());
+            orderBean.setPrice(orderedProductBean.getPrice());
+            orderBean.setProductId(orderedProductBean.getProductId());
             orderBeanList.add(orderBean);
         }
         ObjectMapper mapper = new ObjectMapper();
@@ -239,8 +250,8 @@ public class HomeToOrderActivity extends BaseActivity {
         builder.setPositiveButton("保存", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                BaseActivity.productPriceBeans.clear();
-                BaseActivity.productPriceBeans.addAll(BaseActivity.saveProductPriceBeans);
+                BaseActivity.orderedProductBeans.clear();
+                BaseActivity.orderedProductBeans.addAll(BaseActivity.saveOrderedProductBeans);
                 finish();
             }
         });
@@ -260,8 +271,8 @@ public class HomeToOrderActivity extends BaseActivity {
         builder.setPositiveButton("不保存", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
-                BaseActivity.productPriceBeans.clear();
-                BaseActivity.saveProductPriceBeans.clear();
+                BaseActivity.orderedProductBeans.clear();
+                BaseActivity.saveOrderedProductBeans.clear();
                 finish();
             }
         });

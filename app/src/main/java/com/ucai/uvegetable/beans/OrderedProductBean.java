@@ -5,7 +5,7 @@ package com.ucai.uvegetable.beans;
  * on 2018/7/25.
  */
 
-public class ProductPriceBean {
+public class OrderedProductBean {
     // these are params need to be posted;
     private String productId;
     private double price;

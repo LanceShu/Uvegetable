@@ -13,7 +13,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
-import com.ucai.uvegetable.beans.ProductPriceBean;
+import com.ucai.uvegetable.beans.OrderedProductBean;
 import com.ucai.uvegetable.view.BaseActivity;
 
 import java.util.List;
@@ -24,12 +24,12 @@ import java.util.List;
  */
 
 public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
-    private List<ProductPriceBean> productPriceBeans;
+    private List<OrderedProductBean> orderedProductBeans;
     private Context context;
 
-    public OrderAdapter(Context context, List<ProductPriceBean> productPriceBeans) {
+    public OrderAdapter(Context context, List<OrderedProductBean> orderedProductBeans) {
         this.context = context;
-        this.productPriceBeans = productPriceBeans;
+        this.orderedProductBeans = orderedProductBeans;
     }
 
     @Override
@@ -41,9 +41,9 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        ProductPriceBean productPriceBean = productPriceBeans.get(position);
+        OrderedProductBean orderedProductBean = orderedProductBeans.get(position);
         String type = "";
-        switch (productPriceBean.getPcode()) {
+        switch (orderedProductBean.getPcode()) {
             case "0100":
                 type = "蔬菜类";
                 break;
@@ -63,11 +63,11 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                 break;
         }
         holder.type.setText(type);
-        holder.name.setText(productPriceBean.getName());
-        holder.price.setText(productPriceBean.getPrice()+"元/"+ productPriceBean.getUnit());
+        holder.name.setText(orderedProductBean.getName());
+        holder.price.setText(orderedProductBean.getPrice()+"元/"+ orderedProductBean.getUnit());
         holder.num.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
-        holder.num.setHint(String.valueOf(productPriceBean.getNum()));
-        holder.total.setText(String.valueOf(productPriceBean.getTotalPrice()));
+        holder.num.setHint(String.valueOf(orderedProductBean.getNum()));
+        holder.total.setText(String.valueOf(orderedProductBean.getTotalPrice()));
         holder.num.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -85,15 +85,15 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
                         && !editable.toString().equals(".")) {
                     String nums = editable.toString();
                     double num = Double.parseDouble(nums);
-                    double total = Math.round(num * productPriceBean.getPrice() * 100.0) / 100.0;
+                    double total = Math.round(num * orderedProductBean.getPrice() * 100.0) / 100.0;
                     holder.total.setText(total+"");
-                    updateOrderList(productPriceBean.getProductId(), num, total);
+                    updateOrderList(orderedProductBean.getProductId(), num, total);
                     BaseActivity.sendHandler.sendEmptyMessage(BaseActivity.UPDATE_TOTAL_PRICE);
                 }  else if (editable.toString().equals("")
                         && !editable.toString().equals(".")){
                     holder.num.setHint("0.0");
                     holder.total.setText("0.0");
-                    updateOrderList(productPriceBean.getProductId(), 0.0, 0.0);
+                    updateOrderList(orderedProductBean.getProductId(), 0.0, 0.0);
                     BaseActivity.sendHandler.sendEmptyMessage(BaseActivity.UPDATE_TOTAL_PRICE);
                 }
             }
@@ -101,17 +101,17 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
     }
 
     private void updateOrderList(String id, double num, double total) {
-        for (ProductPriceBean productPriceBean : BaseActivity.saveProductPriceBeans) {
-            if (productPriceBean.getProductId().equals(id)) {
-                productPriceBean.setNum(num);
-                productPriceBean.setTotalPrice(total);
+        for (OrderedProductBean orderedProductBean : BaseActivity.saveOrderedProductBeans) {
+            if (orderedProductBean.getProductId().equals(id)) {
+                orderedProductBean.setNum(num);
+                orderedProductBean.setTotalPrice(total);
             }
         }
     }
 
     @Override
     public int getItemCount() {
-        return productPriceBeans.size();
+        return orderedProductBeans.size();
     }
 
     static class ViewHolder extends RecyclerView.ViewHolder {

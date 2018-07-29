@@ -176,6 +176,6 @@ public class MeFragment extends Fragment {
         BaseActivity.isHas = false;
         BaseActivity.cookie = "";
         BaseActivity.currentProducts = null;
-        BaseActivity.productPriceBeans = null;
+        BaseActivity.orderedProductBeans = null;
     }
 }

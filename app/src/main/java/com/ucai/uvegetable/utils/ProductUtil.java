@@ -40,6 +40,7 @@ public class ProductUtil {
                 productBean.setId(product.getString("id"));
                 productBean.setName(product.getString("name"));
                 productBean.setUnit(product.getString("unit"));
+                productBean.setNum(0.0);
                 productBean.setPrice(product.getDouble("price"));
                 productBean.setImgfile(product.getString("imgfile"));
                 productBean.setNote(product.getString("note"));
@@ -66,7 +67,7 @@ public class ProductUtil {
                 productBean.setId(product.getString("id"));
                 productBean.setName(product.getString("name"));
                 productBean.setUnit(product.getString("unit"));
-                productBean.setUser_price(product.getDouble("num"));
+                productBean.setNum(product.getDouble("num"));
                 productBean.setPrice(product.getDouble("marketPrice"));
                 productBean.setUser_price(product.getDouble("guestPrice"));
                 productBean.setImgfile(product.getString("imgfile"));

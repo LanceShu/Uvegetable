@@ -23,4 +23,13 @@ public class OrderHttps {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+
+    public static void getAllUserOrder(String cookie, Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url("http://123.206.13.129:8060/guest/order/findDates")
+                .addHeader("Cookie", cookie)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
 }
