@@ -76,6 +76,9 @@ public class BaseActivity extends AppCompatActivity {
     public final static int UPDATE_TOTAL_PRICE = 9;
     public final static int SUCCESS_SEND_ORDER = 10;
     public final static int FAILURE_SEND_ORDER = 11;
+    public final static int SUCCESS_GET_DATE = 12;
+    public final static int FAILURE_GET_DATE = 13;
+    public final static int SUCCESS_GET_DATE_AND_STATE = 14;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -211,6 +214,14 @@ public class BaseActivity extends AppCompatActivity {
                 }
             });
         }
+    }
+
+    public static void showReminderDialog(Context context, String content) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle("提示：");
+        builder.setTitle(content);
+        builder.setPositiveButton("好的", null);
+        builder.show();
     }
 
     @Override

@@ -81,24 +81,16 @@ public class HomeToOrderActivity extends BaseActivity {
                         break;
                     case SUCCESS_SEND_ORDER:
                         displayProgressDialog();
-                        showOrderDialog(HomeToOrderActivity.this, "采购单提交成功!");
+                        showReminderDialog(HomeToOrderActivity.this, "采购单提交成功!");
                         break;
                     case FAILURE_SEND_ORDER:
                         displayProgressDialog();
                         String errorContent = (String) msg.obj;
-                        showOrderDialog(HomeToOrderActivity.this, errorContent);
+                        showReminderDialog(HomeToOrderActivity.this, errorContent);
                         break;
                 }
             }
         };
-    }
-
-    private void showOrderDialog(Context context, String content) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
-        builder.setTitle("提示：");
-        builder.setTitle(content);
-        builder.setPositiveButton("好的", null);
-        builder.show();
     }
 
     private void initWight() {

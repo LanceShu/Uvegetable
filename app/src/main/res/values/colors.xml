@@ -6,6 +6,7 @@
     <color name="white_1">#FFFFFF</color>
     <color name="white_2">#f5f5f5</color>
     <color name="white_3">#dedede</color>
+    <color name="white_4">#d7d7d7</color>
     <color name="yellow_1">#bfbf3a</color>
     <color name="green_1">#3abf93</color>
     <color name="blue_1">#4577c7</color>
@@ -15,4 +16,12 @@
     <color name="btn_exit">#ff0101</color>
     <color name="btn_order">#ff2222</color>
     <color name="btn_save">#ff9422</color>
+
+    <!--o_f_item-->
+    <color name="ofi_back_normal">#d7d7d7</color>
+    <color name="ofi_font_success">#178900</color>
+    <color name="ofi_font_failure">#89000e</color>
+    <color name="ofi_font_normal">#0a0a0a</color>
+    <color name="ofi_font_wait">#896e00</color>
+    <color name="ofi_font_new">#001b89</color>
 </resources>

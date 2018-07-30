@@ -34,7 +34,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.order_item, parent, false));
+        return new ViewHolder(LayoutInflater.from(context).inflate(R.layout.hto_activity_item, parent, false));
     }
 
     @SuppressLint("SetTextI18n")

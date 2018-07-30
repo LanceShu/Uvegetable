@@ -24,10 +24,20 @@ public class OrderHttps {
         client.newCall(request).enqueue(callback);
     }
 
-    public static void getAllUserOrder(String cookie, Callback callback) {
+    public static void getAllUserOrderDates(String cookie, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()
-                .url("http://123.206.13.129:8060/guest/order/findDates")
+                .url("http://123.206.13.129:8060/guest/order/findDatesAndStates")
+                .addHeader("Cookie", cookie)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
+
+    public static void getAllStateByDate(String cookie, String date, Callback callback) {
+        OkHttpClient client = new OkHttpClient();
+        String url = "http://123.206.13.129:8060/guest/order/findStatesByDate?date="+date;
+        Request request = new Request.Builder()
+                .url(url)
                 .addHeader("Cookie", cookie)
                 .build();
         client.newCall(request).enqueue(callback);
