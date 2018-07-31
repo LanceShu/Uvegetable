@@ -1,11 +1,13 @@
 package com.ucai.uvegetable.fragment;
 
 import android.annotation.SuppressLint;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -25,7 +27,6 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -47,6 +48,15 @@ public class OrderFragment extends Fragment {
     @BindView(R.id.of_recycler)
     RecyclerView purchaseRecycler;
 
+    @BindView(R.id.of_swipe_refresh)
+    SwipeRefreshLayout refreshLayout;
+
+    @SuppressLint("HandlerLeak")
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -59,23 +69,10 @@ public class OrderFragment extends Fragment {
         return view;
     }
 
+    @SuppressLint("HandlerLeak")
     @Override
     public void onStart() {
         super.onStart();
-    }
-
-    private void initWight() {
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        manager.setOrientation(LinearLayoutManager.VERTICAL);
-        purchaseRecycler.setLayoutManager(manager);
-        adapter = new PurchaseAdapter(getContext(), purchaseBeanList);
-        purchaseRecycler.setAdapter(adapter);
-    }
-
-    @SuppressLint("HandlerLeak")
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
         BaseActivity.sendHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -86,11 +83,43 @@ public class OrderFragment extends Fragment {
                         break;
                     case BaseActivity.SUCCESS_GET_DATE_AND_STATE:
                         adapter.notifyDataSetChanged();
-                        BaseActivity.displayProgressDialog();
+                        if (BaseActivity.progressDialog.isShowing()) {
+                            BaseActivity.displayProgressDialog();
+                        }
+                        if (refreshLayout.isRefreshing()) {
+                            refreshLayout.setRefreshing(false);
+                        }
+                        break;
+                    case BaseActivity.BACK_ORDER_MSG:
+                        purchaseBeanList.clear();
+                        getAllOrderDateAndState();
+                        adapter.notifyDataSetChanged();
                         break;
                 }
             }
         };
+    }
+
+    private void initWight() {
+        refreshLayout.setColorSchemeColors(Color.parseColor("#4577c7"));
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        manager.setOrientation(LinearLayoutManager.VERTICAL);
+        purchaseRecycler.setLayoutManager(manager);
+        adapter = new PurchaseAdapter(getContext(), purchaseBeanList);
+        purchaseRecycler.setAdapter(adapter);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                purchaseBeanList.clear();
+                getAllOrderDateAndState();
+            }
+        });
+    }
+
+    @SuppressLint("HandlerLeak")
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
     }
 
     private void initData() {
@@ -98,11 +127,11 @@ public class OrderFragment extends Fragment {
             purchaseBeanList = new ArrayList<>();
         }
         purchaseBeanList.clear();
-        getAllOrderDate();
+        BaseActivity.showProgressDialog(getContext(), "正在加载订单...");
+        getAllOrderDateAndState();
     }
 
-    private void getAllOrderDate() {
-        BaseActivity.showProgressDialog(getContext(), "正在加载订单...");
+    private void getAllOrderDateAndState() {
         OrderHttps.getAllUserOrderDates(BaseActivity.cookie, new Callback() {
             @Override
             public void onFailure(@Nullable Call call, @Nullable IOException e) {

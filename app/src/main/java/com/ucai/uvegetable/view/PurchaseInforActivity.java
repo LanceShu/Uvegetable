@@ -1,6 +1,8 @@
 package com.ucai.uvegetable.view;
 
 import android.annotation.SuppressLint;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -89,6 +91,14 @@ public class PurchaseInforActivity extends AppCompatActivity {
                     case BaseActivity.FAILURE_GET_PI_INFOR:
                         String err = (String) msg.obj;
                         BaseActivity.showReminderDialog(PurchaseInforActivity.this, err);
+                        break;
+                    case BaseActivity.BACK_ORDER_MSG:
+                        Bundle bundle = (Bundle) msg.obj;
+                        String content = bundle.getString("msg");
+                        BaseActivity.showReminderDialog(PurchaseInforActivity.this, content);
+                        inforLayout.setBackgroundColor(Color.parseColor("#896e00"));
+                        state.setText("待退回");
+                        cancel.setVisibility(View.GONE);
                         break;
                 }
             }
@@ -199,6 +209,46 @@ public class PurchaseInforActivity extends AppCompatActivity {
 
     @OnClick(R.id.pi_cancel_btn)
     void cancel() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("提示：");
+        builder.setMessage("是否取消当前订单？");
+        builder.setNegativeButton("再想想", null);
+        builder.setPositiveButton("取消订单", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                backOrderByDate(BaseActivity.cookie, pdate);
+            }
+        });
+        builder.show();
+    }
 
+    private void backOrderByDate(String cookie, String pdate) {
+        PurchaseHttps.backOrder(cookie, pdate, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, @Nullable Response response) throws IOException {
+                if (response != null) {
+                    String resp = response.body().string();
+                    Log.e("syuban", resp);
+                    try {
+                        JSONObject res = new JSONObject(resp);
+                        String msg = res.getString("msg");
+                        Message message = Message.obtain();
+                        Bundle bundle = new Bundle();
+                        bundle.putString("msg", msg);
+                        bundle.putString("date", pdate);
+                        message.obj = bundle;
+                        message.what = BaseActivity.BACK_ORDER_MSG;
+                        BaseActivity.sendHandler.sendMessage(message);
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        });
     }
 }

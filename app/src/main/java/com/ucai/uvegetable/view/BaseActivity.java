@@ -51,7 +51,7 @@ public class BaseActivity extends AppCompatActivity {
     public static Handler postHandler;
     public static Handler sendHandler;
     public static LoginBean loginBean;
-    private static ProgressDialog progressDialog;
+    public static ProgressDialog progressDialog;
     public static Dialog loginDialog;
 
     // HomeFragment;
@@ -81,6 +81,7 @@ public class BaseActivity extends AppCompatActivity {
     public final static int SUCCESS_GET_DATE_AND_STATE = 14;
     public final static int SUCCESS_GET_PI_INFOR = 15;
     public final static int FAILURE_GET_PI_INFOR = 16;
+    public final static int BACK_ORDER_MSG = 17;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
