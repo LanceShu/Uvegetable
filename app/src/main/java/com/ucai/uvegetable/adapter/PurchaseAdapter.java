@@ -2,7 +2,9 @@ package com.ucai.uvegetable.adapter;
 
 import android.annotation.SuppressLint;
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +14,7 @@ import android.widget.TextView;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.PurchaseBean;
 import com.ucai.uvegetable.utils.ResourceUtil;
+import com.ucai.uvegetable.view.PurchaseInforActivity;
 
 import java.util.List;
 
@@ -60,7 +63,12 @@ public class PurchaseAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
                 break;
         }
         holder.inforBtn.setOnClickListener((view -> {
-
+            Intent intent = new Intent(context, PurchaseInforActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("date", purchaseBean.getDate());
+            bundle.putString("state", purchaseBean.getState());
+            intent.putExtra("data", bundle);
+            context.startActivity(intent);
         }));
     }
 

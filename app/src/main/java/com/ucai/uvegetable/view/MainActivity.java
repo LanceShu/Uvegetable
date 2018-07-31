@@ -6,6 +6,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.Window;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.fragment.HomeFragment;
