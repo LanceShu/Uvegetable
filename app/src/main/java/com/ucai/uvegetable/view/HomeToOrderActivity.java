@@ -2,7 +2,6 @@ package com.ucai.uvegetable.view;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -66,7 +65,7 @@ public class HomeToOrderActivity extends BaseActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.home_to_order_layout);
+        setContentView(R.layout.hto_layout);
         ButterKnife.bind(this);
         // init the data;
         initData();

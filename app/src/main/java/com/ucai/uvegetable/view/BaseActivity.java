@@ -79,6 +79,8 @@ public class BaseActivity extends AppCompatActivity {
     public final static int SUCCESS_GET_DATE = 12;
     public final static int FAILURE_GET_DATE = 13;
     public final static int SUCCESS_GET_DATE_AND_STATE = 14;
+    public final static int SUCCESS_GET_PI_INFOR = 15;
+    public final static int FAILURE_GET_PI_INFOR = 16;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

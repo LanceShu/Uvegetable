@@ -52,16 +52,16 @@ public class OrderFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.order_fragment, container, false);
         ButterKnife.bind(this, view);
+        // init data;
+        initData();
+        // init Wight();
+        initWight();
         return view;
     }
 
     @Override
     public void onStart() {
         super.onStart();
-        // init data;
-        initData();
-        // init Wight();
-        initWight();
     }
 
     private void initWight() {
@@ -86,7 +86,7 @@ public class OrderFragment extends Fragment {
                         break;
                     case BaseActivity.SUCCESS_GET_DATE_AND_STATE:
                         adapter.notifyDataSetChanged();
-//                        BaseActivity.displayProgressDialog();
+                        BaseActivity.displayProgressDialog();
                         break;
                 }
             }
@@ -102,7 +102,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void getAllOrderDate() {
-//        BaseActivity.showProgressDialog(getContext(), "正在加载订单...");
+        BaseActivity.showProgressDialog(getContext(), "正在加载订单...");
         OrderHttps.getAllUserOrderDates(BaseActivity.cookie, new Callback() {
             @Override
             public void onFailure(@Nullable Call call, @Nullable IOException e) {

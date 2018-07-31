@@ -8,7 +8,6 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.ucai.uvegetable.R;
-import com.ucai.uvegetable.beans.LoginBean;
 import com.ucai.uvegetable.httputils.UserHttps;
 
 import org.json.JSONException;
@@ -38,12 +37,7 @@ public class SplashActivity extends BaseActivity {
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
         getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
         setContentView(R.layout.splash_layout);
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                initData();
-            }
-        }).start();
+        new Thread(() -> initData()).start();
     }
 
     private void initData() {
