@@ -21,6 +21,7 @@ import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.utils.ToastUtil;
 import com.ucai.uvegetable.view.BaseActivity;
 import com.ucai.uvegetable.view.MeInforActivity;
+import com.ucai.uvegetable.view.MeOrderActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -135,7 +136,7 @@ public class MeFragment extends Fragment {
 
     @OnClick(R.id.me_order)
     void meOrder() {
-
+        getContext().startActivity(new Intent(getContext(), MeOrderActivity.class));
     }
 
     @OnClick(R.id.me_driver)

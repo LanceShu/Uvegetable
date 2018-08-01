@@ -38,6 +38,8 @@
         <activity android:name=".view.PurchaseInforActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".view.MeOrderActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
 
 </manifest>

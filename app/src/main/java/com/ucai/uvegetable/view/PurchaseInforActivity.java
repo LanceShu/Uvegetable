@@ -56,6 +56,9 @@ public class PurchaseInforActivity extends AppCompatActivity {
     @BindView(R.id.pi_state)
     TextView state;
 
+    @BindView(R.id.pi_total_price)
+    TextView total;
+
     @BindView(R.id.pi_correct_btn)
     Button correct;
 
@@ -69,6 +72,7 @@ public class PurchaseInforActivity extends AppCompatActivity {
     private PurchaseInforAdapter adapter;
     private String pdate;
     private String pstate;
+    private double totalPrice = 0.0;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -81,10 +85,13 @@ public class PurchaseInforActivity extends AppCompatActivity {
         // init wight;
         initWight();
         BaseActivity.sendHandler = new Handler() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case BaseActivity.SUCCESS_GET_PI_INFOR:
+                        totalPrice = Math.round(totalPrice * 100.0 / 100.0);
+                        total.setText("总价: " + String.valueOf(totalPrice) + " 元");
                         adapter.notifyDataSetChanged();
                         BaseActivity.displayProgressDialog();
                         break;
@@ -175,7 +182,9 @@ public class PurchaseInforActivity extends AppCompatActivity {
                                     productBean.setUnit(product.getString("unit"));
                                     productBean.setUser_price(product.getDouble("price"));
                                     productBean.setNum(product.getDouble("num"));
-                                    productBean.setPrice(product.getDouble("amount"));
+                                    double amount = product.getDouble("amount");
+                                    totalPrice += amount;
+                                    productBean.setPrice(amount);
                                     productBean.setImgfile(product.getString("imgfile"));
                                     productBean.setNote(product.getString("note"));
                                     productBean.setPcode(product.getString("pcode"));

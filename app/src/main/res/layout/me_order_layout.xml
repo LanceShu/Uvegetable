@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize"
+        android:background="@color/colorPrimary">
+
+        <ImageView
+            android:id="@+id/mo_back"
+            android:layout_width="20dp"
+            android:layout_height="20dp"
+            android:src="@drawable/cancel"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="18dp"/>
+
+        <TextView
+            android:layout_toEndOf="@id/mo_back"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="我的采购单"
+            android:textSize="18sp"
+            android:textColor="@color/white_1"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="16dp"/>
+
+    </RelativeLayout>
+
+    <fragment
+        android:id="@+id/mo_order_fragment"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:name="com.ucai.uvegetable.fragment.OrderFragment"/>
+
+</LinearLayout>
