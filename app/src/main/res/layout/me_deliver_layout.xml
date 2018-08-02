@@ -30,10 +30,17 @@
             android:layout_marginStart="16dp"/>
     </RelativeLayout>
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/md_recycler"
-        android:padding="4dp"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/md_refresh"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:padding="4dp">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/md_recycler"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"/>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 
 </LinearLayout>
