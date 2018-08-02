@@ -22,7 +22,7 @@
     <!--me_fragment-->
     <string name="me_login_register">登录/注册</string>
     <string name="me_information">个人信息</string>
-    <string name="me_order">我的订单</string>
+    <string name="me_order">采购单</string>
     <string name="me_driver">送货单</string>
     <string name="me_setting">设置</string>
     <string name="me_btn_exit">注销用户</string>

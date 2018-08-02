@@ -10,7 +10,7 @@ import okhttp3.Request;
  * on 2018/7/31.
  */
 
-public class PurchaseHttps {
+public class PurchaseHttpUtil {
     public static void getOneWithCategoryByDateAndState(String cookie, String date
             , String state, Callback callback) {
         String url = "http://123.206.13.129:8060/guest/order/findOneWithCategoryByDateAndState";

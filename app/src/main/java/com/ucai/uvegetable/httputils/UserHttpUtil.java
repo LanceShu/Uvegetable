@@ -14,7 +14,7 @@ import okhttp3.Request;
  * on 2018/7/14.
  */
 
-public class UserHttps {
+public class UserHttpUtil {
     public static void requestRegister(RegisterBean registerBean, Callback callback){
         OkHttpClient client = new OkHttpClient();
         FormBody formBody = new FormBody.Builder()

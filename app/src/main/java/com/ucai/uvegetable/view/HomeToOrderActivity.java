@@ -20,7 +20,8 @@ import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.OrderAdapter;
 import com.ucai.uvegetable.beans.OrderBean;
 import com.ucai.uvegetable.beans.OrderedProductBean;
-import com.ucai.uvegetable.httputils.OrderHttps;
+import com.ucai.uvegetable.httputils.OrderHttpUtil;
+import com.ucai.uvegetable.utils.ProductUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -60,6 +61,7 @@ public class HomeToOrderActivity extends BaseActivity {
 
     LinearLayoutManager layoutManager;
     OrderAdapter orderAdapter;
+    private String priceResp;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -87,6 +89,8 @@ public class HomeToOrderActivity extends BaseActivity {
                         displayProgressDialog();
                         String errorContent = (String) msg.obj;
                         showReminderDialog(HomeToOrderActivity.this, errorContent);
+                        break;
+                    case GET_USER_PRICELIST:
                         break;
                 }
             }
@@ -131,15 +135,35 @@ public class HomeToOrderActivity extends BaseActivity {
     }
 
     private void initData() {
-        if (BaseActivity.resp != null && BaseActivity.orderedProductBeans.size() == 0) {
-            getAllProductList(BaseActivity.resp);
+        if (resp != null && orderedProductBeans.size() == 0) {
+//            getLatestPricelist(cookie);
+            getAllProductList(resp);
         }
-        if (BaseActivity.saveOrderedProductBeans == null) {
-            BaseActivity.saveOrderedProductBeans = new ArrayList<>();
+        if (saveOrderedProductBeans == null) {
+            saveOrderedProductBeans = new ArrayList<>();
         }
-        if (BaseActivity.saveOrderedProductBeans.size() == 0) {
-            BaseActivity.saveOrderedProductBeans.addAll(BaseActivity.orderedProductBeans);
+        if (saveOrderedProductBeans.size() == 0) {
+            saveOrderedProductBeans.addAll(orderedProductBeans);
         }
+    }
+
+    private void getLatestPricelist(String cookie) {
+        OrderHttpUtil.getLatestPricelistWithNumAndCategory(cookie, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                Log.e("syubanlatest", resp);
+                Message message = Message.obtain();
+                message.obj = resp;
+                message.what = GET_USER_PRICELIST;
+                sendHandler.sendMessage(message);
+            }
+        });
     }
 
     private void getAllProductList(String resp) {
@@ -183,7 +207,7 @@ public class HomeToOrderActivity extends BaseActivity {
                 showProgressDialog(HomeToOrderActivity.this, "正在提交采购单中...");
                 String orderListJson = objectToJson(saveOrderedProductBeans);
                 Log.e("json", orderListJson);
-                OrderHttps.submitNewOrderList(orderListJson, cookie, new Callback() {
+                OrderHttpUtil.submitNewOrderList(orderListJson, cookie, new Callback() {
                     @Override
                     public void onFailure(Call call, IOException e) {
                         e.printStackTrace();

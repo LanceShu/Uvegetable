@@ -18,7 +18,7 @@ import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.HomeProductAdapter;
-import com.ucai.uvegetable.httputils.ProductHttps;
+import com.ucai.uvegetable.httputils.ProductHttpUtil;
 import com.ucai.uvegetable.utils.ProductUtil;
 import com.ucai.uvegetable.utils.ToastUtil;
 import com.ucai.uvegetable.view.BaseActivity;
@@ -162,7 +162,7 @@ public class HomeFragment extends Fragment {
     // when user login in the HomeFragment, get user's price list firstly;
     private void initData() {
         if (BaseActivity.categories.size() == 0) {
-            ProductHttps.getUserPrice(BaseActivity.cookie, new Callback() {
+            ProductHttpUtil.getUserPrice(BaseActivity.cookie, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
@@ -193,7 +193,7 @@ public class HomeFragment extends Fragment {
 
     // if not get user's price list, get market's price list;
     private void getMarketPrice() {
-        ProductHttps.findCategoryList(BaseActivity.cookie, new Callback() {
+        ProductHttpUtil.findCategoryList(BaseActivity.cookie, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

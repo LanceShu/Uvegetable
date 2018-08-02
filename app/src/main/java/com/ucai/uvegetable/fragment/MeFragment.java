@@ -20,6 +20,7 @@ import android.widget.TextView;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.utils.ToastUtil;
 import com.ucai.uvegetable.view.BaseActivity;
+import com.ucai.uvegetable.view.MeDeliverActivity;
 import com.ucai.uvegetable.view.MeInforActivity;
 import com.ucai.uvegetable.view.MeOrderActivity;
 
@@ -141,7 +142,7 @@ public class MeFragment extends Fragment {
 
     @OnClick(R.id.me_driver)
     void meDriver() {
-
+        getContext().startActivity(new Intent(getContext(), MeDeliverActivity.class));
     }
 
     @OnClick(R.id.me_setting)

@@ -9,7 +9,7 @@ import okhttp3.Request;
  * on 2018/7/18.
  */
 
-public class ProductHttps {
+public class ProductHttpUtil {
     public static void findCategoryList(String cookie, Callback callback) {
         OkHttpClient client = new OkHttpClient();
         Request request = new Request.Builder()

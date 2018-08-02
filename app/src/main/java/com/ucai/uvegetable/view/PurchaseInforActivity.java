@@ -21,7 +21,7 @@ import android.widget.TextView;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.PurchaseInforAdapter;
 import com.ucai.uvegetable.beans.ProductBean;
-import com.ucai.uvegetable.httputils.PurchaseHttps;
+import com.ucai.uvegetable.httputils.PurchaseHttpUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -154,7 +154,7 @@ public class PurchaseInforActivity extends AppCompatActivity {
     }
 
     private void getOneInforByDateAndState(String cookie, String date, String state) {
-        PurchaseHttps.getOneWithCategoryByDateAndState(cookie, date, state, new Callback() {
+        PurchaseHttpUtil.getOneWithCategoryByDateAndState(cookie, date, state, new Callback() {
             @Override
             public void onFailure(@Nullable Call call, @Nullable IOException e) {
                 if (e != null) {
@@ -232,7 +232,7 @@ public class PurchaseInforActivity extends AppCompatActivity {
     }
 
     private void backOrderByDate(String cookie, String pdate) {
-        PurchaseHttps.backOrder(cookie, pdate, new Callback() {
+        PurchaseHttpUtil.backOrder(cookie, pdate, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

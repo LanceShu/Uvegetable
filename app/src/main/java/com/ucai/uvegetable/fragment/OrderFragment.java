@@ -18,7 +18,7 @@ import android.view.ViewGroup;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.PurchaseAdapter;
 import com.ucai.uvegetable.beans.PurchaseBean;
-import com.ucai.uvegetable.httputils.OrderHttps;
+import com.ucai.uvegetable.httputils.OrderHttpUtil;
 import com.ucai.uvegetable.view.BaseActivity;
 
 import org.json.JSONArray;
@@ -42,7 +42,6 @@ import okhttp3.Response;
 
 public class OrderFragment extends Fragment {
     private List<PurchaseBean> purchaseBeanList;
-    private int count = 0;
     private PurchaseAdapter adapter;
 
     @BindView(R.id.of_recycler)
@@ -132,7 +131,7 @@ public class OrderFragment extends Fragment {
     }
 
     private void getAllOrderDateAndState() {
-        OrderHttps.getAllUserOrderDates(BaseActivity.cookie, new Callback() {
+        OrderHttpUtil.getAllUserOrderDates(BaseActivity.cookie, new Callback() {
             @Override
             public void onFailure(@Nullable Call call, @Nullable IOException e) {
                 if (e != null) {
@@ -148,7 +147,6 @@ public class OrderFragment extends Fragment {
                     if (resp != null) {
                         try {
                             JSONObject res = new JSONObject(resp);
-                            count = res.getInt("count");
                             String msg = res.getString("msg");
                             if (msg.equals("成功")) {
                                 JSONArray data = res.getJSONArray("data");

@@ -8,7 +8,7 @@ import android.util.Log;
 import android.view.WindowManager;
 
 import com.ucai.uvegetable.R;
-import com.ucai.uvegetable.httputils.UserHttps;
+import com.ucai.uvegetable.httputils.UserHttpUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -46,7 +46,7 @@ public class SplashActivity extends BaseActivity {
         String phone = sharedPreferences.getString("phone", "");
         String pwd = sharedPreferences.getString("pwd", "");
         if (isLogined && !phone.equals("") && !pwd.equals("")) {
-            UserHttps.requestLogin(phone, pwd, new Callback() {
+            UserHttpUtil.requestLogin(phone, pwd, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();

@@ -3,15 +3,13 @@ package com.ucai.uvegetable.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
-import com.ucai.uvegetable.beans.LoginBean;
-import com.ucai.uvegetable.httputils.UserHttps;
+import com.ucai.uvegetable.httputils.UserHttpUtil;
 
 import java.io.IOException;
 
@@ -85,7 +83,7 @@ public class MeInforActivity extends AppCompatActivity{
     }
 
     private void httpRequestUpdate(String id, String name, String addr, String phone) {
-        UserHttps.requestUpdateInfor(id, name, addr, phone, BaseActivity.cookie, new Callback() {
+        UserHttpUtil.requestUpdateInfor(id, name, addr, phone, BaseActivity.cookie, new Callback() {
             @Override
             public void onFailure(Call call, IOException e) {
                 e.printStackTrace();

@@ -67,7 +67,9 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
         holder.price.setText(orderedProductBean.getPrice()+"元/"+ orderedProductBean.getUnit());
         holder.num.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_NUMBER_FLAG_DECIMAL);
         holder.num.setHint(String.valueOf(orderedProductBean.getNum()));
+//        holder.num.setHint("0.0");
         holder.total.setText(String.valueOf(orderedProductBean.getTotalPrice()));
+//        holder.total.setText("0.0");
         holder.num.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {

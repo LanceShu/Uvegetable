@@ -22,7 +22,7 @@ import com.ucai.uvegetable.beans.CategoryBean;
 import com.ucai.uvegetable.beans.LoginBean;
 import com.ucai.uvegetable.beans.OrderedProductBean;
 import com.ucai.uvegetable.beans.ProductBean;
-import com.ucai.uvegetable.httputils.UserHttps;
+import com.ucai.uvegetable.httputils.UserHttpUtil;
 import com.ucai.uvegetable.utils.EditorUtil;
 import com.ucai.uvegetable.utils.ToastUtil;
 
@@ -82,6 +82,9 @@ public class BaseActivity extends AppCompatActivity {
     public final static int SUCCESS_GET_PI_INFOR = 15;
     public final static int FAILURE_GET_PI_INFOR = 16;
     public final static int BACK_ORDER_MSG = 17;
+    public final static int SUCCESS_GET_DELIVER_DATE_AND_STATE = 18;
+    public final static int FAILURE_GET_DELIVER_DATE_AND_STATE = 19;
+    public final static int GET_USER_PRICELIST = 20;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -169,7 +172,7 @@ public class BaseActivity extends AppCompatActivity {
         if (phone.equals("") || pwd.equals("")) {
             ToastUtil.show(context, "手机号或密码不能为空");
         } else {
-            UserHttps.requestLogin(phone, pwd, new Callback() {
+            UserHttpUtil.requestLogin(phone, pwd, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
                     e.printStackTrace();
