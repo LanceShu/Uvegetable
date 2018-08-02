@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.DeliverBean;
 import com.ucai.uvegetable.beans.PurchaseBean;
+import com.ucai.uvegetable.view.DeliverActivity;
 import com.ucai.uvegetable.view.PurchaseInforActivity;
 
 import java.util.List;
@@ -41,9 +42,9 @@ public class DeliverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder viewHolder, int position) {
         ViewHolder holder = (ViewHolder) viewHolder;
-        DeliverBean purchaseBean = deliverBeanList.get(position);
-        holder.date.setText(purchaseBean.getDate());
-        String stateNum = purchaseBean.getState();
+        DeliverBean deliverBean = deliverBeanList.get(position);
+        holder.date.setText(deliverBean.getDate());
+        String stateNum = deliverBean.getState();
         switch (stateNum.charAt(0)) {
             case '1':
                 holder.state.setTextColor(Color.parseColor("#c79145"));
@@ -55,12 +56,12 @@ public class DeliverAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder
                 break;
         }
         holder.inforBtn.setOnClickListener((view -> {
-//            Intent intent = new Intent(context, PurchaseInforActivity.class);
-//            Bundle bundle = new Bundle();
-//            bundle.putString("date", purchaseBean.getDate());
-//            bundle.putString("state", purchaseBean.getState());
-//            intent.putExtra("data", bundle);
-//            context.startActivity(intent);
+            Intent intent = new Intent(context, DeliverActivity.class);
+            Bundle bundle = new Bundle();
+            bundle.putString("date", deliverBean.getDate());
+            bundle.putString("state", deliverBean.getState());
+            intent.putExtra("data", bundle);
+            context.startActivity(intent);
         }));
     }
 

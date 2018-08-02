@@ -60,6 +60,12 @@ public class MeDeliverActivity extends AppCompatActivity {
         initData();
         // init Wight();
         initWight();
+    }
+
+    @SuppressLint("HandlerLeak")
+    @Override
+    protected void onStart() {
+        super.onStart();
         BaseActivity.sendHandler = new Handler() {
             @Override
             public void handleMessage(Message msg) {
@@ -76,6 +82,9 @@ public class MeDeliverActivity extends AppCompatActivity {
                     case BaseActivity.FAILURE_GET_DELIVER_DATE_AND_STATE:
                         String errMsg = (String) msg.obj;
                         BaseActivity.showReminderDialog(MeDeliverActivity.this, errMsg);
+                        break;
+                    case BaseActivity.SUCCESS_RECEIVE:
+                        getAllDeliverDateByUser();
                         break;
                 }
             }

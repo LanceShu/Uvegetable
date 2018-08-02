@@ -39,11 +39,15 @@
             android:windowSoftInputMode="stateHidden"/>
         <activity android:name=".view.PurchaseInforActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
-            android:windowSoftInputMode="stateAlwaysHidden"/>
+            android:windowSoftInputMode="stateAlwaysHidden"
+            android:launchMode="singleTask"/>
         <activity android:name=".view.MeOrderActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
         <activity android:name=".view.MeDeliverActivity"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
+        <activity android:name=".view.DeliverActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:launchMode="singleTask"/>
     </application>
 
 </manifest>

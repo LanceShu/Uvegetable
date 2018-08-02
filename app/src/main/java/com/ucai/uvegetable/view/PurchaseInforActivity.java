@@ -98,6 +98,7 @@ public class PurchaseInforActivity extends AppCompatActivity {
                     case BaseActivity.FAILURE_GET_PI_INFOR:
                         String err = (String) msg.obj;
                         BaseActivity.showReminderDialog(PurchaseInforActivity.this, err);
+                        BaseActivity.displayProgressDialog();
                         break;
                     case BaseActivity.BACK_ORDER_MSG:
                         Bundle bundle = (Bundle) msg.obj;

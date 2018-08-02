@@ -12,20 +12,22 @@
 
         <ImageView
             android:id="@+id/hto_back"
-            android:layout_width="28dp"
-            android:layout_height="28dp"
-            android:padding="4dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
             android:layout_centerVertical="true"
-            android:layout_marginStart="16sp"
+            android:layout_marginStart="16dp"
             android:src="@drawable/cancel"/>
 
         <TextView
+            android:layout_toEndOf="@id/hto_back"
+            android:layout_marginStart="16dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="采购单"
             android:textColor="@color/white_1"
-            android:textSize="20sp"
-            android:layout_centerInParent="true"/>
+            android:textSize="18sp"
+            android:layout_centerVertical="true"/>
 
     </RelativeLayout>
 

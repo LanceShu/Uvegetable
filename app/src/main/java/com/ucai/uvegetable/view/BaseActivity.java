@@ -85,6 +85,10 @@ public class BaseActivity extends AppCompatActivity {
     public final static int SUCCESS_GET_DELIVER_DATE_AND_STATE = 18;
     public final static int FAILURE_GET_DELIVER_DATE_AND_STATE = 19;
     public final static int GET_USER_PRICELIST = 20;
+    public final static int SUCCESS_GET_DRIVER = 21;
+    public final static int FAILURE_GET_DRIVER = 22;
+    public final static int SUCCESS_RECEIVE = 23;
+    public final static int FAILURE_RECEIVE = 24;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

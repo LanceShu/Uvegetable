@@ -124,9 +124,8 @@
     <LinearLayout
         android:id="@+id/pi_btn_layout"
         android:layout_width="match_parent"
-        android:layout_height="40dp"
+        android:layout_height="54dp"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="2dp"
         android:layout_marginTop="2dp"
         android:orientation="horizontal">
 
@@ -134,7 +133,9 @@
             android:id="@+id/pi_correct_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="6dp"
+            android:layout_gravity="center"
             android:text="确认"
             android:textSize="18sp"
             android:background="@drawable/pi_correct_btn_back"
@@ -146,7 +147,9 @@
             android:id="@+id/pi_cancel_btn"
             android:layout_width="0dp"
             android:layout_weight="1"
-            android:layout_height="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="6dp"
+            android:layout_gravity="center"
             android:text="取消订单"
             android:textSize="18sp"
             android:background="@drawable/pi_cancel_btn_back"
