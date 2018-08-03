@@ -90,15 +90,15 @@ public class PurchaseInforActivity extends AppCompatActivity {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case BaseActivity.SUCCESS_GET_PI_INFOR:
-                        totalPrice = Math.round(totalPrice * 100.0 / 100.0);
+                        totalPrice = Math.round(totalPrice * 100.0) / 100.0;
                         total.setText("总价: " + String.valueOf(totalPrice) + " 元");
                         adapter.notifyDataSetChanged();
                         BaseActivity.displayProgressDialog();
                         break;
                     case BaseActivity.FAILURE_GET_PI_INFOR:
+                        BaseActivity.displayProgressDialog();
                         String err = (String) msg.obj;
                         BaseActivity.showReminderDialog(PurchaseInforActivity.this, err);
-                        BaseActivity.displayProgressDialog();
                         break;
                     case BaseActivity.BACK_ORDER_MSG:
                         Bundle bundle = (Bundle) msg.obj;

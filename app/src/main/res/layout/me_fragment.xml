@@ -142,7 +142,8 @@
         android:layout_height="48dp"
         android:orientation="horizontal"
         android:layout_marginTop="18dp"
-        android:background="@color/white_1">
+        android:background="@color/white_1"
+        android:visibility="gone">
 
         <ImageView
             android:layout_width="24dp"

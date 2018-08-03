@@ -6,11 +6,29 @@ package com.ucai.uvegetable.beans;
  */
 
 public class DriverBean {
+    private String deliverDate;
+    private String orderDate;
     private int id;
     private String name;
     private String cardid;
     private String mobile;
     private String note;
+
+    public void setDeliverDate(String deliverDate) {
+        this.deliverDate = deliverDate;
+    }
+
+    public void setOrderDate(String orderDate) {
+        this.orderDate = orderDate;
+    }
+
+    public String getDeliverDate() {
+        return deliverDate;
+    }
+
+    public String getOrderDate() {
+        return orderDate;
+    }
 
     public void setNote(String note) {
         this.note = note;

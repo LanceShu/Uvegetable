@@ -81,10 +81,10 @@ public class MeDeliverActivity extends AppCompatActivity {
                         break;
                     case BaseActivity.FAILURE_GET_DELIVER_DATE_AND_STATE:
                         String errMsg = (String) msg.obj;
+                        BaseActivity.displayProgressDialog();
                         BaseActivity.showReminderDialog(MeDeliverActivity.this, errMsg);
                         break;
                     case BaseActivity.SUCCESS_RECEIVE:
-                        getAllDeliverDateByUser();
                         break;
                 }
             }

@@ -82,8 +82,16 @@ public class HomeToOrderActivity extends BaseActivity {
                         break;
                     case SUCCESS_SEND_ORDER:
                         displayProgressDialog();
-                        showReminderDialog(HomeToOrderActivity.this, "采购单提交成功!");
-                        finish();
+                        AlertDialog.Builder builder = new AlertDialog.Builder(HomeToOrderActivity.this);
+                        builder.setTitle("提示：");
+                        builder.setMessage("采购单提交成功!");
+                        builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                finish();
+                            }
+                        });
+                        builder.show();
                         break;
                     case FAILURE_SEND_ORDER:
                         displayProgressDialog();

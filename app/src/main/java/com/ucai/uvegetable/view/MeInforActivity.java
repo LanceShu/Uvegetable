@@ -3,6 +3,7 @@ package com.ucai.uvegetable.view;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -75,7 +76,16 @@ public class MeInforActivity extends AppCompatActivity{
             String name = meInforName.getText().toString();
             String addr = meInforAddr.getText().toString();
             String phone = meInforPhone.getText().toString();
-            httpRequestUpdate(id, name, addr, phone);
+            Log.e("syuban", addr.length() + "  " +phone.length());
+            if (name.equals("")) {
+                BaseActivity.showReminderDialog(this, "单位名称不能为空！");
+            } else if (addr.equals("")) {
+                BaseActivity.showReminderDialog(this, "单位地址不能为空！");
+            } else {
+                httpRequestUpdate(id, name, addr, phone);
+                diseditable();
+                isEdit = false;
+            }
         } else {
             editable();
             isEdit = true;

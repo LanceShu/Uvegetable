@@ -174,7 +174,32 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="match_parent"
-                android:text="日期："
+                android:text="下单日期："
+                android:textColor="@color/font_color"
+                android:gravity="center"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:id="@+id/order_date"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:textColor="@color/font_color"
+                android:gravity="center"
+                android:textSize="16sp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:text="发货日期："
                 android:textColor="@color/font_color"
                 android:gravity="center"
                 android:textSize="16sp"/>

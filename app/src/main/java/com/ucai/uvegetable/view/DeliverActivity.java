@@ -61,8 +61,11 @@ public class DeliverActivity extends AppCompatActivity {
     @BindView(R.id.deliver_state)
     TextView dstate;
 
+    @BindView(R.id.order_date)
+    TextView dorderDate;
+
     @BindView(R.id.deliver_date)
-    TextView ddate;
+    TextView ddeliverDate;
 
     @BindView(R.id.deliver_look)
     Button dlook;
@@ -105,7 +108,8 @@ public class DeliverActivity extends AppCompatActivity {
                             dstate.setTextColor(Color.parseColor("#3abf93"));
                             dstate.setText("已收货");
                         }
-                        ddate.setText(date);
+                        dorderDate.setText(driverBean.getOrderDate());
+                        ddeliverDate.setText(driverBean.getDeliverDate());
                         BaseActivity.displayProgressDialog();
                         break;
                     case BaseActivity.FAILURE_GET_DRIVER:
@@ -158,7 +162,10 @@ public class DeliverActivity extends AppCompatActivity {
                     JSONObject res = new JSONObject(resp);
                     String msg = res.getString("msg");
                     if (msg.equals("成功")) {
-                        JSONObject driver = res.getJSONObject("data").getJSONObject("driver");
+                        JSONObject datas = res.getJSONObject("data");
+                        driverBean.setDeliverDate(datas.getString("deliverDate"));
+                        driverBean.setOrderDate(datas.getString("orderDate"));
+                        JSONObject driver = datas.getJSONObject("driver");
                         driverBean.setId(driver.getInt("id"));
                         driverBean.setName(driver.getString("name"));
                         driverBean.setCardid(driver.getString("cardid"));
