@@ -18,15 +18,24 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
+import com.ucai.uvegetable.httputils.UserHttpUtil;
 import com.ucai.uvegetable.utils.ToastUtil;
 import com.ucai.uvegetable.view.BaseActivity;
 import com.ucai.uvegetable.view.MeDeliverActivity;
 import com.ucai.uvegetable.view.MeInforActivity;
 import com.ucai.uvegetable.view.MeOrderActivity;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.IOException;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import okhttp3.Call;
+import okhttp3.Callback;
+import okhttp3.Response;
 
 /**
  * Created by SyubanLiu
@@ -160,9 +169,6 @@ public class MeFragment extends Fragment {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 loginoutUser();
-                BaseActivity.postHandler.post(() -> {
-                    invisibleNameAndPhone();
-                });
             }
         });
         builder.setNegativeButton("取消", null);
@@ -180,5 +186,37 @@ public class MeFragment extends Fragment {
         BaseActivity.cookie = "";
         BaseActivity.currentProducts = null;
         BaseActivity.orderedProductBeans = null;
+        BaseActivity.showProgressDialog(getContext(), "正在注销...");
+        UserHttpUtil.logoutUser(BaseActivity.cookie, new Callback() {
+            @Override
+            public void onFailure(Call call, IOException e) {
+                e.printStackTrace();
+            }
+
+            @Override
+            public void onResponse(Call call, Response response) throws IOException {
+                String resp = response.body().string();
+                Log.e("syuban", resp);
+                try {
+                    JSONObject res = new JSONObject(resp);
+                    String msg = res.getString("msg");
+                    if (msg.equals("注销成功")) {
+                        BaseActivity.postHandler.post(() -> {
+                            BaseActivity.displayProgressDialog();
+                            BaseActivity.showReminderDialog(getContext(), msg);
+                            invisibleNameAndPhone();
+                            mBtnExit.setVisibility(View.GONE);
+                        });
+                    } else {
+                        BaseActivity.postHandler.post(() -> {
+                            BaseActivity.displayProgressDialog();
+                            BaseActivity.showReminderDialog(getContext(), msg);
+                        });
+                    }
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+            }
+        });
     }
 }

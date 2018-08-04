@@ -13,6 +13,7 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -143,7 +144,9 @@ public class BaseActivity extends AppCompatActivity {
             loginDialog.setContentView(R.layout.login_layout);
             initDialogWight(context, loginDialog, originType);
             loginDialog.setCancelable(false);
-            loginDialog.show();
+            if (!loginDialog.isShowing()) {
+                loginDialog.show();
+            }
         }
     }
 
@@ -216,6 +219,11 @@ public class BaseActivity extends AppCompatActivity {
                                 sendHandler.sendEmptyMessage(UPDATE_HOMEFRAGMENT);
                             }
                             displayProgressDialog();
+                            postHandler.post(() -> {
+                                if (loginDialog.isShowing()) {
+                                    loginDialog.dismiss();
+                                }
+                            });
                         } else {
                             postHandler.post(() -> {
                                 displayProgressDialog();
@@ -236,6 +244,11 @@ public class BaseActivity extends AppCompatActivity {
         builder.setTitle(content);
         builder.setPositiveButton("好的", null);
         builder.show();
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
     }
 
     @Override

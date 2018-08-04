@@ -110,8 +110,10 @@ public class HomeFragment extends Fragment {
                         BaseActivity.postHandler.postDelayed(BaseActivity::displayProgressDialog, 1000);
                         break;
                     case BaseActivity.UPDATE_HOMEFRAGMENT:
-                        ToastUtil.show(getContext(), "登录成功");
-                        BaseActivity.loginDialog.dismiss();
+                        BaseActivity.showReminderDialog(getContext(), "登录成功！");
+                        if (BaseActivity.loginDialog.isShowing()) {
+                            BaseActivity.loginDialog.dismiss();
+                        }
                         initWight();
                         break;
                 }
@@ -277,6 +279,8 @@ public class HomeFragment extends Fragment {
     void orderBtn() {
         if (BaseActivity.isHas) {
             startActivity(new Intent(getContext(), HomeToOrderActivity.class));
+        } else if(!BaseActivity.isLogined) {
+            BaseActivity.showHintDialog(getContext(), "请您先登录...");
         } else {
             BaseActivity.showHintDialog(getContext(), "您还未有报价单，请先报价...");
         }

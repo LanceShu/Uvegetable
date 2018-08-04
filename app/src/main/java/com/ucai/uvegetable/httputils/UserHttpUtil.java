@@ -60,4 +60,14 @@ public class UserHttpUtil {
                 .build();
         client.newCall(request).enqueue(callback);
     }
+
+    public static void logoutUser(String cookie, Callback callback) {
+        String url = "http://123.206.13.129:8060/guest/logout";
+        OkHttpClient client = new OkHttpClient();
+        Request request = new Request.Builder()
+                .url(url)
+                .addHeader("Cookie", cookie)
+                .build();
+        client.newCall(request).enqueue(callback);
+    }
 }

@@ -32,9 +32,6 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     @Override
     protected void onResume() {
         super.onResume();
-        if (!isLogined) {
-            showLoginDialog(this, MAINACTIVITY);
-        }
     }
 
     private void initData() {
@@ -44,6 +41,9 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
     }
 
     private void initWight() {
+        if (!isLogined) {
+            showLoginDialog(this, MAINACTIVITY);
+        }
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
         FragmentUtil.addFragment(fragmentManager, new HomeFragment(), parentGroupId);

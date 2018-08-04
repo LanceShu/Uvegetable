@@ -20,8 +20,9 @@
 
         <ImageView
             android:id="@+id/login_next"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:padding="5dp"
             android:src="@drawable/cancel"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"/>
@@ -58,8 +59,9 @@
 
         <ImageView
             android:id="@+id/login_clear_name"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:padding="4dp"
             android:layout_gravity="center"
             android:src="@drawable/login_clear"/>
 
@@ -94,8 +96,9 @@
 
         <ImageView
             android:id="@+id/login_clear_pass"
-            android:layout_width="18dp"
-            android:layout_height="18dp"
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:padding="4dp"
             android:layout_gravity="center"
             android:src="@drawable/login_clear"/>
 

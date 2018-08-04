@@ -44,13 +44,20 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         Glide.with(context)
                 .load("http://123.206.13.129:8080/manage/" + productBean.getImgfile())
                 .skipMemoryCache(false)
-                .override(120, 120)
+                .override(200, 200)
                 .into(holder.productImage);
         holder.productName.setText(productBean.getName());
         String productUnit = " 元/" + productBean.getUnit();
         String userPrice = productBean.getUser_price() == 0.0 ? "--" : productBean.getUser_price()+"";
         holder.productPrice.setText("市场价： " + productBean.getPrice()
                 + productUnit + "\n优惠价： " + userPrice + productUnit);
+        holder.productImage.setOnClickListener((view -> {
+            Glide.with(context)
+                    .load("http://123.206.13.129:8080/manage/" + productBean.getImgfile())
+                    .skipMemoryCache(false)
+                    .override(200, 200)
+                    .into(holder.productImage);
+        }));
     }
 
     @Override
