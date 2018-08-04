@@ -77,6 +77,9 @@ public class OrderFragment extends Fragment {
             public void handleMessage(Message msg) {
                 switch (msg.what) {
                     case BaseActivity.FAILURE_GET_DATE:
+                        if (BaseActivity.progressDialog.isShowing()) {
+                            BaseActivity.displayProgressDialog();
+                        }
                         String errMsg = (String) msg.obj;
                         BaseActivity.showReminderDialog(getContext(), errMsg);
                         break;
@@ -148,8 +151,9 @@ public class OrderFragment extends Fragment {
                         try {
                             JSONObject res = new JSONObject(resp);
                             String msg = res.getString("msg");
-                            if (msg.equals("成功")) {
-                                JSONArray data = res.getJSONArray("data");
+                            JSONArray data = res.getJSONArray("data");
+                            Log.e("syuban", msg);
+                            if (msg.equals("成功") && data.length() > 0) {
                                 for (int i = 0; i < data.length(); i++) {
                                     JSONObject dateData = data.getJSONObject(i);
                                     String date = dateData.getString("date");
@@ -164,7 +168,11 @@ public class OrderFragment extends Fragment {
                                 BaseActivity.sendHandler.sendEmptyMessage(BaseActivity.SUCCESS_GET_DATE_AND_STATE);
                             } else {
                                 Message message = Message.obtain();
-                                message.obj = msg;
+                                if (msg.equals("成功") && data.length() == 0){
+                                    message.obj = "暂无采购单";
+                                } else {
+                                    message.obj = msg;
+                                }
                                 message.what = BaseActivity.FAILURE_GET_DATE;
                                 BaseActivity.sendHandler.sendMessage(message);
                             }

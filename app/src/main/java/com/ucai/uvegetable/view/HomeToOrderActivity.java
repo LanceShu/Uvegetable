@@ -50,8 +50,11 @@ public class HomeToOrderActivity extends BaseActivity {
     @BindView(R.id.hto_btn)
     Button orderBtn;
 
-    @BindView(R.id.hto_back)
+    @BindView(R.id.title_cancel)
     ImageView orderBack;
+
+    @BindView(R.id.title_content)
+    TextView content;
 
     @BindView(R.id.hto_total_price)
     TextView totalPrice;
@@ -106,6 +109,7 @@ public class HomeToOrderActivity extends BaseActivity {
     }
 
     private void initWight() {
+        content.setText("采购单");
         layoutManager = new LinearLayoutManager(this);
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         orderList.setLayoutManager(layoutManager);
@@ -283,7 +287,7 @@ public class HomeToOrderActivity extends BaseActivity {
         builder.show();
     }
 
-    @OnClick(R.id.hto_back)
+    @OnClick(R.id.title_cancel)
     void orderBack() {
         backToHome();
     }

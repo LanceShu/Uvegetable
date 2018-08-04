@@ -158,8 +158,8 @@ public class BaseActivity extends AppCompatActivity {
         clearName.setOnClickListener((view -> loginPhone.setText("")));
         clearPass.setOnClickListener((view -> loginPass.setText("")));
         loginIn.setOnClickListener((view -> {
-//            BaseActivity.showProgressDialog(this, "登录中，请稍后...");
             loginUser(context, loginPhone.getText().toString(), loginPass.getText().toString(), originType);
+//            BaseActivity.showProgressDialog(this, "登录中，请稍后...");
         }));
         loginRegister.setOnClickListener((view -> {
             context.startActivity(new Intent(context, RegisterActivity.class));
@@ -173,9 +173,12 @@ public class BaseActivity extends AppCompatActivity {
     }
 
     private static void loginUser(Context context, String phone, String pwd, int originType) {
-        if (phone.equals("") || pwd.equals("")) {
-            ToastUtil.show(context, "手机号或密码不能为空");
+        if (phone.length() != 11) {
+            showReminderDialog(context, "手机号不能为空或者格式不正确!");
+        } else if (pwd.length() == 0) {
+            showReminderDialog(context, "密码不能为空!");
         } else {
+            showProgressDialog(context, "正在登录...");
             UserHttpUtil.requestLogin(phone, pwd, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -212,10 +215,11 @@ public class BaseActivity extends AppCompatActivity {
                             } else if (originType == MAINACTIVITY) {
                                 sendHandler.sendEmptyMessage(UPDATE_HOMEFRAGMENT);
                             }
+                            displayProgressDialog();
                         } else {
                             postHandler.post(() -> {
-                                ToastUtil.show(context, msg);
-//                                BaseActivity.displayProgressDialog();
+                                displayProgressDialog();
+                                showReminderDialog(context, msg);
                             });
                         }
                     } catch (JSONException e) {

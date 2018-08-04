@@ -3,23 +3,27 @@
     android:layout_width="match_parent"
     android:layout_height="?attr/actionBarSize"
     android:orientation="horizontal"
-    android:background="@color/colorPrimary">
+    android:background="@color/colorPrimary"
+    android:id="@+id/toolbar">
+
+    <ImageView
+        android:id="@+id/title_cancel"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:padding="5dp"
+        android:src="@drawable/cancel"
+        android:layout_centerVertical="true"
+        android:layout_marginStart="16dp"/>
 
     <TextView
         android:id="@+id/title_content"
+        android:layout_toEndOf="@id/title_cancel"
+        android:layout_marginStart="16dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/white_1"
         android:textSize="18sp"
-        android:layout_centerInParent="true"/>
-
-    <ImageView
-        android:id="@+id/title_cancel"
-        android:layout_width="50dp"
-        android:layout_height="match_parent"
-        android:src="@drawable/cancel"
-        android:layout_centerVertical="true"
-        android:paddingStart="18dp"
-        android:paddingEnd="12dp"/>
+        android:gravity="center"
+        android:layout_centerVertical="true" />
 
 </RelativeLayout>

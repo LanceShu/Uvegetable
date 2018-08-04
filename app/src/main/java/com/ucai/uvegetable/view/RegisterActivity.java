@@ -112,9 +112,11 @@ public class RegisterActivity extends BaseActivity {
         String addr = register_addr.getText().toString();
         if (phone.equals("") || pwd.equals("") || repwd.equals("")
                 || name.equals("") || addr.equals("")) {
-            ToastUtil.show(this, R.string.register_not_null);
+            BaseActivity.showReminderDialog(this, "注册信息不能为空！");
+        } else if (phone.length() != 11) {
+            BaseActivity.showReminderDialog(this, "手机号格式不正确！");
         } else if (!pwd.equals(repwd)) {
-            ToastUtil.show(this, R.string.register_pwd_error);
+            BaseActivity.showReminderDialog(this, "两次密码不匹配！");
         } else {
             RegisterBean registerBean = new RegisterBean();
             registerBean.setPhone(phone);
@@ -135,24 +137,23 @@ public class RegisterActivity extends BaseActivity {
                         JSONObject jsonObject = new JSONObject(resp);
                         String msg = jsonObject.getString("msg");
                         if (msg.equals("成功")) {
-                            postHandler.post(new Runnable() {
-                                @Override
-                                public void run() {
-                                    Log.e("success", msg);
-                                    AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
-                                    builder.setTitle("温馨提示：");
-                                    builder.setMessage("注册成功！");
-                                    builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
-                                        @Override
-                                        public void onClick(DialogInterface dialogInterface, int i) {
-                                            finish();
-                                        }
-                                    });
-                                    builder.show();
-                                }
+                            postHandler.post(() -> {
+                                Log.e("success", msg);
+                                AlertDialog.Builder builder = new AlertDialog.Builder(RegisterActivity.this);
+                                builder.setTitle("温馨提示：");
+                                builder.setMessage("注册成功！");
+                                builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialogInterface, int i) {
+                                        finish();
+                                    }
+                                });
+                                builder.show();
                             });
                         } else {
-                            ToastUtil.show(RegisterActivity.this, msg);
+                            postHandler.post(() -> {
+                                BaseActivity.showReminderDialog(RegisterActivity.this, msg);
+                            });
                         }
                     } catch (JSONException e) {
                         e.printStackTrace();

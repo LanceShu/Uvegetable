@@ -76,6 +76,7 @@ public class MeFragment extends Fragment {
             visibleNameAndPhone(BaseActivity.loginBean.getName()
                     , BaseActivity.loginBean.getPhone());
         }
+        mBtnExit.setVisibility(BaseActivity.isLogined ? View.VISIBLE : View.GONE);
     }
 
     @SuppressLint("HandlerLeak")

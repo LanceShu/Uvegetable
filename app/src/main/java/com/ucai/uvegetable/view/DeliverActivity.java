@@ -43,8 +43,11 @@ public class DeliverActivity extends AppCompatActivity {
     private String state;
     private DriverBean driverBean;
 
-    @BindView(R.id.deliver_back)
+    @BindView(R.id.title_cancel)
     ImageView dback;
+
+    @BindView(R.id.title_content)
+    TextView content;
 
     @BindView(R.id.deliver_name)
     TextView dname;
@@ -135,6 +138,7 @@ public class DeliverActivity extends AppCompatActivity {
     }
 
     private void initWight() {
+        content.setText("送货单");
         dreceive.setVisibility(state.equals("1") ? View.VISIBLE : View.GONE);
     }
 
@@ -185,7 +189,7 @@ public class DeliverActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.deliver_back)
+    @OnClick(R.id.title_cancel)
     void back() {
         finish();
     }

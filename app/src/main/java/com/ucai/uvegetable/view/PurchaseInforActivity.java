@@ -44,8 +44,11 @@ import okhttp3.Response;
  */
 
 public class PurchaseInforActivity extends AppCompatActivity {
-    @BindView(R.id.pi_back)
+    @BindView(R.id.title_cancel)
     ImageView back;
+
+    @BindView(R.id.title_content)
+    TextView content;
 
     @BindView(R.id.pi_infor_layout)
     RelativeLayout inforLayout;
@@ -114,6 +117,7 @@ public class PurchaseInforActivity extends AppCompatActivity {
     }
 
     private void initWight() {
+        content.setText("采购单详情");
         recyclerView = findViewById(R.id.pi_recycler);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
@@ -207,7 +211,7 @@ public class PurchaseInforActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.pi_back)
+    @OnClick(R.id.title_cancel)
     void back() {
         finish();
     }

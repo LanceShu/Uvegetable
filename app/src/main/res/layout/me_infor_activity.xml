@@ -5,32 +5,7 @@
     android:orientation="vertical"
     android:background="@color/white_2">
     
-    <RelativeLayout
-        android:id="@+id/toolbar"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
-        
-        <ImageView
-            android:id="@+id/me_infor_close"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="5dp"
-            android:src="@drawable/cancel"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"/>
-        
-        <TextView
-            android:layout_toEndOf="@id/me_infor_close"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" 
-            android:text="个人信息"
-            android:textColor="@color/white_1"
-            android:textSize="18sp"
-            android:layout_marginStart="16dp"
-            android:layout_centerVertical="true"/>
-        
-    </RelativeLayout>
+    <include layout="@layout/title_bar"/>
     
     <LinearLayout
         android:id="@+id/me_id_layout"

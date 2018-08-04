@@ -4,35 +4,11 @@
     android:layout_height="match_parent"
     android:background="@color/white_1">
 
-    <RelativeLayout
-        android:id="@+id/pi_toolbar_layout"
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
-
-        <ImageView
-            android:id="@+id/pi_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="5dp"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"
-            android:src="@drawable/cancel"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="采购单详情"
-            android:textColor="@color/white_1"
-            android:textSize="18sp"
-            android:layout_toEndOf="@id/pi_back"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"/>
-    </RelativeLayout>
+    <include layout="@layout/title_bar"/>
 
     <RelativeLayout
         android:id="@+id/pi_infor_layout"
-        android:layout_below="@id/pi_toolbar_layout"
+        android:layout_below="@id/toolbar"
         android:layout_width="match_parent"
         android:layout_height="28dp"
         android:background="@color/ofi_font_new">

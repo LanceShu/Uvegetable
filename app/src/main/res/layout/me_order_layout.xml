@@ -4,31 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
-        android:background="@color/colorPrimary">
-
-        <ImageView
-            android:id="@+id/mo_back"
-            android:layout_width="30dp"
-            android:layout_height="30dp"
-            android:padding="5dp"
-            android:src="@drawable/cancel"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="18dp"/>
-
-        <TextView
-            android:layout_toEndOf="@id/mo_back"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="采购单"
-            android:textSize="18sp"
-            android:textColor="@color/white_1"
-            android:layout_centerVertical="true"
-            android:layout_marginStart="16dp"/>
-
-    </RelativeLayout>
+    <include layout="@layout/title_bar"/>
 
     <fragment
         android:id="@+id/mo_order_fragment"

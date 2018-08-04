@@ -28,8 +28,11 @@ import okhttp3.Response;
 
 public class MeInforActivity extends AppCompatActivity{
 
-    @BindView(R.id.me_infor_close)
+    @BindView(R.id.title_cancel)
     ImageView meInforCancel;
+
+    @BindView(R.id.title_content)
+    TextView content;
 
     @BindView(R.id.me_infor_id)
     TextView meInforId;
@@ -57,6 +60,7 @@ public class MeInforActivity extends AppCompatActivity{
     }
 
     private void initWight() {
+        content.setText("个人信息");
         diseditable();
         meInforId.setText(BaseActivity.loginBean.getId());
         meInforName.setText(BaseActivity.loginBean.getName());
@@ -64,7 +68,7 @@ public class MeInforActivity extends AppCompatActivity{
         meInforPhone.setText(BaseActivity.loginBean.getPhone());
     }
 
-    @OnClick(R.id.me_infor_close)
+    @OnClick(R.id.title_cancel)
     void inforClose() {
         finish();
     }

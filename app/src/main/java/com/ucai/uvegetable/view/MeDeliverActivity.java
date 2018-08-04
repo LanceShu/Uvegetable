@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.DeliverAdapter;
@@ -38,8 +39,11 @@ import okhttp3.Response;
  */
 
 public class MeDeliverActivity extends AppCompatActivity {
-    @BindView(R.id.md_back)
+    @BindView(R.id.title_cancel)
     ImageView back;
+
+    @BindView(R.id.title_content)
+    TextView titleContent;
 
     @BindView(R.id.md_recycler)
     RecyclerView deliverList;
@@ -92,6 +96,7 @@ public class MeDeliverActivity extends AppCompatActivity {
     }
 
     private void initWight() {
+        titleContent.setText("送货单");
         LinearLayoutManager manager = new LinearLayoutManager(this);
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         deliverList.setLayoutManager(manager);
@@ -153,7 +158,7 @@ public class MeDeliverActivity extends AppCompatActivity {
         });
     }
 
-    @OnClick(R.id.md_back)
+    @OnClick(R.id.title_cancel)
     void back() {
         finish();
     }
