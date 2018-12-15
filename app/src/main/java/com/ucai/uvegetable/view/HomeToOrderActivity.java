@@ -115,7 +115,7 @@ public class HomeToOrderActivity extends BaseActivity {
         orderList.setLayoutManager(layoutManager);
         orderAdapter = new OrderAdapter(this, BaseActivity.orderedProductBeans);
         orderList.setAdapter(orderAdapter);
-        orderList.setItemViewCacheSize(100);
+        orderList.setItemViewCacheSize(orderedProductBeans.size());
         showTotalPrice(BaseActivity.orderedProductBeans);
     }
 
