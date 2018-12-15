@@ -92,7 +92,8 @@ public class HomeFragment extends Fragment {
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        tvItems = new TextView[]{categoryFish, categoryGoods, categoryMeat, categoryOil, categoryVegetable};
+        tvItems = new TextView[]{categoryFish, categoryGoods, categoryMeat,
+                categoryOil, categoryVegetable};
     }
 
     @SuppressLint("HandlerLeak")
@@ -106,14 +107,16 @@ public class HomeFragment extends Fragment {
                     case BaseActivity.GET_RESPONSE_FROM_SERVER:
                         Log.e("categoryGET", "success   " + BaseActivity.isHas);
                         updateAdapterData(1, BaseActivity.isHas);
-                        BaseActivity.postHandler.postDelayed(BaseActivity::displayProgressDialog, 1000);
+                        BaseActivity.postHandler.postDelayed(BaseActivity::displayProgressDialog,
+                                1000);
                         break;
                     case BaseActivity.NO_GET_USER_PRICE:
                         getMarketPrice();
                         break;
                     case BaseActivity.GET_USER_PRICE:
                         updateAdapterData(1, BaseActivity.isHas);
-                        BaseActivity.postHandler.postDelayed(BaseActivity::displayProgressDialog, 1000);
+                        BaseActivity.postHandler.postDelayed(BaseActivity::displayProgressDialog,
+                                1000);
                         break;
                     case BaseActivity.UPDATE_HOMEFRAGMENT:
                         BaseActivity.showReminderDialog(getContext(), "登录成功！");
@@ -121,6 +124,9 @@ public class HomeFragment extends Fragment {
                             BaseActivity.loginDialog.dismiss();
                         }
                         initWight();
+                        break;
+                    case BaseActivity.SCROLL_TO_TOP:
+                        productListView.smoothScrollToPosition(0);
                         break;
                 }
             }
@@ -175,6 +181,11 @@ public class HomeFragment extends Fragment {
         productListView.setLayoutManager(manager);
         adapter = new HomeProductAdapter(getContext(), BaseActivity.currentProducts);
         productListView.setAdapter(adapter);
+        adapter.addFooterView(addView(R.layout.footer_view));
+    }
+
+    private View addView(int layoutId) {
+        return LayoutInflater.from(getContext()).inflate(layoutId, null);
     }
 
     // when user login in the HomeFragment, get user's price list firstly;
@@ -220,7 +231,6 @@ public class HomeFragment extends Fragment {
             @Override
             public void onResponse(Call call, Response response) throws IOException {
                 BaseActivity.resp = response.body().string();
-                Log.e("categoryMarkrt", BaseActivity.resp);
                 BaseActivity.sendHandler.sendEmptyMessage(BaseActivity.GET_RESPONSE_FROM_SERVER);
             }
         });
@@ -262,6 +272,7 @@ public class HomeFragment extends Fragment {
             BaseActivity.currentProducts.clear();
             BaseActivity.currentProducts.addAll(ProductUtil.getProducts(BaseActivity.resp, index, isHas));
             adapter.notifyDataSetChanged();
+            productListView.scrollToPosition(0);
         }
     }
 

@@ -90,6 +90,7 @@ public class BaseActivity extends AppCompatActivity {
     public final static int FAILURE_GET_DRIVER = 22;
     public final static int SUCCESS_RECEIVE = 23;
     public final static int FAILURE_RECEIVE = 24;
+    public final static int SCROLL_TO_TOP = 25;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
