@@ -20,7 +20,6 @@ import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.HomeProductAdapter;
 import com.ucai.uvegetable.httputils.ProductHttpUtil;
 import com.ucai.uvegetable.utils.ProductUtil;
-import com.ucai.uvegetable.utils.ToastUtil;
 import com.ucai.uvegetable.view.BaseActivity;
 import com.ucai.uvegetable.view.HomeToOrderActivity;
 
@@ -72,6 +71,7 @@ public class HomeFragment extends Fragment {
 
     LinearLayoutManager manager;
     HomeProductAdapter adapter;
+    private TextView[] tvItems;
 
     @Nullable
     @Override
@@ -87,6 +87,12 @@ public class HomeFragment extends Fragment {
         }
         initWight();
         return view;
+    }
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        tvItems = new TextView[]{categoryFish, categoryGoods, categoryMeat, categoryOil, categoryVegetable};
     }
 
     @SuppressLint("HandlerLeak")
@@ -152,6 +158,16 @@ public class HomeFragment extends Fragment {
         tv.setTextColor(getResources().getColor(R.color.black_1));
     }
 
+    private void changedAllItemsState(TextView targetTextView) {
+        for (TextView tv : tvItems) {
+            if (targetTextView.getText().toString().equals(tv.getText().toString())) {
+                selectedItem(targetTextView);
+            } else {
+                unselectedItem(tv);
+            }
+        }
+    }
+
     // init the recycleview to display the list of product;
     private void initProductList() {
         manager = new LinearLayoutManager(getContext());
@@ -212,51 +228,31 @@ public class HomeFragment extends Fragment {
 
     @OnClick(R.id.home_category_vegetable)
     void vegetable() {
-        selectedItem(categoryVegetable);
-        unselectedItem(categoryMeat);
-        unselectedItem(categoryFish);
-        unselectedItem(categoryOil);
-        unselectedItem(categoryGoods);
+        changedAllItemsState(categoryVegetable);
         updateAdapterData(0, BaseActivity.isHas);
     }
 
     @OnClick(R.id.home_category_meat)
     void meat() {
-        selectedItem(categoryMeat);
-        unselectedItem(categoryVegetable);
-        unselectedItem(categoryFish);
-        unselectedItem(categoryOil);
-        unselectedItem(categoryGoods);
+        changedAllItemsState(categoryMeat);
         updateAdapterData(1, BaseActivity.isHas);
     }
 
     @OnClick(R.id.home_category_fish)
     void fish() {
-        unselectedItem(categoryVegetable);
-        unselectedItem(categoryMeat);
-        selectedItem(categoryFish);
-        unselectedItem(categoryOil);
-        unselectedItem(categoryGoods);
+        changedAllItemsState(categoryFish);
         updateAdapterData(2, BaseActivity.isHas);
     }
 
     @OnClick(R.id.home_category_oil)
     void oil() {
-        unselectedItem(categoryVegetable);
-        unselectedItem(categoryMeat);
-        unselectedItem(categoryFish);
-        selectedItem(categoryOil);
-        unselectedItem(categoryGoods);
+        changedAllItemsState(categoryOil);
         updateAdapterData(3, BaseActivity.isHas);
     }
 
     @OnClick(R.id.home_category_goods)
     void goods() {
-        unselectedItem(categoryVegetable);
-        unselectedItem(categoryMeat);
-        unselectedItem(categoryFish);
-        unselectedItem(categoryOil);
-        selectedItem(categoryGoods);
+        changedAllItemsState(categoryGoods);
         updateAdapterData(4, BaseActivity.isHas);
     }
 
@@ -272,7 +268,7 @@ public class HomeFragment extends Fragment {
     // if user no login, and the notify_login will display;
     @OnClick(R.id.home_notify_login)
     void homeNotifyLogin() {
-        BaseActivity.showLoginDialog(getContext(), BaseActivity.HOMEFRAGMENT);
+        BaseActivity. showLoginDialog(getContext(), BaseActivity.HOMEFRAGMENT);
     }
 
     @OnClick(R.id.home_order_btn)
