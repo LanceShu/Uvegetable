@@ -31,6 +31,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private int preSize;
     private final static int NORMAL_ITEM_VIEW = 1;
     private final static int FOOT_ITEM_VIEW = 0;
+    private int CAPACITY = 20;
 
     private View VIEW_FOOTER;
     private int totalPage;
@@ -101,7 +102,8 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (currectPage != 1) {
                     currectPage --;
                     notifyDataSetChanged();
-                    BaseActivity.sendHandler.obtainMessage(BaseActivity.SCROLL_TO_TOP).sendToTarget();
+                    BaseActivity.sendHandler
+                            .obtainMessage(BaseActivity.SCROLL_TO_TOP).sendToTarget();
                 } else {
                     ToastUtil.show(context, "已到最前一页");
                 }
@@ -110,7 +112,8 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                 if (currectPage != totalPage) {
                     currectPage ++;
                     notifyDataSetChanged();
-                    BaseActivity.sendHandler.obtainMessage(BaseActivity.SCROLL_TO_TOP).sendToTarget();
+                    BaseActivity.sendHandler
+                            .obtainMessage(BaseActivity.SCROLL_TO_TOP).sendToTarget();
                 } else {
                     ToastUtil.show(context, "已到最后一页");
                 }
@@ -128,7 +131,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (productBeanList.size() != preSize) {
             currectPage = 1;
             int count = (productBeanList == null ? 0 : productBeanList.size());
-            totalPage = count % 20 == 0 ? count / 20 : count / 20 + 1;
+            totalPage = count % CAPACITY == 0 ? count / CAPACITY : count / CAPACITY + 1;
             preSize = productBeanList.size();
         }
         currentList.clear();
@@ -142,7 +145,8 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     private List<ProductBean> getCurrentPageProducts(int index, List<ProductBean> productBeans) {
         List<ProductBean> currentList = new ArrayList<>();
-        for (int i = (index - 1) * 20; i < index * 20 && i < productBeans.size(); i++) {
+        for (int i = (index - 1) * CAPACITY;
+             i < index * CAPACITY && i < productBeans.size(); i++) {
             currentList.add(productBeans.get(i));
         }
         return currentList;
@@ -152,11 +156,13 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (haveFooterView()) {
             throw new IllegalStateException("footerView has already exists!");
         } else {
-            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
-                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                    ViewGroup.LayoutParams.MATCH_PARENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT
+            );
             footerView.setLayoutParams(params);
             VIEW_FOOTER = footerView;
-            notifyItemInserted(getItemCount() - 1);
+//            notifyItemInserted(getItemCount() - 1);
         }
     }
 

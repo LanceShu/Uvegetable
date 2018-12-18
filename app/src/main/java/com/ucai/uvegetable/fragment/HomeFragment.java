@@ -1,6 +1,7 @@
 package com.ucai.uvegetable.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -180,12 +181,12 @@ public class HomeFragment extends Fragment {
         manager.setOrientation(LinearLayoutManager.VERTICAL);
         productListView.setLayoutManager(manager);
         adapter = new HomeProductAdapter(getContext(), BaseActivity.currentProducts);
+        adapter.addFooterView(addView(getContext(), R.layout.footer_view));
         productListView.setAdapter(adapter);
-        adapter.addFooterView(addView(R.layout.footer_view));
     }
 
-    private View addView(int layoutId) {
-        return LayoutInflater.from(getContext()).inflate(layoutId, null);
+    private View addView(Context context, int layoutId) {
+        return LayoutInflater.from(context).inflate(layoutId, null);
     }
 
     // when user login in the HomeFragment, get user's price list firstly;

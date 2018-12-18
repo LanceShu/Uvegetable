@@ -2,6 +2,7 @@ package com.ucai.uvegetable.view;
 
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -10,6 +11,8 @@ import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -21,7 +24,6 @@ import com.ucai.uvegetable.adapter.OrderAdapter;
 import com.ucai.uvegetable.beans.OrderBean;
 import com.ucai.uvegetable.beans.OrderedProductBean;
 import com.ucai.uvegetable.httputils.OrderHttpUtil;
-import com.ucai.uvegetable.utils.ProductUtil;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -103,6 +105,9 @@ public class HomeToOrderActivity extends BaseActivity {
                         break;
                     case GET_USER_PRICELIST:
                         break;
+                    case SCROLL_TO_TOP:
+                        orderList.smoothScrollToPosition(0);
+                        break;
                 }
             }
         };
@@ -114,9 +119,14 @@ public class HomeToOrderActivity extends BaseActivity {
         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
         orderList.setLayoutManager(layoutManager);
         orderAdapter = new OrderAdapter(this, BaseActivity.orderedProductBeans);
+        orderAdapter.addFooterView(addFooterView(this, R.layout.footer_view));
         orderList.setAdapter(orderAdapter);
         orderList.setItemViewCacheSize(orderedProductBeans.size());
         showTotalPrice(BaseActivity.orderedProductBeans);
+    }
+
+    private View addFooterView(Context context, int viewId) {
+        return LayoutInflater.from(context).inflate(viewId, null);
     }
 
     @SuppressLint("SetTextI18n")
