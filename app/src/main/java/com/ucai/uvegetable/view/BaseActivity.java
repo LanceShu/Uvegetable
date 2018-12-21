@@ -17,6 +17,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.syuban.rsautils.RSAUtils;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.CategoryBean;
 import com.ucai.uvegetable.beans.LoginBean;
@@ -24,7 +25,6 @@ import com.ucai.uvegetable.beans.OrderedProductBean;
 import com.ucai.uvegetable.beans.ProductBean;
 import com.ucai.uvegetable.httputils.UserHttpUtil;
 import com.ucai.uvegetable.utils.EditorUtils;
-import com.ucai.uvegetable.utils.RSAUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;

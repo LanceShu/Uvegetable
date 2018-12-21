@@ -36,4 +36,5 @@ dependencies {
     implementation files('libs/glide-3.7.0.jar')
     implementation files('libs/jackson-annotations-2.2.3.jar')
     implementation 'com.android.support:cardview-v7:26.1.0'
+    implementation 'com.github.LanceShu:RSAUtils:1.0'
 }
