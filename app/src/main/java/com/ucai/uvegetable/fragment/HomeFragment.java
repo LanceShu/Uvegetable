@@ -20,7 +20,7 @@ import android.widget.TextView;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.HomeProductAdapter;
 import com.ucai.uvegetable.httputils.ProductHttpUtil;
-import com.ucai.uvegetable.utils.ProductUtil;
+import com.ucai.uvegetable.utils.ProductUtils;
 import com.ucai.uvegetable.view.BaseActivity;
 import com.ucai.uvegetable.view.HomeToOrderActivity;
 
@@ -271,7 +271,7 @@ public class HomeFragment extends Fragment {
     private void updateAdapterData(int index, boolean isHas) {
         if (BaseActivity.resp != null) {
             BaseActivity.currentProducts.clear();
-            BaseActivity.currentProducts.addAll(ProductUtil.getProducts(BaseActivity.resp, index, isHas));
+            BaseActivity.currentProducts.addAll(ProductUtils.getProducts(BaseActivity.resp, index, isHas));
             adapter.notifyDataSetChanged();
             productListView.scrollToPosition(0);
         }

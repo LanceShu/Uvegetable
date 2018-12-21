@@ -6,7 +6,6 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,9 +15,8 @@ import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.OrderedProductBean;
-import com.ucai.uvegetable.utils.ToastUtil;
+import com.ucai.uvegetable.utils.ToastUtils;
 import com.ucai.uvegetable.view.BaseActivity;
-import com.ucai.uvegetable.view.HomeToOrderActivity;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +139,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             footerViewHolder.footer_content.setText(getContent(current_page, total_page));
             footerViewHolder.footer_last.setOnClickListener(view -> {
                 if (current_page == 1) {
-                    ToastUtil.show(context, "已到最前一页");
+                    ToastUtils.show(context, "已到最前一页");
                 } else {
                     current_page --;
                     notifyDataSetChanged();
@@ -152,7 +150,7 @@ public class OrderAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> 
             });
             footerViewHolder.footer_next.setOnClickListener(view -> {
                 if (current_page == total_page) {
-                    ToastUtil.show(context, "已到最后一页");
+                    ToastUtils.show(context, "已到最后一页");
                 } else {
                     current_page ++;
                     notifyDataSetChanged();

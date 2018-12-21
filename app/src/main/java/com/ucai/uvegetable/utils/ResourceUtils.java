@@ -7,7 +7,7 @@ import android.content.Context;
  * on 2018/7/14.
  */
 
-public class ResourceUtil {
+public class ResourceUtils {
     public static String getStringFromResource (Context context, int stringId) {
         return (String) context.getResources().getText(stringId);
     }

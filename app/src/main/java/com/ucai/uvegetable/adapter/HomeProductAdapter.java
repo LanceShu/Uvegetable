@@ -13,7 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.ProductBean;
-import com.ucai.uvegetable.utils.ToastUtil;
+import com.ucai.uvegetable.utils.ToastUtils;
 import com.ucai.uvegetable.view.BaseActivity;
 
 import java.util.ArrayList;
@@ -105,7 +105,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     BaseActivity.sendHandler
                             .obtainMessage(BaseActivity.SCROLL_TO_TOP).sendToTarget();
                 } else {
-                    ToastUtil.show(context, "已到最前一页");
+                    ToastUtils.show(context, "已到最前一页");
                 }
             });
             footerViewHolder.footer_next.setOnClickListener(view -> {
@@ -115,7 +115,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
                     BaseActivity.sendHandler
                             .obtainMessage(BaseActivity.SCROLL_TO_TOP).sendToTarget();
                 } else {
-                    ToastUtil.show(context, "已到最后一页");
+                    ToastUtils.show(context, "已到最后一页");
                 }
             });
 

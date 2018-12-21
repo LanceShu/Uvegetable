@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.RegisterBean;
 import com.ucai.uvegetable.httputils.UserHttpUtil;
-import com.ucai.uvegetable.utils.ToastUtil;
 
 import org.json.JSONException;
 import org.json.JSONObject;

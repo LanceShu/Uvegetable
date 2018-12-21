@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.PurchaseBean;
-import com.ucai.uvegetable.utils.ResourceUtil;
 import com.ucai.uvegetable.view.PurchaseInforActivity;
 
 import java.util.List;

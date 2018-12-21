@@ -8,9 +8,9 @@ import android.widget.Toast;
  * on 2018/7/14.
  */
 
-public class ToastUtil {
+public class ToastUtils {
     public static void show (Context context, int stringId) {
-        Toast.makeText(context, ResourceUtil.getStringFromResource(context, stringId), Toast.LENGTH_SHORT).show();
+        Toast.makeText(context, ResourceUtils.getStringFromResource(context, stringId), Toast.LENGTH_SHORT).show();
     }
 
     public static void show (Context context, String content) {

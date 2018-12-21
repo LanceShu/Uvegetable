@@ -19,7 +19,8 @@ import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.httputils.UserHttpUtil;
-import com.ucai.uvegetable.utils.ToastUtil;
+import com.ucai.uvegetable.utils.EditorUtils;
+import com.ucai.uvegetable.utils.ToastUtils;
 import com.ucai.uvegetable.view.BaseActivity;
 import com.ucai.uvegetable.view.MeDeliverActivity;
 import com.ucai.uvegetable.view.MeInforActivity;
@@ -102,7 +103,7 @@ public class MeFragment extends Fragment {
                         mPhone.setText("手机号：" + BaseActivity.loginBean.getPhone());
                         break;
                     case BaseActivity.UPDATE_MEFRAGMENT:
-                        ToastUtil.show(getContext(), "登录成功");
+                        ToastUtils.show(getContext(), "登录成功");
                         BaseActivity.loginDialog.dismiss();
                         visibleNameAndPhone(BaseActivity.loginBean.getName()
                                 , BaseActivity.loginBean.getPhone());
@@ -176,10 +177,7 @@ public class MeFragment extends Fragment {
     }
 
     private void loginoutUser() {
-        BaseActivity.editor.putBoolean("isLogined", false);
-        BaseActivity.editor.putString("phone", "");
-        BaseActivity.editor.putString("pwd", "");
-        BaseActivity.editor.commit();
+        EditorUtils.saveEditorData(BaseActivity.editor, false, "", "");
         BaseActivity.isLogined = false;
         BaseActivity.resp = null;
         BaseActivity.isHas = false;

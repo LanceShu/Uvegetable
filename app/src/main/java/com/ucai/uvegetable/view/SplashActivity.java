@@ -45,7 +45,9 @@ public class SplashActivity extends BaseActivity {
         isLogined = sharedPreferences.getBoolean("isLogined", false);
         String phone = sharedPreferences.getString("phone", "");
         String pwd = sharedPreferences.getString("pwd", "");
-        if (isLogined && !phone.equals("") && !pwd.equals("")) {
+        if (isLogined && !phone.equals("") && !pwd.equals("") && rsaUtils != null) {
+            phone = rsaUtils.decodeMessage(phone, rsaUtils.getPriKey());
+            pwd = rsaUtils.decodeMessage(pwd, rsaUtils.getPriKey());
             UserHttpUtil.requestLogin(phone, pwd, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {

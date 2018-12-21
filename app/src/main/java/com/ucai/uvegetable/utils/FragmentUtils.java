@@ -9,7 +9,7 @@ import android.support.v4.app.FragmentTransaction;
  * on 2018/5/26.
  */
 
-public class FragmentUtil {
+public class FragmentUtils {
     public static void replaceFragment(FragmentManager fragmentManager, Fragment targetFragment, int parentGroupId) {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(parentGroupId, targetFragment);

@@ -6,13 +6,12 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.FragmentManager;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.Window;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.fragment.HomeFragment;
 import com.ucai.uvegetable.fragment.MeFragment;
 import com.ucai.uvegetable.fragment.OrderFragment;
-import com.ucai.uvegetable.utils.FragmentUtil;
+import com.ucai.uvegetable.utils.FragmentUtils;
 
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
 
@@ -46,20 +45,20 @@ public class MainActivity extends BaseActivity implements BottomNavigationView.O
         }
         BottomNavigationView navigation = findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(this);
-        FragmentUtil.addFragment(fragmentManager, new HomeFragment(), parentGroupId);
+        FragmentUtils.addFragment(fragmentManager, new HomeFragment(), parentGroupId);
     }
 
     @Override
     public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         switch (item.getItemId()) {
             case R.id.navigation_home:
-                FragmentUtil.replaceFragment(fragmentManager, new HomeFragment(), parentGroupId);
+                FragmentUtils.replaceFragment(fragmentManager, new HomeFragment(), parentGroupId);
                 return true;
             case R.id.navigation_order:
-                FragmentUtil.replaceFragment(fragmentManager, new OrderFragment(), parentGroupId);
+                FragmentUtils.replaceFragment(fragmentManager, new OrderFragment(), parentGroupId);
                 return true;
             case R.id.navigation_me:
-                FragmentUtil.replaceFragment(fragmentManager, new MeFragment(), parentGroupId);
+                FragmentUtils.replaceFragment(fragmentManager, new MeFragment(), parentGroupId);
                 return true;
         }
         return false;

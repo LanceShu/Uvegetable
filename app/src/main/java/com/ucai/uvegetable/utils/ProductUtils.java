@@ -18,7 +18,7 @@ import java.util.List;
  * on 2018/7/19.
  */
 
-public class ProductUtil {
+public class ProductUtils {
     public static List<ProductBean> getProducts(String response, int index, boolean isHas) {
         Log.e("category", isHas+"");
         if (!isHas) {

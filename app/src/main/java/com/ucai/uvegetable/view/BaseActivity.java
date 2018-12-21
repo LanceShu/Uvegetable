@@ -13,7 +13,6 @@ import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
-import android.view.KeyEvent;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
@@ -24,8 +23,8 @@ import com.ucai.uvegetable.beans.LoginBean;
 import com.ucai.uvegetable.beans.OrderedProductBean;
 import com.ucai.uvegetable.beans.ProductBean;
 import com.ucai.uvegetable.httputils.UserHttpUtil;
-import com.ucai.uvegetable.utils.EditorUtil;
-import com.ucai.uvegetable.utils.ToastUtil;
+import com.ucai.uvegetable.utils.EditorUtils;
+import com.ucai.uvegetable.utils.RSAUtils;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -49,6 +48,7 @@ public class BaseActivity extends AppCompatActivity {
     public static String cookie = "";
     public SharedPreferences sharedPreferences;
     public static SharedPreferences.Editor editor;
+    public static RSAUtils rsaUtils;
     public static Handler postHandler;
     public static Handler sendHandler;
     public static LoginBean loginBean;
@@ -107,6 +107,9 @@ public class BaseActivity extends AppCompatActivity {
         if (sharedPreferences == null) {
             sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this);
             editor = sharedPreferences.edit();
+        }
+        if (rsaUtils == null) {
+            rsaUtils = RSAUtils.getInstance();
         }
     }
 
@@ -211,7 +214,9 @@ public class BaseActivity extends AppCompatActivity {
                             BaseActivity.loginBean.setAddr(data.getString("addr"));
                             BaseActivity.loginBean.setPhone(data.getString("phone"));
                             BaseActivity.isLogined = true;
-                            EditorUtil.saveEditorData(true, phone, pwd);
+                            String encodePhone = rsaUtils.encodeMessage(phone, rsaUtils.getPubKey());
+                            String encodePwd = rsaUtils.encodeMessage(pwd, rsaUtils.getPubKey());
+                            EditorUtils.saveEditorData(BaseActivity.editor, true, encodePhone, encodePwd);
                             if (originType == MEFRAGMENT) {
                                 sendHandler.sendEmptyMessage(UPDATE_MEFRAGMENT);
                             } else if(originType == HOMEFRAGMENT) {
