@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.ProductBean;
+import com.ucai.uvegetable.fragment.HomeFragment;
 import com.ucai.uvegetable.utils.ToastUtils;
 import com.ucai.uvegetable.view.BaseActivity;
 
@@ -28,11 +29,13 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
     private Context context;
     private List<ProductBean> productBeanList;
     private List<ProductBean> currentList;
+    // preSize，用来记录之前所浏览的商品种类的数量；
     private int preSize;
     private final static int NORMAL_ITEM_VIEW = 1;
     private final static int FOOT_ITEM_VIEW = 0;
+    // 每页有20个数据；
     private int CAPACITY = 20;
-
+    // 底部翻页的View；
     private View VIEW_FOOTER;
     private int totalPage;
     private int currectPage;
@@ -46,11 +49,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
 
     @Override
     public int getItemViewType(int position) {
-        if (!isFooterView(position)) {
-            return NORMAL_ITEM_VIEW;
-        } else {
-            return FOOT_ITEM_VIEW;
-        }
+        return !isFooterView(position) ? NORMAL_ITEM_VIEW : FOOT_ITEM_VIEW;
     }
 
     private boolean isFooterView(int position) {
@@ -79,7 +78,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             ProductBean productBean = currentList.get(position);
             NormalViewHolder holder = (NormalViewHolder) viewHolder;
             Glide.with(context)
-                    .load("http://123.206.13.129:8080/manage/" + productBean.getImgfile())
+                    .load(HomeFragment.imageUrl + productBean.getImgfile())
                     .skipMemoryCache(false)
                     .override(200, 200)
                     .into(holder.productImage);
@@ -88,13 +87,6 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
             String userPrice = productBean.getUser_price() == 0.0 ? "--" : productBean.getUser_price()+"";
             holder.productPrice.setText("市场价： " + productBean.getPrice()
                     + productUnit + "\n优惠价： " + userPrice + productUnit);
-            holder.productImage.setOnClickListener((view -> {
-                Glide.with(context)
-                        .load("http://123.206.13.129:8080/manage/" + productBean.getImgfile())
-                        .skipMemoryCache(false)
-                        .override(200, 200)
-                        .into(holder.productImage);
-            }));
         } else if (isFooterView(position)){
             FooterViewHolder footerViewHolder = (FooterViewHolder) viewHolder;
             footerViewHolder.footer_content.setText(getContent(currectPage, totalPage));
@@ -140,7 +132,7 @@ public class HomeProductAdapter extends RecyclerView.Adapter<RecyclerView.ViewHo
         if (VIEW_FOOTER != null) {
             size ++;
         }
-        return size;
+        return size == 1 ? 0 : size;
     }
 
     private List<ProductBean> getCurrentPageProducts(int index, List<ProductBean> productBeans) {

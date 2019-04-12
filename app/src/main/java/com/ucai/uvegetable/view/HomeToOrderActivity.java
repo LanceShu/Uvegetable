@@ -20,9 +20,11 @@ import android.widget.TextView;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.ucai.uvegetable.R;
+import com.ucai.uvegetable.adapter.HomeProductAdapter;
 import com.ucai.uvegetable.adapter.OrderAdapter;
 import com.ucai.uvegetable.beans.OrderBean;
 import com.ucai.uvegetable.beans.OrderedProductBean;
+import com.ucai.uvegetable.fragment.HomeFragment;
 import com.ucai.uvegetable.httputils.OrderHttpUtil;
 
 import org.json.JSONArray;
@@ -205,7 +207,7 @@ public class HomeToOrderActivity extends BaseActivity {
                     orderedProductBean.setNum(num);
                     orderedProductBean.setNote(product.getString("note"));
                     orderedProductBean.setName(product.getString("name"));
-                    orderedProductBean.setImgfile("http://123.206.13.129:8080/manage/"
+                    orderedProductBean.setImgfile(HomeFragment.imageUrl
                             + product.getString("imgfile"));
                     orderedProductBean.setUnit(product.getString("unit"));
                     double total = Math.round(price * num * 100.0) / 100.0;

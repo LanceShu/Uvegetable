@@ -43,6 +43,9 @@ import okhttp3.Response;
  */
 
 public class HomeFragment extends Fragment {
+    // 商品图片的URL前缀；
+    public static final String imageUrl = "http://123.206.13.129:8088/manage/";
+
     @BindView(R.id.home_product_list)
     RecyclerView productListView;
 
