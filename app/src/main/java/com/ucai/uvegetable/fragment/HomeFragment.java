@@ -21,6 +21,7 @@ import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.HomeProductAdapter;
 import com.ucai.uvegetable.httputils.ProductHttpUtil;
 import com.ucai.uvegetable.utils.ProductUtils;
+import com.ucai.uvegetable.utils.ToastUtils;
 import com.ucai.uvegetable.view.BaseActivity;
 import com.ucai.uvegetable.view.HomeToOrderActivity;
 
@@ -123,7 +124,8 @@ public class HomeFragment extends Fragment {
                                 1000);
                         break;
                     case BaseActivity.UPDATE_HOMEFRAGMENT:
-                        BaseActivity.showReminderDialog(getActivity(), "登录成功！");
+                        ToastUtils.show(getActivity(), "登录成功！");
+//                        BaseActivity.showReminderDialog(getActivity(), "登录成功！");
                         if (BaseActivity.loginDialog.isShowing()) {
                             BaseActivity.loginDialog.dismiss();
                         }

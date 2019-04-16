@@ -45,6 +45,7 @@ import okhttp3.Response;
  */
 
 public class MeFragment extends Fragment {
+    private static final String TAG = "MeFragment";
 
     // 用户的昵称;
     @BindView(R.id.me_name)

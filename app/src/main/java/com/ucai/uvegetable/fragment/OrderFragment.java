@@ -133,12 +133,6 @@ public class OrderFragment extends Fragment {
         });
     }
 
-    @SuppressLint("HandlerLeak")
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-    }
-
     private void initData() {
         if (purchaseBeanList == null) {
             purchaseBeanList = new ArrayList<>();
@@ -147,7 +141,9 @@ public class OrderFragment extends Fragment {
         if (!BaseActivity.isLogined) {
             notifyLayout.setVisibility(View.VISIBLE);
         } else {
-            BaseActivity.showProgressDialog(getContext(), "正在加载订单...");
+            if (getActivity() instanceof MeOrderActivity) {
+                BaseActivity.showProgressDialog(getContext(), "正在加载订单...");
+            }
             // 获取采购单的信息;
             getAllOrderDateAndState();
         }
