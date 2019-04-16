@@ -1,6 +1,7 @@
 package com.ucai.uvegetable.fragment;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
@@ -14,12 +15,15 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.PurchaseAdapter;
 import com.ucai.uvegetable.beans.PurchaseBean;
 import com.ucai.uvegetable.httputils.OrderHttpUtil;
 import com.ucai.uvegetable.view.BaseActivity;
+import com.ucai.uvegetable.view.MeOrderActivity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -31,6 +35,7 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
@@ -49,6 +54,12 @@ public class OrderFragment extends Fragment {
 
     @BindView(R.id.of_swipe_refresh)
     SwipeRefreshLayout refreshLayout;
+
+    @BindView(R.id.order_notify_layout)
+    RelativeLayout notifyLayout;
+
+    @BindView(R.id.order_notify_login)
+    TextView notifyLogin;
 
     @SuppressLint("HandlerLeak")
     @Override
@@ -80,8 +91,12 @@ public class OrderFragment extends Fragment {
                         if (BaseActivity.progressDialog.isShowing()) {
                             BaseActivity.displayProgressDialog();
                         }
+                        if (refreshLayout.isRefreshing()) {
+                            refreshLayout.setRefreshing(false);
+                        }
                         String errMsg = (String) msg.obj;
-                        BaseActivity.showReminderDialog(getContext(), errMsg);
+                        notifyLayout.setVisibility(View.VISIBLE);
+                        BaseActivity.showReminderDialog(getActivity(), errMsg);
                         break;
                     case BaseActivity.SUCCESS_GET_DATE_AND_STATE:
                         adapter.notifyDataSetChanged();
@@ -129,8 +144,13 @@ public class OrderFragment extends Fragment {
             purchaseBeanList = new ArrayList<>();
         }
         purchaseBeanList.clear();
-        BaseActivity.showProgressDialog(getContext(), "正在加载订单...");
-        getAllOrderDateAndState();
+        if (!BaseActivity.isLogined) {
+            notifyLayout.setVisibility(View.VISIBLE);
+        } else {
+            BaseActivity.showProgressDialog(getContext(), "正在加载订单...");
+            // 获取采购单的信息;
+            getAllOrderDateAndState();
+        }
     }
 
     private void getAllOrderDateAndState() {
@@ -151,9 +171,9 @@ public class OrderFragment extends Fragment {
                         try {
                             JSONObject res = new JSONObject(resp);
                             String msg = res.getString("msg");
-                            JSONArray data = res.getJSONArray("data");
                             Log.e("syuban", msg);
-                            if (msg.equals("成功") && data.length() > 0) {
+                            if (msg.equals("成功")) {
+                                JSONArray data = res.getJSONArray("data");
                                 for (int i = 0; i < data.length(); i++) {
                                     JSONObject dateData = data.getJSONObject(i);
                                     String date = dateData.getString("date");
@@ -168,7 +188,7 @@ public class OrderFragment extends Fragment {
                                 BaseActivity.sendHandler.sendEmptyMessage(BaseActivity.SUCCESS_GET_DATE_AND_STATE);
                             } else {
                                 Message message = Message.obtain();
-                                if (msg.equals("成功") && data.length() == 0){
+                                if (msg.equals("成功")){
                                     message.obj = "暂无采购单";
                                 } else {
                                     message.obj = msg;
@@ -183,5 +203,10 @@ public class OrderFragment extends Fragment {
                 }
             }
         });
+    }
+
+    @OnClick(R.id.order_notify_login)
+    void setNotifyLogin() {
+        BaseActivity.showLoginDialog(getActivity(), BaseActivity.HOMEFRAGMENT);
     }
 }

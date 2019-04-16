@@ -25,6 +25,7 @@ import com.ucai.uvegetable.view.BaseActivity;
 import com.ucai.uvegetable.view.MeDeliverActivity;
 import com.ucai.uvegetable.view.MeInforActivity;
 import com.ucai.uvegetable.view.MeOrderActivity;
+import com.ucai.uvegetable.view.MePalmListActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -45,9 +46,11 @@ import okhttp3.Response;
 
 public class MeFragment extends Fragment {
 
+    // 用户的昵称;
     @BindView(R.id.me_name)
     TextView mName;
 
+    // 用户的手机号;
     @BindView(R.id.me_phone)
     TextView mPhone;
 
@@ -65,6 +68,12 @@ public class MeFragment extends Fragment {
 
     @BindView(R.id.me_setting)
     LinearLayout mSetting;
+
+    @BindView(R.id.me_palm_list)
+    LinearLayout mPalmList;
+
+    @BindView(R.id.me_palm_identify)
+    LinearLayout mPalmIdentify;
 
     @BindView(R.id.me_btn_exit)
     Button mBtnExit;
@@ -133,9 +142,10 @@ public class MeFragment extends Fragment {
 
     @OnClick(R.id.me_loginOrRegister)
     void mLoginOrRegister() {
-        BaseActivity.showLoginDialog(getContext(), BaseActivity.MEFRAGMENT);
+        BaseActivity.showLoginDialog(getActivity(), BaseActivity.MEFRAGMENT);
     }
 
+    // 查看个人信息;
     @OnClick(R.id.me_information)
     void meInformation() {
         if (!BaseActivity.isLogined) {
@@ -146,19 +156,52 @@ public class MeFragment extends Fragment {
         }
     }
 
+    // 采购单信息;
     @OnClick(R.id.me_order)
     void meOrder() {
-        getContext().startActivity(new Intent(getContext(), MeOrderActivity.class));
+        if (!BaseActivity.isLogined) {
+            BaseActivity.showHintDialog(getContext(), "暂无采购单信息，请先登录，谢谢~");
+        } else {
+            getContext().startActivity(new Intent(getContext(), MeOrderActivity.class));
+        }
     }
 
+    // 送货单信息;
     @OnClick(R.id.me_driver)
     void meDriver() {
-        getContext().startActivity(new Intent(getContext(), MeDeliverActivity.class));
+        if (!BaseActivity.isLogined) {
+            BaseActivity.showHintDialog(getContext(), "暂无送货单信息，请先登录，谢谢~");
+        } else {
+            getContext().startActivity(new Intent(getContext(), MeDeliverActivity.class));
+        }
+
     }
 
+    // 设置功能,暂时没有;
     @OnClick(R.id.me_setting)
     void meSetting() {
 
+    }
+
+    // 掌纹管理;
+    @OnClick(R.id.me_palm_list)
+    void mePalmList() {
+        if (!BaseActivity.isLogined) {
+            BaseActivity.showHintDialog(getContext(), "暂无掌纹信息，请先登录，谢谢~");
+        } else {
+            startActivity(new Intent(getContext(), MePalmListActivity.class));
+        }
+    }
+
+    // 掌纹认证;
+    @OnClick(R.id.me_palm_identify)
+    void mePalmIdentify() {
+        if (!BaseActivity.isLogined) {
+            BaseActivity.showHintDialog(getContext(), "无法识别掌纹，请先登录，谢谢~");
+        } else {
+//            Intent toMeInforActivity = new Intent(getContext(), MeInforActivity.class);
+//            startActivity(toMeInforActivity);
+        }
     }
 
     @OnClick(R.id.me_btn_exit)
@@ -201,14 +244,14 @@ public class MeFragment extends Fragment {
                     if (msg.equals("注销成功")) {
                         BaseActivity.postHandler.post(() -> {
                             BaseActivity.displayProgressDialog();
-                            BaseActivity.showReminderDialog(getContext(), msg);
+                            BaseActivity.showReminderDialog(getActivity(), msg);
                             invisibleNameAndPhone();
                             mBtnExit.setVisibility(View.GONE);
                         });
                     } else {
                         BaseActivity.postHandler.post(() -> {
                             BaseActivity.displayProgressDialog();
-                            BaseActivity.showReminderDialog(getContext(), msg);
+                            BaseActivity.showReminderDialog(getActivity(), msg);
                         });
                     }
                 } catch (JSONException e) {

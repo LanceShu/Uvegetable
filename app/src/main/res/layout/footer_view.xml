@@ -1,16 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="40dp"
+    android:layout_height="36dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <TextView
         android:id="@+id/footer_content"
         android:layout_width="wrap_content"
-        android:layout_height="36dp"
+        android:layout_height="34dp"
         android:gravity="center"
         android:textColor="@color/font_color"
-        android:textSize="18sp"
+        android:textSize="16sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.501"
@@ -21,7 +21,7 @@
         android:id="@+id/footer_last"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:padding="10dp"
+        android:padding="12dp"
         android:src="@drawable/footer_last"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -32,7 +32,7 @@
         android:id="@+id/footer_next"
         android:layout_width="48dp"
         android:layout_height="48dp"
-        android:padding="10dp"
+        android:padding="12dp"
         android:src="@drawable/footer_next"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintBottom_toBottomOf="parent"

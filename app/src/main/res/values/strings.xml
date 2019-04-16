@@ -24,6 +24,8 @@
     <string name="me_information">个人信息</string>
     <string name="me_order">采购单</string>
     <string name="me_driver">送货单</string>
+    <string name="me_palm_list">掌纹管理</string>
+    <string name="me_palm_test">掌纹认证</string>
     <string name="me_setting">设置</string>
     <string name="me_btn_exit">注销用户</string>
     <string name="me_fragment_name">单位名称：</string>
@@ -40,4 +42,9 @@
     <string name="home_notify_login">登录</string>
     <string name="home_no_login_1">无法获取数据，请您先</string>
     <string name="home_no_login_2"> 登录</string>
+
+    <!--palm_list_layout-->
+    <string name="palm_list_add_button">＋ 添加掌纹</string>
+    <string name="palm_list_no_palm">无录入的掌纹</string>
+    <string name="palm_list_failure_msg">获取掌纹失败</string>
 </resources>

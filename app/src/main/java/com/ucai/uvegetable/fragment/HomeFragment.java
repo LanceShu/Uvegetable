@@ -123,7 +123,7 @@ public class HomeFragment extends Fragment {
                                 1000);
                         break;
                     case BaseActivity.UPDATE_HOMEFRAGMENT:
-                        BaseActivity.showReminderDialog(getContext(), "登录成功！");
+                        BaseActivity.showReminderDialog(getActivity(), "登录成功！");
                         if (BaseActivity.loginDialog.isShowing()) {
                             BaseActivity.loginDialog.dismiss();
                         }
@@ -283,7 +283,7 @@ public class HomeFragment extends Fragment {
     // if user no login, and the notify_login will display;
     @OnClick(R.id.home_notify_login)
     void homeNotifyLogin() {
-        BaseActivity. showLoginDialog(getContext(), BaseActivity.HOMEFRAGMENT);
+        BaseActivity.showLoginDialog(getActivity(), BaseActivity.HOMEFRAGMENT);
     }
 
     @OnClick(R.id.home_order_btn)

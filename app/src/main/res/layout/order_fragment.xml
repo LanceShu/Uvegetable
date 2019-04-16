@@ -16,4 +16,31 @@
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
+    <RelativeLayout
+        android:id="@+id/order_notify_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/order_notify_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="无法获取数据，请您先"
+            android:textSize="14sp"
+            android:textColor="@color/black_1"
+            android:layout_centerInParent="true"/>
+
+        <TextView
+            android:id="@+id/order_notify_login"
+            android:layout_toEndOf="@id/order_notify_content"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text=" 登录"
+            android:textSize="16sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_centerVertical="true"/>
+
+    </RelativeLayout>
+
 </RelativeLayout>

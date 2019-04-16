@@ -1,5 +1,6 @@
 package com.ucai.uvegetable.view;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.ProgressDialog;
@@ -142,11 +143,11 @@ public class BaseActivity extends AppCompatActivity {
         super.onResume();
     }
 
-    public static void showLoginDialog(Context context, int originType) {
+    public static void showLoginDialog(Activity activity, int originType) {
         if (!isLogined) {
-            loginDialog = new Dialog(context, R.style.DialogTheme);
+            loginDialog = new Dialog(activity, R.style.DialogTheme);
             loginDialog.setContentView(R.layout.login_layout);
-            initDialogWight(context, loginDialog, originType);
+            initDialogWight(activity, loginDialog, originType);
             loginDialog.setCancelable(false);
             if (!loginDialog.isShowing()) {
                 loginDialog.show();
@@ -154,7 +155,7 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    private static void initDialogWight(Context context, Dialog dialog, int originType) {
+    private static void initDialogWight(Activity activity, Dialog dialog, int originType) {
         EditText loginPhone = dialog.findViewById(R.id.login_phone);
         EditText loginPass = dialog.findViewById(R.id.login_pass);
         ImageView clearName = dialog.findViewById(R.id.login_clear_name);
@@ -165,11 +166,11 @@ public class BaseActivity extends AppCompatActivity {
         clearName.setOnClickListener((view -> loginPhone.setText("")));
         clearPass.setOnClickListener((view -> loginPass.setText("")));
         loginIn.setOnClickListener((view -> {
-            loginUser(context, loginPhone.getText().toString(), loginPass.getText().toString(), originType);
+            loginUser(activity, loginPhone.getText().toString(), loginPass.getText().toString(), originType);
 //            BaseActivity.showProgressDialog(this, "登录中，请稍后...");
         }));
         loginRegister.setOnClickListener((view -> {
-            context.startActivity(new Intent(context, RegisterActivity.class));
+            activity.startActivity(new Intent(activity, RegisterActivity.class));
             dialog.dismiss();
         }));
         loginNext.setOnClickListener((view -> {
@@ -179,13 +180,13 @@ public class BaseActivity extends AppCompatActivity {
         }));
     }
 
-    private static void loginUser(Context context, String phone, String pwd, int originType) {
+    private static void loginUser(Activity activity, String phone, String pwd, int originType) {
         if (phone.length() != 11) {
-            showReminderDialog(context, "手机号不能为空或者格式不正确!");
+            showReminderDialog(activity, "手机号不能为空或者格式不正确!");
         } else if (pwd.length() == 0) {
-            showReminderDialog(context, "密码不能为空!");
+            showReminderDialog(activity, "密码不能为空!");
         } else {
-            showProgressDialog(context, "正在登录...");
+            showProgressDialog(activity, "正在登录...");
             UserHttpUtil.requestLogin(phone, pwd, new Callback() {
                 @Override
                 public void onFailure(Call call, IOException e) {
@@ -233,7 +234,7 @@ public class BaseActivity extends AppCompatActivity {
                         } else {
                             postHandler.post(() -> {
                                 displayProgressDialog();
-                                showReminderDialog(context, msg);
+                                showReminderDialog(activity, msg);
                             });
                         }
                     } catch (JSONException e) {
@@ -244,11 +245,21 @@ public class BaseActivity extends AppCompatActivity {
         }
     }
 
-    public static void showReminderDialog(Context context, String content) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+    // 当用户没有登录时，从服务器中获取不到相应的数据，弹出提示Dialog;
+    public static void showReminderDialog(Activity activity, String content) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("提示：");
         builder.setTitle(content);
-        builder.setPositiveButton("好的", null);
+        if (activity instanceof MeDeliverActivity || activity instanceof MeOrderActivity) {
+            builder.setPositiveButton("好的", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    activity.finish();
+                }
+            });
+        } else {
+            builder.setPositiveButton("好的", null);
+        }
         builder.show();
     }
 

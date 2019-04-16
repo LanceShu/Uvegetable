@@ -108,7 +108,7 @@
     <Button
         android:id="@+id/home_order_btn"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:backgroundTint="@color/blue_1"
         android:text="@string/home_order_btn"

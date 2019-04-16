@@ -137,6 +137,60 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/me_palm_list"
+        android:layout_below="@id/me_driver"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="16dp"
+        android:background="@color/white_1">
+
+        <ImageView
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/palm_list"
+            android:layout_marginStart="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/me_palm_list"
+            android:textSize="18sp"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/font_color"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/me_palm_identify"
+        android:layout_below="@id/me_palm_list"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="1dp"
+        android:background="@color/white_1">
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:src="@drawable/palm_test"
+            android:layout_marginStart="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/me_palm_test"
+            android:textSize="18sp"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/font_color"/>
+
+    </LinearLayout>
+
+    <LinearLayout
         android:id="@+id/me_setting"
         android:layout_below="@id/me_driver"
         android:layout_width="match_parent"
@@ -167,7 +221,7 @@
     <Button
         android:id="@+id/me_btn_exit"
         android:layout_width="match_parent"
-        android:layout_height="56dp"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:text="@string/me_btn_exit"
         android:textSize="18sp"
