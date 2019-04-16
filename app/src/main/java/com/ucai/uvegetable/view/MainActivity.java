@@ -14,7 +14,6 @@ import com.ucai.uvegetable.fragment.OrderFragment;
 import com.ucai.uvegetable.utils.FragmentUtils;
 
 public class MainActivity extends BaseActivity implements BottomNavigationView.OnNavigationItemSelectedListener, View.OnClickListener{
-
     private FragmentManager fragmentManager;
     private final int parentGroupId = R.id.content_frag;
 
