@@ -47,4 +47,8 @@
     <string name="palm_list_add_button">＋ 添加掌纹</string>
     <string name="palm_list_no_palm">无录入的掌纹</string>
     <string name="palm_list_failure_msg">获取掌纹失败</string>
+    <string name="certify_success_alert_title">认证通过</string>
+    <string name="certify_success_alert_content">恭喜您，掌纹认证通过.\n耗时=%d毫秒</string>
+    <string name="certify_fail_alert_title">认证失败</string>
+    <string name="certify_fail_alert_content">很抱歉，掌纹认证未通过.\n耗时=%d毫秒</string>
 </resources>
