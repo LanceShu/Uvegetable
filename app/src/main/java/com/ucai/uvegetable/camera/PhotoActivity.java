@@ -62,9 +62,12 @@ import yan.guoqi.palm.LibPalmNative;
 
 public class PhotoActivity extends Activity implements SurfaceHolder.Callback, AutoFocusCallback, PreviewCallback {
 	/** Called when the activity is first created. */
-	private static final String TAG = "YanZi_PhotoActivity";
+	private static final String TAG = "PhotoActivity";
 	private static final String KEY_FROM = "_key_from";
 	public static final String KEY_IMAGE_PATH = "_key_image_path";
+
+	public static final int REQUEST_ADD = 0;
+	public static final int REQUEST_CERTIFY = 1;
 
 	public TextView infoTV = null;
 	public String infoShow = "欢迎您采集掌纹！";
@@ -187,16 +190,18 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, A
 	PictureCallback myJpegCallback = new PictureCallback() {
 		public void onPictureTaken(byte[] data, Camera camera) {
 			// TODO Auto-generated method stub		
-			if(null != data){
+			if(data != null){
 				//data是字节数据，将其解析成位图
 				mBitmap = BitmapFactory.decodeByteArray(data, 0, data.length);
 				myCamera.stopPreview();
-				isPreview = false;				
+				isPreview = false;
 			}
 			//720 540
 			Bitmap sizeBitmap = Bitmap.createScaledBitmap(mBitmap, getPreviewWidth()
 					, getPreviewHeight(), true);
+			// 掌纹图片的路径;
 			String path = FileUtil.saveJpeg(sizeBitmap);
+			// 回到上一级Activity;
             goToMainActivity(path);
 			//再次进入预览
 			/*myCamera.startPreview();
@@ -273,7 +278,7 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, A
 	public class PhotoOnClickListener implements OnClickListener {
 		public void onClick(View v) {
 			// TODO Auto-generated method stub
-			if(isPreview && myCamera!=null){
+			if(isPreview && myCamera != null){
 				myCamera.takePicture(myShutterCallback, null, myJpegCallback);	
 			}
 		}
@@ -474,35 +479,38 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, A
 		isDisOk = true;		
 
 	}
-	
+
+	// 获取拍照时的宽度与高度;
 	private int getPreviewWidth(){
 	    Size size = myCamera.getParameters().getPreviewSize();
 	    return size.width;
 	}
+
 	private int getPreviewHeight(){
 	    Size size = myCamera.getParameters().getPreviewSize();
 	    return size.height;
 	}
 
-	/****判断文件夹是否存在，如果不存在则创建****/
-	public boolean isFolderExist(String folderPath){
-		boolean result = false;
-		File f = new File(folderPath);
-		if(!f.exists()){
-			if(f.mkdirs()){
-				result = true;
-			}
-			else
-				result = false;
-		}
-		else
-			result = true;
-		return result;
-	}
+//	/****判断文件夹是否存在，如果不存在则创建****/
+//	public boolean isFolderExist(String folderPath){
+//		boolean result = false;
+//		File f = new File(folderPath);
+//		if(!f.exists()){
+//			if(f.mkdirs()){
+//				result = true;
+//			}
+//			else
+//				result = false;
+//		}
+//		else
+//			result = true;
+//		return result;
+//	}
 
 	@Override
 	public void onBackPressed() {
-		Intent backIntent = new Intent(PhotoActivity.this, MePalmListActivity.class);
+		Intent backIntent = new Intent(PhotoActivity.this,
+				MePalmListActivity.class);
 		Bundle bundle = new Bundle();
 		if(cntSave >= 1 && !currFile.isEmpty())
 			bundle.putString("send", currFile);
@@ -553,9 +561,7 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, A
 //		Bitmap b = Bitmap.createBitmap(PhotoActivity.this.getWindow(), getHeight(), Bitmap.Config.ARGB_8888);
 //		
 //				}
-	
-	
-	
+
 	/*为了使图片按钮按下和弹起状态不同，采用过滤颜色的方法.按下的时候让图片颜色变淡*/
 	public static class MyOnTouchListener implements OnTouchListener {
 		final  float[] BT_SELECTED=new float[]

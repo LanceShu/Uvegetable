@@ -18,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
+import com.ucai.uvegetable.camera.PhotoActivity;
 import com.ucai.uvegetable.httputils.UserHttpUtil;
 import com.ucai.uvegetable.utils.EditorUtils;
 import com.ucai.uvegetable.utils.ToastUtils;
@@ -200,8 +201,8 @@ public class MeFragment extends Fragment {
         if (!BaseActivity.isLogined) {
             BaseActivity.showHintDialog(getContext(), "无法识别掌纹，请先登录，谢谢~");
         } else {
-//            Intent toMeInforActivity = new Intent(getContext(), MeInforActivity.class);
-//            startActivity(toMeInforActivity);
+            PhotoActivity.goToPhotoActivity(getActivity(),
+                    PhotoActivity.Source.ADD_PALM, PhotoActivity.REQUEST_CERTIFY);
         }
     }
 

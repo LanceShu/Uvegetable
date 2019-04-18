@@ -18,6 +18,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 
+import com.android.volley.RequestQueue;
+import com.android.volley.toolbox.Volley;
 import com.syuban.rsautils.RSAUtils;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.beans.CategoryBean;
@@ -55,6 +57,7 @@ public class BaseActivity extends AppCompatActivity {
     public static LoginBean loginBean;
     public static ProgressDialog progressDialog;
     public static Dialog loginDialog;
+    private static RequestQueue mQueue;
 
     // HomeFragment;
     public static List<CategoryBean> categories = new ArrayList<>();
@@ -96,6 +99,7 @@ public class BaseActivity extends AppCompatActivity {
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        mQueue = Volley.newRequestQueue(getApplicationContext());
         if (postHandler == null) {
             postHandler = new Handler();
         }
@@ -281,5 +285,19 @@ public class BaseActivity extends AppCompatActivity {
             }
         });
         builder.show();
+    }
+
+    public static RequestQueue getRequestQueue(){
+        return mQueue;
+    }
+
+    public static ProgressDialog showProDialog(Context context, String msg){
+        return ProgressDialog.show(context, null, msg);
+    }
+
+    public static void dismissProDialog(ProgressDialog dialog){
+        if(dialog != null && dialog.isShowing()){
+            dialog.dismiss();
+        }
     }
 }

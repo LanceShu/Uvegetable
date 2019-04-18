@@ -20,7 +20,7 @@ public class FileUtil {
         String path = dateDir.getAbsolutePath() + "/FaceDetect/";*/
         File folder = new File(PARENT_PATH);
         if(!folder.exists()) {
-            folder.mkdir();
+            folder.mkdirs();
         }
         return PARENT_PATH;
     }
@@ -28,23 +28,21 @@ public class FileUtil {
     public static void initRoiPath(){
         File folder = new File(ROI_PATH);
         if(!folder.exists()) {
-            folder.mkdir();
+            folder.mkdirs();
         }
     }
     
     public static String getTempPath(){
         File f = new File(PARENT_PATH, "temp");
         if(!f.exists()){
-            f.mkdir();
+            f.mkdirs();
         }
         return f.getAbsolutePath();
     }
 
     public static String saveJpeg(Bitmap bm) {
-
         long dataTake = System.currentTimeMillis();
 		String jpegName = initSavePath() + "/" + dataTake +".jpg";
-//        String jpegName = initSavePath() + "/" + "temp" + ".jpg";
         try {
             FileOutputStream fout = new FileOutputStream(jpegName);
             BufferedOutputStream bos = new BufferedOutputStream(fout);

@@ -1,6 +1,10 @@
 package com.ucai.uvegetable.view;
 
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
+import android.content.Context;
+import android.content.Intent;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,19 +18,30 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.RequestFuture;
+import com.google.gson.Gson;
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.PalmListAdapter;
+import com.ucai.uvegetable.beans.LoginBean;
 import com.ucai.uvegetable.camera.PhotoActivity;
 import com.ucai.uvegetable.httputils.PalmHttpUtils;
+import com.ucai.uvegetable.utils.Constant;
 import com.ucai.uvegetable.utils.ResourceUtils;
+import com.ucai.uvegetable.utils.ToastUtils;
+import com.ucai.uvegetable.utils.Utils;
+import com.ucai.uvegetable.volley.MultipartRequest;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ExecutionException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,6 +49,7 @@ import butterknife.OnClick;
 import okhttp3.Call;
 import okhttp3.Callback;
 import okhttp3.Response;
+import yan.guoqi.palm.LibPalmNative;
 
 /**
  * Created by Lance
@@ -45,8 +61,6 @@ public class MePalmListActivity extends AppCompatActivity {
     private static final int GET_NO_PLAM = 0;
     private static final int GET_PALM_FAILURE = 1;
     private static final int GET_PALM_SUCCESS = 2;
-    private static final int REQUEST_ADD = 0;
-    private static final int REQUEST_CERTIFY = 1;
 
     @BindView(R.id.title_content)
     TextView palmContent;
@@ -183,7 +197,88 @@ public class MePalmListActivity extends AppCompatActivity {
 
     @OnClick(R.id.palm_list_add)
     void setPalmAdd() {
-        PhotoActivity.goToPhotoActivity(this, PhotoActivity.Source.ADD_PALM, REQUEST_ADD);
+        PhotoActivity.goToPhotoActivity(this,
+                PhotoActivity.Source.ADD_PALM, PhotoActivity.REQUEST_ADD);
+    }
+
+    // 当拍完掌纹后，将保存掌纹的路径返回到该Activity中;
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == RESULT_OK) {
+            if (requestCode == PhotoActivity.REQUEST_ADD) {
+                // 获取掌纹保存的路径;
+                String palmImagePath = data.getStringExtra(PhotoActivity.KEY_IMAGE_PATH);
+                Log.e(TAG, palmImagePath);
+                // 上传掌纹到服务器中;
+                uploadPalm(palmImagePath);
+            }
+        }
+    }
+
+    /**
+     * 上传掌纹图片到服务器中;
+     * @param palmImagePath
+     * */
+    private void uploadPalm(String palmImagePath) {
+        new UploadPalmTask(this, BaseActivity.loginBean).execute(palmImagePath);
+    }
+
+    // 进行上传掌纹的异步操作;
+    @SuppressLint("StaticFieldLeak")
+    class UploadPalmTask extends AsyncTask<String, Void, String> {
+        private ProgressDialog mProgressDialog = null;
+        private Context context;
+        private LoginBean loginBean;
+
+        UploadPalmTask(Context context, LoginBean loginBean) {
+            this.context = context;
+            this.loginBean = loginBean;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            mProgressDialog = BaseActivity.showProDialog(context, "正在上传...");
+        }
+
+        @Override
+        protected void onPostExecute(String result) {
+            BaseActivity.dismissProDialog(mProgressDialog);
+            ToastUtils.show(context, "上传完毕!");
+        }
+
+        @SuppressLint("LongLogTag")
+        @Override
+        protected String doInBackground(String... params) {
+            String path = params[0];
+            String roi = LibPalmNative.getRoi(path); //生成roi
+            File f = new File(roi);
+            if(!f.exists()){
+                return null;
+            }
+            /**
+             * 上传掌纹图片
+             * @params
+             * String userId
+             * String type
+             * File palmFile
+             * */
+            Map<String, String> urlParams = new HashMap<>();
+            urlParams.put("userId", loginBean.getPhone());
+            urlParams.put("type", "add");
+            RequestFuture<String> future = RequestFuture.newFuture();
+            MultipartRequest request = new MultipartRequest(Constant.UPLOAD, future,
+                    future, "file", f, urlParams);
+            BaseActivity.getRequestQueue().add(request);
+            String result = "";
+            try {
+                result = future.get();
+            } catch (InterruptedException | ExecutionException e) {
+                e.printStackTrace();
+            }
+            Log.i(TAG, "roi = " + roi);
+            return result;
+        }
     }
 
     @Override
