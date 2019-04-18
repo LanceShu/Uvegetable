@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.ucai.uvegetable.R;
 import com.ucai.uvegetable.adapter.PalmListAdapter;
+import com.ucai.uvegetable.camera.PhotoActivity;
 import com.ucai.uvegetable.httputils.PalmHttpUtils;
 import com.ucai.uvegetable.utils.ResourceUtils;
 
@@ -44,6 +45,8 @@ public class MePalmListActivity extends AppCompatActivity {
     private static final int GET_NO_PLAM = 0;
     private static final int GET_PALM_FAILURE = 1;
     private static final int GET_PALM_SUCCESS = 2;
+    private static final int REQUEST_ADD = 0;
+    private static final int REQUEST_CERTIFY = 1;
 
     @BindView(R.id.title_content)
     TextView palmContent;
@@ -136,6 +139,7 @@ public class MePalmListActivity extends AppCompatActivity {
         });
     }
 
+    // 从服务器上获取用户的全部掌纹信息;
     private void loadAllPalmList() {
         PalmHttpUtils.requestToGetAllPalmList(BaseActivity.loginBean, BaseActivity.cookie,
                 new Callback() {
@@ -175,6 +179,11 @@ public class MePalmListActivity extends AppCompatActivity {
     @OnClick(R.id.title_cancel)
     void setPalmCancel() {
         finish();
+    }
+
+    @OnClick(R.id.palm_list_add)
+    void setPalmAdd() {
+        PhotoActivity.goToPhotoActivity(this, PhotoActivity.Source.ADD_PALM, REQUEST_ADD);
     }
 
     @Override

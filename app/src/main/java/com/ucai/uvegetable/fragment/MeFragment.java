@@ -245,7 +245,8 @@ public class MeFragment extends Fragment {
                     if (msg.equals("注销成功")) {
                         BaseActivity.postHandler.post(() -> {
                             BaseActivity.displayProgressDialog();
-                            BaseActivity.showReminderDialog(getActivity(), msg);
+                            ToastUtils.show(getActivity(), msg);
+//                            BaseActivity.showReminderDialog(getActivity(), msg);
                             invisibleNameAndPhone();
                             mBtnExit.setVisibility(View.GONE);
                         });

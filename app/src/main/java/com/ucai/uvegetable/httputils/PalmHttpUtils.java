@@ -24,13 +24,15 @@ public class PalmHttpUtils {
     private static final String TAG = "PalmHttpUtils";
 
     public static void requestToGetAllPalmList(LoginBean loginBean, String cookie, Callback callback) {
-        String httpUrl = "http://123.206.13.129:8080/palm/list?userId=" + loginBean.getPhone();
-        Log.e(TAG, httpUrl);
-        OkHttpClient client = new OkHttpClient();
-        Request request = new Request.Builder()
-                .url(httpUrl)
-                .addHeader("Cookie", cookie)
-                .build();
-        client.newCall(request).enqueue(callback);
+        if (loginBean != null) {
+            String httpUrl = "http://123.206.13.129:8080/palm/list?userId=" + loginBean.getPhone();
+            Log.e(TAG, httpUrl);
+            OkHttpClient client = new OkHttpClient();
+            Request request = new Request.Builder()
+                    .url(httpUrl)
+                    .addHeader("Cookie", cookie)
+                    .build();
+            client.newCall(request).enqueue(callback);
+        }
     }
 }
