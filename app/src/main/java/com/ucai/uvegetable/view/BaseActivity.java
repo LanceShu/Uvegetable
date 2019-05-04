@@ -300,4 +300,17 @@ public class BaseActivity extends AppCompatActivity {
             dialog.dismiss();
         }
     }
+
+    // 展示提交Dialog;
+    public static void showDialog(Context context, String title, String message,
+                            String positiveBtn, String negativeBtn,
+                            DialogInterface.OnClickListener positiveListener,
+                            DialogInterface.OnClickListener negativeListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(context);
+        builder.setTitle(title);
+        builder.setMessage(message);
+        builder.setPositiveButton(positiveBtn, positiveListener);
+        builder.setNegativeButton(negativeBtn, negativeListener);
+        builder.show();
+    }
 }

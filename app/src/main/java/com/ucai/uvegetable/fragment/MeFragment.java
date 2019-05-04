@@ -202,7 +202,7 @@ public class MeFragment extends Fragment {
             BaseActivity.showHintDialog(getContext(), "无法识别掌纹，请先登录，谢谢~");
         } else {
             PhotoActivity.goToPhotoActivity(getActivity(),
-                    PhotoActivity.Source.ADD_PALM, PhotoActivity.REQUEST_CERTIFY);
+                    PhotoActivity.Source.CERTIFY_PALM, PhotoActivity.REQUEST_CERTIFY);
         }
     }
 

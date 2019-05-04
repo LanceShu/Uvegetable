@@ -166,7 +166,7 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, A
     }
 	
 	private void initPreviewRoot(){
-	    FrameLayout previewRoot = (FrameLayout) findViewById(R.id.preview_root);
+	    FrameLayout previewRoot = findViewById(R.id.preview_root);
 	    android.widget.LinearLayout.LayoutParams params = (android.widget.LinearLayout.LayoutParams) previewRoot.getLayoutParams();
 	    int w = DisplayUtil.getScreenWidth(getApplicationContext());
 	    int h = (int)(RATE * w);
@@ -602,5 +602,4 @@ public class PhotoActivity extends Activity implements SurfaceHolder.Callback, A
         intent.putExtra(KEY_FROM, source);
         activity.startActivityForResult(intent, requestCode);
     }
-
 }
