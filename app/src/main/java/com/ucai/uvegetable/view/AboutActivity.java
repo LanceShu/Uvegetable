@@ -13,8 +13,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.syuban.upgradeapktool.ApkUpgradeManager;
 import com.ucai.uvegetable.R;
-import com.ucai.uvegetable.utils.ApkUtil;
 import com.ucai.uvegetable.utils.ResourceUtils;
 
 import org.json.JSONArray;
@@ -40,6 +40,7 @@ public class AboutActivity extends AppCompatActivity {
     private static final String TAG = "AboutFragment";
     private static final String VERSION_CODE_URL = "http://123.207.145.251:8080/UvegetableServer/checkout_code";
     private static final String GET_APK_UPGRADE_URL = "http://123.207.145.251:8080/UvegetableServer/get_upgrade_url";
+    private ApkUpgradeManager manager;
 
     @BindView(R.id.title_content)
     TextView titleContent;
@@ -58,13 +59,14 @@ public class AboutActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.me_about_activity);
         ButterKnife.bind(this);
+        manager = ApkUpgradeManager.getManager(this);
         // 初始化控件;
         initWights(savedInstanceState);
     }
 
     private void initWights(Bundle savedInstanceState) {
         titleContent.setText(ResourceUtils.getStringFromResource(this, R.string.me_about));
-        String version = ApkUtil.getAPKVersionName(this, getPackageName());
+        String version = manager.getAPKVersionName(getPackageName());
         if (version != null) {
             apkVersion.setText("版本号：" + version);
         }
@@ -77,9 +79,9 @@ public class AboutActivity extends AppCompatActivity {
 
     @OnClick(R.id.about_checkout_upgrade)
     void aboutCheckUpgrade() {
-        int code = ApkUtil.getAPKVersionCode(this, getPackageName());
+        int code = manager.getAPKVersionCode(getPackageName());
         if (code != -1) {
-            new CheckoutVersionCodeTask(this, code).execute(VERSION_CODE_URL);
+            new CheckoutVersionCodeTask(this, code, manager).execute(VERSION_CODE_URL);
         }
     }
 
@@ -88,10 +90,12 @@ public class AboutActivity extends AppCompatActivity {
         private WeakReference<Context> c;
         private int localVersionCode;
         private ProgressDialog progressDialog;
+        private ApkUpgradeManager manager;
 
-        CheckoutVersionCodeTask(Context context, int localVersionCode) {
+        CheckoutVersionCodeTask(Context context, int localVersionCode, ApkUpgradeManager manager) {
             c = new WeakReference<>(context);
             this.localVersionCode = localVersionCode;
+            this.manager = manager;
         }
 
         @Override
@@ -160,7 +164,7 @@ public class AboutActivity extends AppCompatActivity {
             alertDialog.setPositiveButton("立即更新", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
-                    new DownloadApkFromServerTask(context).execute(GET_APK_UPGRADE_URL);
+                    new DownloadApkFromServerTask(context, manager).execute(GET_APK_UPGRADE_URL);
                     Toast.makeText(context, "后台开始下载", Toast.LENGTH_SHORT).show();
                 }
             });
@@ -172,9 +176,11 @@ public class AboutActivity extends AppCompatActivity {
     // apk下载任务；
     static class DownloadApkFromServerTask extends AsyncTask<String, Void, Void> {
         private WeakReference<Context> c;
+        private ApkUpgradeManager manager;
 
-        DownloadApkFromServerTask(Context context) {
+        DownloadApkFromServerTask(Context context, ApkUpgradeManager manager) {
             c = new WeakReference<>(context);
+            this.manager = manager;
         }
 
         @Override
@@ -190,7 +196,7 @@ public class AboutActivity extends AppCompatActivity {
                     if (response != null) {
                         String resp = response.body().string();
                         if (!resp.contains("file is not exists!")) {
-                            ApkUtil.downloadAPK(context, resp);
+                            manager.downloadAPK(resp, "uvegetable", "Uvegetable.apk");
                         }
                     }
                 } catch (IOException e) {
