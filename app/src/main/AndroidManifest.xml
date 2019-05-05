@@ -66,6 +66,9 @@
             android:launchMode="singleTask"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"
             android:label="Camera"/>
+        <activity android:name=".view.AboutActivity"
+            android:theme="@style/Theme.AppCompat.Light.NoActionBar"
+            android:label="@string/me_about"/>
     </application>
 
 </manifest>

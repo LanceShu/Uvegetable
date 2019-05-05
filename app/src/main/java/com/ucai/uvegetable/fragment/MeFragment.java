@@ -22,6 +22,7 @@ import com.ucai.uvegetable.camera.PhotoActivity;
 import com.ucai.uvegetable.httputils.UserHttpUtil;
 import com.ucai.uvegetable.utils.EditorUtils;
 import com.ucai.uvegetable.utils.ToastUtils;
+import com.ucai.uvegetable.view.AboutActivity;
 import com.ucai.uvegetable.view.BaseActivity;
 import com.ucai.uvegetable.view.MeDeliverActivity;
 import com.ucai.uvegetable.view.MeInforActivity;
@@ -76,6 +77,9 @@ public class MeFragment extends Fragment {
 
     @BindView(R.id.me_palm_identify)
     LinearLayout mPalmIdentify;
+
+    @BindView(R.id.me_about)
+    LinearLayout mAbout;
 
     @BindView(R.id.me_btn_exit)
     Button mBtnExit;
@@ -204,6 +208,12 @@ public class MeFragment extends Fragment {
             PhotoActivity.goToPhotoActivity(getActivity(),
                     PhotoActivity.Source.CERTIFY_PALM, PhotoActivity.REQUEST_CERTIFY);
         }
+    }
+
+    // 关于软件;
+    @OnClick(R.id.me_about)
+    void meAbout() {
+        startActivity(new Intent(getContext(), AboutActivity.class));
     }
 
     @OnClick(R.id.me_btn_exit)

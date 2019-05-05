@@ -27,9 +27,12 @@
     <string name="me_palm_list">掌纹管理</string>
     <string name="me_palm_test">掌纹认证</string>
     <string name="me_setting">设置</string>
+    <string name="me_about">关于软件</string>
     <string name="me_btn_exit">注销用户</string>
     <string name="me_fragment_name">单位名称：</string>
     <string name="me_fragment_phone">手机号：</string>
+    <string name="app_copyright">Copyright@2019</string>
+    <string name="about_upgrade_text">检查更新</string>
 
     <!--home_fragment-->
     <string name="home_order_btn">下单</string>
@@ -51,4 +54,6 @@
     <string name="certify_success_alert_content">恭喜您，掌纹认证通过.\n耗时=%d毫秒</string>
     <string name="certify_fail_alert_title">认证失败</string>
     <string name="certify_fail_alert_content">很抱歉，掌纹认证未通过.\n耗时=%d毫秒</string>
+
+    <string name="dialog_title">温馨提示：</string>
 </resources>

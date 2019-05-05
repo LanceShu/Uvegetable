@@ -9,7 +9,7 @@
         android:layout_width="match_parent"
         android:layout_height="80dp"
         android:background="@color/white_1"
-        android:layout_marginTop="16dp">
+        android:layout_marginTop="4dp">
 
         <ImageView
             android:id="@+id/me_image"
@@ -19,7 +19,7 @@
             android:src="@mipmap/app_logo"
             android:layout_centerVertical="true"
             android:layout_marginStart="16dp"
-            android:scaleType="centerCrop"/>
+            android:scaleType="centerInside"/>
 
         <TextView
             android:id="@+id/me_name"
@@ -39,7 +39,7 @@
             android:layout_toEndOf="@id/me_image"
             android:layout_marginStart="24dp"
             android:layout_marginTop="8dp"
-            android:textSize="16sp"/>
+            android:textSize="@dimen/me_fragment_font_size"/>
 
         <TextView
             android:id="@+id/me_loginOrRegister"
@@ -59,9 +59,9 @@
         android:id="@+id/me_information"
         android:layout_below="@id/me_image_layout"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="44dp"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:background="@color/white_1">
 
         <ImageView
@@ -76,7 +76,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/me_information"
-            android:textSize="18sp"
+            android:textSize="@dimen/me_fragment_font_size"
             android:layout_marginStart="24dp"
             android:textColor="@color/font_color"/>
 
@@ -86,9 +86,9 @@
         android:id="@+id/me_order"
         android:layout_below="@id/me_information"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="44dp"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:background="@color/white_1">
 
         <ImageView
@@ -103,7 +103,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/me_order"
-            android:textSize="18sp"
+            android:textSize="@dimen/me_fragment_font_size"
             android:layout_marginStart="24dp"
             android:textColor="@color/font_color"/>
 
@@ -113,7 +113,7 @@
         android:id="@+id/me_driver"
         android:layout_below="@id/me_order"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="44dp"
         android:orientation="horizontal"
         android:layout_marginTop="1dp"
         android:background="@color/white_1">
@@ -130,7 +130,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/me_driver"
-            android:textSize="18sp"
+            android:textSize="@dimen/me_fragment_font_size"
             android:layout_marginStart="24dp"
             android:textColor="@color/font_color"/>
 
@@ -140,9 +140,9 @@
         android:id="@+id/me_palm_list"
         android:layout_below="@id/me_driver"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="44dp"
         android:orientation="horizontal"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="6dp"
         android:background="@color/white_1">
 
         <ImageView
@@ -157,7 +157,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/me_palm_list"
-            android:textSize="18sp"
+            android:textSize="@dimen/me_fragment_font_size"
             android:layout_marginStart="24dp"
             android:textColor="@color/font_color"/>
 
@@ -167,7 +167,7 @@
         android:id="@+id/me_palm_identify"
         android:layout_below="@id/me_palm_list"
         android:layout_width="match_parent"
-        android:layout_height="48dp"
+        android:layout_height="44dp"
         android:orientation="horizontal"
         android:layout_marginTop="1dp"
         android:background="@color/white_1">
@@ -184,7 +184,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/me_palm_test"
-            android:textSize="18sp"
+            android:textSize="@dimen/me_fragment_font_size"
             android:layout_marginStart="24dp"
             android:textColor="@color/font_color"/>
 
@@ -196,7 +196,7 @@
         android:layout_width="match_parent"
         android:layout_height="48dp"
         android:orientation="horizontal"
-        android:layout_marginTop="18dp"
+        android:layout_marginTop="6dp"
         android:background="@color/white_1"
         android:visibility="gone">
 
@@ -212,7 +212,34 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_vertical"
             android:text="@string/me_setting"
-            android:textSize="18sp"
+            android:textSize="@dimen/me_fragment_font_size"
+            android:layout_marginStart="24dp"
+            android:textColor="@color/font_color"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/me_about"
+        android:layout_below="@id/me_palm_identify"
+        android:layout_width="match_parent"
+        android:layout_height="44dp"
+        android:orientation="horizontal"
+        android:layout_marginTop="6dp"
+        android:background="@color/white_1">
+
+        <ImageView
+            android:layout_width="26dp"
+            android:layout_height="26dp"
+            android:layout_gravity="center_vertical"
+            android:src="@mipmap/me_about"
+            android:layout_marginStart="24dp"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:text="@string/me_about"
+            android:textSize="@dimen/me_fragment_font_size"
             android:layout_marginStart="24dp"
             android:textColor="@color/font_color"/>
 
